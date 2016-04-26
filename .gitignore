@@ -31,3 +31,10 @@ node_modules
 
 # Optional REPL history
 .node_repl_history
+
+#Pliki WebStorm'a 
+.idea
+
+#Bundle.js generowany przez browserify
+app/bundle.js
+
