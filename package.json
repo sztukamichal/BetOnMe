@@ -1,0 +1,16 @@
+{
+  "name": "BetOnMe",
+  "version": "0.0.1",
+  "author": "Michal Sztuka",
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-animate": "^1.5.5",
+    "angular-aria": "^1.5.5",
+    "angular-material": "^1.0.7",
+    "angular-messages": "^1.5.5"
+  }
+}
