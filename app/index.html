@@ -6,10 +6,12 @@
 </head>
 <body>
 
-    <ui-view>
-        <p>Some default staff.</p>
-        {{name}}
-    </ui-view>
+    <div ui-view>
+        <p>Some default staff</p>
+    </div>
+
+    <!-- We'll also add some navigation: -->
+    <a ui-sref="home">Home page</a>
 
     <script src="bundle.js"></script>
 </body>

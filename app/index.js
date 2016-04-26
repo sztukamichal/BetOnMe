@@ -5,8 +5,10 @@ require('angular-ui-router');
 require('angular-material');
 require('angular-animate');
 require('angular-aria');
+require('./home/index');
+
 
 angular.module('betOnMe', [
-  'ui.router',
-  require('./home').name
+  require('angular-ui-router'),
+  'home'
 ]);
