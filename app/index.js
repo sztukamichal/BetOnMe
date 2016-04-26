@@ -1,10 +1,12 @@
 'use strict';
 
 var angular = require('angular');
+require('angular-ui-router');
+require('angular-material');
+require('angular-animate');
+require('angular-aria');
 
-
-var betOnMeApp = angular.module('betOnMeApp', []);
-
-betOnMeApp.controller('testCtrl', function($scope) {
-  $scope.welcome = "Hello world!";
-});
+angular.module('betOnMe', [
+  'ui.router',
+  require('./home').name
+]);

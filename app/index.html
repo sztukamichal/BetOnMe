@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="betOnMeApp">
+<html lang="en" ng-app="betOnMe">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Bet on me!</title>
 </head>
-<body ng-controller="testCtrl">
+<body>
 
-    {{welcome}}
+    <ui-view>
+        <p>Some default staff.</p>
+        {{name}}
+    </ui-view>
 
+    <script src="bundle.js"></script>
 </body>
-
-<script src="bundle.js"></script>
 </html>
