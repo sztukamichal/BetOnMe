@@ -2,6 +2,6 @@
 
 module.exports = /*@ngInject*/ function($scope) {
 
-  $scope.name = "Micha³";
+  $scope.name = "Michal";
 
 };

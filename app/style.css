@@ -1,0 +1,14 @@
+.tall {
+    height: 100%;   
+}
+.menuBtn {
+    background-color: transparent;
+    border: none;
+    height: 38px;
+    width: 36px;
+    background: url("../assets/icons/optimised.svg") no-repeat center center;
+}
+.toolbar {
+    background-color: #964c47;
+    color: black;
+}

@@ -4,35 +4,25 @@
     <meta charset="UTF-8">
     <title>Bet on me!</title>
     <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-    <section layout="row" flex>
+<body layout="column">
+    <ng-include src="'header/header.html'"></ng-include>
+    <div layout="row" class="tall">
         <md-sidenav
-                class="md-sidenav-left"
-                md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-md')"
-                md-disable-backdrop
-                md-whiteframe="4">
-            <md-toolbar class="md-theme-indigo">
-                <h1 class="md-toolbar-tools">Sidenav Left</h1>
-            </md-toolbar>
-            <md-content layout-padding>
-                <p hide-md show-gt-md>
-                    This sidenav is locked open on your device. To go back to the default behavior,
-                    narrow your display.
-                </p>
-                <a ui-sref="home">Home page</a>
-            </md-content>
+                md-whiteframe="5"
+                class="md-sidenav-left md-whiteframe-10dp"
+                md-component-id="left">
+            <md-button ui-sref="home">Home</md-button>
         </md-sidenav>
-        <md-content flex layout-padding>
-            <div layout="column" layout-fill layout-align="top center">
+        <md-content flex style="background-color: #dadbdd">
+            <div layout="column" layout-fill layout-align="center center">
                 <div ui-view>
                 </div>
             </div>
-            <div flex></div>
         </md-content>
-    </section>
+    </div>
 
     <script src="bundle.js"></script>
 </body>
