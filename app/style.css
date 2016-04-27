@@ -4,11 +4,24 @@
 .menuBtn {
     background-color: transparent;
     border: none;
-    height: 38px;
-    width: 36px;
-    background: url("../assets/icons/optimised.svg") no-repeat center center;
+    height: 50px;
+    width: 50px;
+    background: url("../assets/icons/menu-button.png") no-repeat center center;
 }
 .toolbar {
     background-color: #964c47;
     color: black;
+}
+
+.profile {
+    background-color: transparent;
+    border: none;
+    height: 50px;
+    width: 50px;
+    background: url("../assets/icons/user.png") no-repeat center center;
+    background-size: cover;
+}
+
+body {
+    font-family: 'Archivo Narrow', sans-serif;
 }

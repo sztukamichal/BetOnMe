@@ -11,5 +11,6 @@ angular.module('betOnMe', [
   'ui.router',
   'ngMaterial',
   require('./home').name,
+  require('./profile').name,
   require('./header').name
 ]);
