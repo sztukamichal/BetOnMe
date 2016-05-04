@@ -8,41 +8,13 @@
     <link href='https://fonts.googleapis.com/css?family=Archivo+Narrow' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
 </head>
-<body layout="column">
-    <ng-include src="'header/header.html'"></ng-include>
-    <div layout="row" class="tall">
-        <md-sidenav
-                style="background-color: #dadbdd;"
-                md-is-locked-open="$mdMedia('gt-md')"
-                md-whiteframe="5"
-                class="md-sidenav-left md-whiteframe-10dp"
-                md-component-id="left">
-            <ng-include src="'profile/profile.html'"></ng-include>
-            <md-list flex layout-padding>
-                <md-list-item class="md-2-line">
-                    <md-button layout-fill
-                               ui-sref="home"
-                               style="border-width:1px; border-style:double;">
-                        <md-icon md-svg-icon="../assets/icons/home.svg" style="margin: 5%"></md-icon>
-                        Strona startowa
-                    </md-button>
-                </md-list-item>
-                <md-list-item class="md-2-line">
-                    <md-button layout-fill
-                               ui-sref="terms"
-                               style="border-width:1px; border-style:double;">
-                        <md-icon md-svg-icon="../assets/icons/new-file.svg" style="margin: 5%"></md-icon>
-                        Regulamin
-                    </md-button>
-                </md-list-item>
-            </md-list>
-        </md-sidenav>
-
-        <md-content flex style="background-image: url('../assets/img/background_brighter.jpg'); background-size: cover;">
-            <div layout="column" layout-fill layout-align="center center">
-                <div ui-view>
+<body layout="column" ng-cloak>
+    <ng-include flex="5" src="'header/header.html'"></ng-include>
+    <div layout="row" layout-fill flex>
+        <ng-include src="'profile/profile.html'"></ng-include>
+        <md-content flex style="background-image: url('../assets/img/background_brighter.jpg'); background-size: cover; height: 95%">
+                <div layout-fill flex ui-view>
                 </div>
-            </div>
         </md-content>
     </div>
 

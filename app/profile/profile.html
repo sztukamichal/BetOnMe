@@ -1,15 +1,43 @@
-<md-card md-theme="yellow" ng-controller="ProfileController">
-    <md-card-title-media style="padding: 40px 40px 0px 40px">
-        <img src="../assets/icons/user.jpg" class="md-card-image" alt="image caption" style="border-radius: 50%; box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+<div ng-controller="ProfileController">
+    <md-sidenav
+            ng-if="isUserLogged"
+            md-is-locked-open="$mdMedia('gt-md')"
+            md-component-id="left">
+        <md-card md-theme="yellow">
+            <md-card-title-media style="padding: 40px 40px 0px 40px">
+                <img src="../assets/icons/user.jpg" class="md-card-image" alt="image caption" style="border-radius: 50%; box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);">
-    </md-card-title-media>
-    <md-card-content>
-        <h2>{{username}}</h2>
-        <p>Nowicjusz</p>
-    </md-card-content>
-    <md-card-actions layout="row" layout-align="center center">
-        <md-button>Statystyki</md-button>
-        <md-button>Konto</md-button>
-    </md-card-actions>
-</md-card>
+            </md-card-title-media>
+            <md-card-content>
+                <h2>{{username}}</h2>
+
+                <p>Nowicjusz</p>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="center center">
+                <md-button>Statystyki</md-button>
+                <md-button>Konto</md-button>
+            </md-card-actions>
+        </md-card>
+        <md-list flex layout-padding>
+            <md-list-item class="md-2-line">
+                <md-button layout-fill
+                           ui-sref="home"
+                           style="border-width:1px; border-style:double;">
+                    <md-icon md-svg-icon="../assets/icons/home.svg" style="margin: 5%"></md-icon>
+                    Strona startowa
+                </md-button>
+            </md-list-item>
+            <md-list-item class="md-2-line">
+                <md-button layout-fill
+                           ui-sref="terms"
+                           style="border-width:1px; border-style:double;">
+                    <md-icon md-svg-icon="../assets/icons/new-file.svg" style="margin: 5%"></md-icon>
+                    Regulamin
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+</div>
+
+

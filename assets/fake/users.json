@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "username": "domin",
+      "firstName": "Dominik",
+      "lastName": "Furman",
+      "email":"domin@gmail.com"
+    },
+    {
+      "username": "micha",
+      "firstName": "Michał",
+      "lastName": "Sztuka",
+      "email":"micha@gmail.com"
+    },
+    {
+      "username": "adamm12",
+      "firstName": "Adam",
+      "lastName": "Pietrus",
+      "email":"adamm12@gmail.com"
+    },
+    {
+      "username": "barni",
+      "firstName": "Bartosz",
+      "lastName": "Nikodem",
+      "email":"barni@gmail.com"
+    },
+    {
+      "username": "kamiloo",
+      "firstName": "Kamil",
+      "lastName": "Halko",
+      "email":"kamiloo@gmail.com"
+    }
+  ]
+}

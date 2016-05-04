@@ -1,0 +1,28 @@
+<h2 style="text-align: center">Fill the following information to create new tournament</h2>
+<div layout-fill layout-padding>
+
+    <form name="tournamentForm" class="md-block" flex-gt-sm>
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Name</label>
+            <input required name="tournamentName" ng-model="tournament.name">
+            <div ng-messages="tournamentForm.tournamentName.$error">
+                <div ng-message="required">This is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Description</label>
+            <textarea required name="description" ng-model="tournament.description" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+            <div ng-messages="tournamentForm.description.$error">
+                <div ng-message="required">This is required.</div>
+                <div ng-message="md-maxlength">Description has to be less than 100 characters long.</div>
+            </div>
+        </md-input-container>
+
+        <md-contact-chips ng-model="contacts" md-contacts="querySearch($query)" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" filter-selected="filterSelected" placeholder="Invite some users">
+        </md-contact-chips>
+
+    </form>
+
+</div>
