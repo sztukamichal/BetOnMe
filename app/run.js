@@ -9,5 +9,6 @@ module.exports = /*@ngInject*/
         $state.go('login');
       }
     });
+
   };
 

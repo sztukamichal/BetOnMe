@@ -8,12 +8,14 @@ require('angular-material');
 require('angular-material');
 require('angular-messages');
 require('angular-resource');
+require('angular-local-storage');
 
 angular.module('betOnMe', [
   'ui.router',
   'ngMaterial',
   'ngMessages',
   'ngResource',
+  'LocalStorageModule',
   require('./home').name,
   require('./profile').name,
   require('./header').name,
@@ -26,6 +28,10 @@ angular.module('betOnMe', [
     $urlRouterProvider
       .when('', '/home')
       .otherwise('/home');
+  })
+  
+  .config(/*@ngInject*/ function(localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('BetOnMe');
   })
 
   .config(function($mdThemingProvider) {
