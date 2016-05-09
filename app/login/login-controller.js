@@ -2,16 +2,21 @@
 
 module.exports = /*@ngInject*/ function($rootScope, $scope, UserService, $state) {
 
-  $scope.name = "Michal";
-
-  $scope.login = function() {
-    UserService.login($scope.username, $scope.password).then(
-      function(data) {
-        console.log(data);
-        $rootScope.$emit('login-success', data);
-        $state.go('home');
-      }
-    );
+  $scope.registerMode = false;
+  $scope.signup = function() {
+    $scope.registerMode = true;
   };
-
+  $scope.login = function() {
+    if ($scope.registerMode === true) {
+      $scope.registerMode = false;
+    } else {
+      UserService.login($scope.username, $scope.password).then(
+        function(data) {
+          console.log(data);
+          $rootScope.$emit('login-success', data);
+          $state.go('home');
+        }
+      );
+    }
+  };
 };

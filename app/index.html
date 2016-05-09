@@ -9,15 +9,16 @@
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
 </head>
 <body layout="column" ng-cloak>
-    <ng-include flex="5" src="'header/header.html'"></ng-include>
-    <div layout="row" layout-fill flex>
-        <ng-include src="'profile/profile.html'"></ng-include>
-        <md-content flex style="background-image: url('../assets/img/background_brighter.jpg'); background-size: cover; height: 95%">
-                <div layout-fill flex ui-view>
-                </div>
-        </md-content>
+    <div style="display: none" id="hideAll">
+        <ng-include flex="5" src="'header/header.html'"></ng-include>
+        <div layout="row" layout-fill flex>
+            <ng-include src="'profile/profile.html'"></ng-include>
+            <md-content flex style="background-image: url('../assets/img/background_brighter.jpg'); background-size: cover; height: 95%">
+                    <div layout-fill flex ui-view>
+                    </div>
+            </md-content>
+        </div>
     </div>
-
     <script src="bundle.js"></script>
 </body>
 </html>
