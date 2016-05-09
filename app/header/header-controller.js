@@ -24,6 +24,7 @@ module.exports = /*@ngInject*/ function($rootScope, $scope, $state, $mdSidenav, 
     UserService.logout();
     $rootScope.$emit('logout');
     $scope.isUserLogged = UserService.isUserLogged();
+    $scope.name = "Guest";
     $state.go('login');
   };
 

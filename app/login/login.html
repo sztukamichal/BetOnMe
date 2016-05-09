@@ -1,11 +1,16 @@
 <div layout="column" layout-fill flex layout-align="center center" style="background-image:  url(../assets/img/background_logging_blur.jpg); background-size: cover ">
-    <md-input-container>
-        <label>Username</label>
-        <input ng-model="username">
-    </md-input-container>
-    <md-input-container>
-        <label>Password</label>
-        <input ng-model="password" type="password">
-    </md-input-container>
-    <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
+    <div layout="column" class="box" style="padding: 1%">
+        <md-input-container>
+            <label>Username</label>
+            <input ng-model="username">
+        </md-input-container>
+        <md-input-container>
+            <label>Password</label>
+            <input ng-model="password" type="password">
+        </md-input-container>
+        <div layout="row">
+            <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
+            <md-button class="md-warn md-raised" ng-click="signup()">Sign up</md-button>
+        </div>
+    </div>
 </div>
