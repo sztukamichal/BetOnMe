@@ -1,0 +1,29 @@
+Zakład - pojedyncze zdarzenie
+Turniej - zbiór nastepujących po sobie zakładów o wspólnych zasadach
+Pojedynczy zakład - zakład występujący poza turniejem o określonym czasie i zasadach
+
+Użytkownik:
+	- może edytować swój profil
+		- nickname
+		- avatar
+	- ma dostęp do swoich statystyk
+	- może stworzyć zakład
+	- może stworzyć turniej
+		- może stworzyć zakład w turnieju
+		- może zaprosić do udziału innych użytkowników
+		- może określić turniej jako prywatny bądź publiczny
+		- może ustalić zasady tego turnieju i reszta użytkowników musi się na niego zgodzić przed przystapieniem
+		- nie może zmieniać zasad turnieju podczas jego trwania ( ew po zgodzie powyżej połowy uczestników)
+	- może dołączyć do istniejącego turnieju lub turnieju
+		- poprzez wyszukanie w bazie turniejów lub zaproszenie
+		- musi zaakceptować zasady turnieju bądź zakładu
+		- może komentować pojedyncze zdarzenia
+		- może opuścić turniej lub zakład zgodnie z jego zasadami 
+	- może przeglądać statystyki turnieju w którym bierze udział
+
+Moduł powiadomień
+Moduł statystyk
+Turnieje
+Zakłady
+Moduł zdarzeń - komentowanie podglad itp
+Moduł użytkownika - logowanie, rejestracja, edycja profilu
