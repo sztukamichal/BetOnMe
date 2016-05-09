@@ -49,12 +49,14 @@ module.exports = function() {
       }
     };
 
-    function saveUserToCookie(username){
+    function saveUserToCookie(username) {
       return localStorageService.cookie.set('username', username);
     }
 
     function loadUserFromCookie() {
-      return localStorageService.cookie.get('username');
+      var username = localStorageService.cookie.get('username');
+      username = username === null ? undefined : username;
+      return username;
     }
 
     function checkIfLogged() {
@@ -65,7 +67,7 @@ module.exports = function() {
 
     this.logout = function() {
       localStorageService.cookie.remove('username');
-      User.username = undefined;
+      User = {};
     };
 
     this.getUsers = function() {
@@ -73,7 +75,8 @@ module.exports = function() {
     };
 
     this.isUserLogged = function() {
-      return User.username !== undefined;
+      var isUserAuthenticated = User.username !== undefined;
+      return isUserAuthenticated;
     };
 
     return {
