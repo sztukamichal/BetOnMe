@@ -42,7 +42,7 @@ gulp.task('assets-serve', function() {
 });
 
 gulp.task('watch', ['browserify'], function() {
-  gulp.watch('app/**/*.js', ['browserify']);
+  gulp.watch('app/**/*', ['build']);
 });
 
 gulp.task('build', ['html-serve','assets-serve','css-serve','browserify'], function() {
