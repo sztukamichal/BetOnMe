@@ -7,6 +7,8 @@
     "gulp": "^3.9.1",
     "gulp-war": "^0.1.4",
     "gulp-zip": "^3.2.0",
+    "mongoose": "^4.4.16",
+    "nodemon": "^1.9.2",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
@@ -17,6 +19,8 @@
     "angular-material": "^1.0.7",
     "angular-messages": "^1.5.5",
     "angular-resource": "^1.5.5",
-    "angular-ui-router": "^0.2.18"
+    "angular-ui-router": "^0.2.18",
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4"
   }
 }
