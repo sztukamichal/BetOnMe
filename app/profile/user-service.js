@@ -5,9 +5,11 @@ module.exports = function() {
   this.getUsersUrl = '../assets/fake/users.json';
   this.loginUrl = '../assets/fake/login.json';
 
-  this.$get = /*@ngInject*/  function($q, $resource, $timeout, localStorageService) {
+  this.$get = /*@ngInject*/  function($q, $http, $resource, $timeout, localStorageService) {
 
     var User = {};
+    var token = undefined;
+    var those = this;
 
     var UsersResource = $resource('', {}, {
       getUsers: {
@@ -20,53 +22,43 @@ module.exports = function() {
       }
     });
 
-    this.getUsername = function() {
-      return User.username;
+    this.getUser = function() {
+      return $http.get('http://localhost:3000/api/users', {
+        headers: {'X-Auth':token}
+      });
     };
 
     this.login = function(username, password) {
-      var deffered = $q.defer();
-      if (username === 'michal' && password === 'sztuka') {
-        UsersResource.login().$promise.then(
-          function(data) {
-            User = data;
-            saveUserToCookie(User.username);
-            deffered.$$resolve(data);
-          },
-          function(error) {
-            deffered.$$reject(error);
-          }
-        );
-        return deffered.promise;
-      } else {
-
-        $timeout(function() {
-          deffered.$$reject('wrong credentials');
-          console.log('wrong credentials');
-        }, 1000);
-
-        return deffered.promise;
-      }
+      return $http.post('http://localhost:3000/api/sessions', {
+        username: username, password: password
+      }).then(function(res) {
+        token = res.data;
+        saveTokenToCookie(token);
+        User = those.getUser();
+        return User;
+      }, function(res) {
+        console.log(res);
+      });
     };
 
-    function saveUserToCookie(username) {
-      return localStorageService.cookie.set('username', username);
+    function saveTokenToCookie(token) {
+      return localStorageService.cookie.set('token', token);
     }
 
-    function loadUserFromCookie() {
-      var username = localStorageService.cookie.get('username');
-      username = username === null ? undefined : username;
-      return username;
+    function loadTokenFromCookie() {
+      var token = localStorageService.cookie.get('token');
+      token = token === null ? undefined : token;
+      return token;
     }
 
     function checkIfLogged() {
-      User.username = loadUserFromCookie();
+      token = loadTokenFromCookie();
     }
 
     checkIfLogged();
 
     this.logout = function() {
-      localStorageService.cookie.remove('username');
+      localStorageService.cookie.remove('token');
       User = {};
     };
 
@@ -75,8 +67,7 @@ module.exports = function() {
     };
 
     this.isUserLogged = function() {
-      var isUserAuthenticated = User.username !== undefined;
-      return isUserAuthenticated;
+      return token !== undefined;
     };
 
     return {

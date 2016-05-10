@@ -20,10 +20,13 @@
     "angular-messages": "^1.5.5",
     "angular-resource": "^1.5.5",
     "angular-ui-router": "^0.2.18",
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "gulp-ng-annotate": "^2.0.0",
+    "gulp-nodemon": "^2.0.7",
     "gulp-uglify": "^1.5.3",
+    "jwt-simple": "^0.5.0",
     "vinyl-buffer": "^1.0.0"
   }
 }
