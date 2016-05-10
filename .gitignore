@@ -40,3 +40,6 @@ node_modules
 #Bundle.js generowany przez browserify
 app/bundle.js
 
+#Serwowanie na nodzie
+/build
+
