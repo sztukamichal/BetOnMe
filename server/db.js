@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/social', function() {
+mongoose.connect('mongodb://localhost/betonme', function() {
   console.log('Successfully connect to database...');
 });
 

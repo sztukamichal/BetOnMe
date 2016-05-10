@@ -1,10 +1,17 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($rootScope, $scope, $state, $mdSidenav, UserService) {
+module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserService) {
 
   var originatorEv;
-  $scope.isUserLogged = UserService.isUserLogged();
-  $scope.name = "Guest";
+
+  function init() {
+    $scope.isUserLogged = UserService.isUserLogged();
+    if($scope.isUserLogged) {
+      $scope.currentUser = UserService.getCurrentUser();
+    }
+  }
+  init();
+  
   $scope.toggleSidenav = function(id) {
     $mdSidenav(id).toggle();
   };
@@ -14,18 +21,13 @@ module.exports = /*@ngInject*/ function($rootScope, $scope, $state, $mdSidenav, 
   };
 
   $rootScope.$on('login-success', function(event, data) {
-    $scope.isUserLogged = UserService.isUserLogged();
-    if ($scope.isUserLogged) {
-      $scope.name = UserService.getUsername();
-    }
+    $scope.isUserLogged = true;
+    $scope.currentUser = UserService.getCurrentUser();
   });
 
   $scope.logout = function() {
+    $scope.isUserLogged = false;
     UserService.logout();
-    $rootScope.$emit('logout');
-    $scope.isUserLogged = UserService.isUserLogged();
-    $scope.name = "Guest";
-    $state.go('login');
   };
 
   document.getElementById("hideAll").style.display = "block";

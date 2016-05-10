@@ -1,20 +1,35 @@
-<div layout="column" layout-fill flex layout-align="center center" style="background-image:  url(../assets/img/background_logging_blur.jpg); background-size: cover ">
+<div layout="column" layout-fill flex layout-align="center center"
+     style="background-image:  url(../assets/img/background_logging_blur.jpg); background-size: cover ">
     <div ng-hide="registerMode" layout="column" class="box" style="padding: 1%">
-        <md-input-container>
-            <label>Username</label>
-            <input ng-model="username">
-        </md-input-container>
-        <md-input-container>
-            <label>Password</label>
-            <input ng-model="password" type="password">
-        </md-input-container>
-        <div layout="row">
-            <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
-            <md-button class="md-warn md-raised" ng-click="signup()">Sign up</md-button>
+        <div ng-if="errorText" style="text-align:center;color: #990000">
+            {{errorText}}
         </div>
+        <form name="loginForm" layout="column">
+            <md-input-container>
+                <label>Username</label>
+                <input required name="username" ng-model="username">
+                <div ng-messages="loginForm.username.$error">
+                    <div ng-message="required">Please fill in your username.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input required name="password" ng-model="password" type="password">
+                <div ng-messages="loginForm.password.$error">
+                    <div ng-message="required">Please fill in your password.</div>
+                </div>
+            </md-input-container>
+            <div layout="row">
+                <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
+                <md-button class="md-warn md-raised" ng-click="signup()">Sign up</md-button>
+            </div>
+        </form>
     </div>
     <div ng-show="registerMode" layout="column" class="box" style="padding: 1%">
         <h4 layout-align="center">Sign up for free!</h4>
+        <div ng-if="errorText" style="text-align:center;color: #990000">
+            {{errorText}}
+        </div>
         <md-input-container>
             <label>Username</label>
             <input ng-model="newUsername">

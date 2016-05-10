@@ -8,6 +8,10 @@ module.exports = /*@ngInject*/
         event.preventDefault();
         $state.go('login');
       }
+      if(UserService.isUserLogged() && toState.name === 'login') {
+        event.preventDefault();
+        $state.go('home');
+      }
     });
 
   };
