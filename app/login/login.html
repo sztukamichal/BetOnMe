@@ -1,8 +1,8 @@
 <div layout="column" layout-fill flex layout-align="center center"
      style="background-image:  url(../assets/img/background_logging_blur.jpg); background-size: cover ">
     <div ng-hide="registerMode" layout="column" class="box" style="padding: 1%">
-        <div ng-if="errorText" style="text-align:center;color: #990000">
-            {{errorText}}
+        <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
+            {{errorMessage}}
         </div>
         <form name="loginForm" layout="column">
             <md-input-container>
@@ -21,7 +21,7 @@
             </md-input-container>
             <div layout="row">
                 <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
-                <md-button class="md-warn md-raised" ng-click="signup()">Sign up</md-button>
+                <md-button class="md-warn md-raised" ng-click="signUp()">Sign up</md-button>
             </div>
         </form>
     </div>

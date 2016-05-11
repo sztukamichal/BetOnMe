@@ -15,6 +15,7 @@ angular.module('betOnMe', [
   'ngMaterial',
   'ngMessages',
   'ngResource',
+  'ngAnimate',
   'LocalStorageModule',
   require('./home').name,
   require('./profile').name,
@@ -41,6 +42,7 @@ angular.module('betOnMe', [
     $mdThemingProvider.theme('amber').backgroundPalette('amber').dark();
     $mdThemingProvider.theme('yellow').backgroundPalette('yellow').dark();
     $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+    $mdThemingProvider.theme('warn').accentPalette('orange').dark().primaryPalette('pink');
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
   });

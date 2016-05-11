@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function ($scope, $rootScope, UserService) {
+module.exports = /*@ngInject*/ function ($scope, $rootScope, $timeout, UserService) {
 
   $scope.registerMode = false;
-  $scope.signup = function () {
-    $scope.registerMode = true;
-  };
+  $scope.errorMessage = '';
+
   $scope.login = function () {
     if ($scope.registerMode === true) {
+      $scope.errorMessage = '';
       $scope.registerMode = false;
     } else if ($scope.username !== undefined && $scope.password !== undefined) {
       UserService.login($scope.username, $scope.password);
@@ -15,7 +15,20 @@ module.exports = /*@ngInject*/ function ($scope, $rootScope, UserService) {
       $scope.errorText = 'Fill in your credentials';
     }
   };
+
+  $scope.signUp = function () {
+    $scope.errorMessage = '';
+    $scope.registerMode = true;
+  };
+
+  function showErrorMessage(text){
+    $scope.errorMessage = text;
+    $timeout(function() {
+      $scope.errorMessage = '';
+    },5000);
+  }
+
   $rootScope.$on('login-failed', function () {
-    $scope.errorText = 'Wrong credentials';
+    showErrorMessage('Wrong credentials');
   });
 };
