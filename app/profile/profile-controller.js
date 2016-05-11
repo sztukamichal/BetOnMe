@@ -9,6 +9,7 @@ module.exports = /*@ngInject*/ function($rootScope, $scope, UserService) {
 
   $rootScope.$on('login-success', function() {
     $scope.isUserLogged = true;
+    UserService.getCurrentUser();
   });
 
   $rootScope.$on('logout', function() {

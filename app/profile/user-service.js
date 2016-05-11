@@ -20,7 +20,7 @@ module.exports = function () {
     this.getToken();
 
     this.getCurrentUser = function () {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getCurrentUser, {headers: {'X-Auth': token}})
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getCurrentUser, {headers: {'X-Auth':token}})
         .then(function (data) {
           console.log(data);
         });
@@ -32,11 +32,10 @@ module.exports = function () {
           token = res.data;
           saveTokenToCookie(token);
           $rootScope.$emit('login-success', token);
+          $http.defaults.headers.common['X-Auth'] = token;
           $state.go('home');
-          return true;
         }, function (res) {
-          $rootScope.$emit('login-failed', token);
-          return false;
+          $rootScope.$emit('login-failed', res);
         });
     };
 
