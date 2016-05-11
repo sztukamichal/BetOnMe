@@ -13,6 +13,19 @@ module.exports = function () {
       return localStorageService.cookie.set('token', token);
     }
 
+    this.createUser = function(user) {
+      console.log("Jestem");
+      $http.post(Settings.apiBaseUrl + Settings.apiQueries.createUser, user)
+        .then(function(res) {
+          console.log('New user created' + res);
+          those.login(user.username, user.password);
+        },
+        function(res) {
+          console.log('Error during creating new user');
+          console.log(res);
+        });
+    };
+    
     this.getToken = function() {
       token = localStorageService.cookie.get('token');
       token = token === null ? undefined : token;
@@ -32,11 +45,11 @@ module.exports = function () {
         .then(function (res) {
           token = res.data;
           saveTokenToCookie(token);
-          $rootScope.$emit('login-success', token);
           $http.defaults.headers.common['X-Auth'] = token;
           those.getCurrentUserFromServer()
             .then(function(res) {
               User = res.data;
+              $rootScope.$emit('login-success', token);
               $state.go('home');
             });
         }, function (res) {
@@ -47,6 +60,7 @@ module.exports = function () {
     this.logout = function () {
       localStorageService.cookie.remove('token');
       token = undefined;
+      $http.defaults.headers.common['X-Auth'] = token;
       $rootScope.$emit('logout');
       $state.go('login');
     };
@@ -72,7 +86,8 @@ module.exports = function () {
       logout: this.logout,
       getCurrentUser: this.getCurrentUser,
       getToken: this.getToken,
-      isUserLogged: this.isUSerLogged
+      isUserLogged: this.isUSerLogged,
+      createUser: this.createUser
     };
   };
 };

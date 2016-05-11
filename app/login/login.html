@@ -5,7 +5,7 @@
             {{errorMessage}}
         </div>
         <div ng-hide="errorMessage !== ''" style="text-align:center;">
-            Log in or create new account.
+            <h3>Log in or create new account.</h3>
         </div>
         <form name="loginForm" layout="column">
             <md-input-container>
@@ -29,25 +29,59 @@
         </form>
     </div>
     <div ng-show="registerMode" layout="column" class="box" style="padding: 1%">
-        <h4 layout-align="center">Sign up for free!</h4>
-        <div ng-if="errorText" style="text-align:center;color: #990000">
-            {{errorText}}
+        <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
+            {{errorMessage}}
         </div>
-        <md-input-container>
-            <label>Username</label>
-            <input ng-model="newUsername">
-        </md-input-container>
-        <md-input-container>
-            <label>Password</label>
-            <input ng-model="newPassword" type="password">
-        </md-input-container>
-        <md-input-container>
-            <label>Email</label>
-            <input ng-model="email">
-        </md-input-container>
+        <div ng-hide="errorMessage !== ''" style="text-align:center;">
+            <h3>Log in or create new account.</h3>
+        </div>
+        <form name="registerForm" layout="column">
+            <md-input-container>
+                <label>Username*</label>
+                <input required name="username" ng-minlength="5" ng-model="newUser.username">
+                <div ng-messages="registerForm.username.$error">
+                    <div ng-message="required">Please fill in your username.</div>
+                    <div ng-message="minlength">Username must be at least 5 character long.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Password*</label>
+                <input required name="password" ng-minlength="6" ng-model="newUser.password" type="password">
+                <div ng-messages="registerForm.password.$error">
+                    <div ng-message="required">Please fill in your password.</div>
+                    <div ng-message="minlength">Password must be at least 6 character long.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Confirm your password</label>
+                <input required name="confirmPassword" ng-model="confirmPassword" ng-pattern="\b{{newUser.password}}\b" type="password">
+                <div ng-messages="registerForm.confirmPassword.$error">
+                    <div ng-message="required">Please confirm your password.</div>
+                    <div ng-message="pattern">Passwords are not equal.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>First name*</label>
+                <input required name="firstName" ng-model="newUser.firstName">
+                <div ng-messages="registerForm.firstName.$error">
+                    <div ng-message="required">Please fill in first name field.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Last name</label>
+                <input ng-model="newUser.lastName">
+            </md-input-container>
+            <md-input-container>
+                <label>Email*</label>
+                <input required name="email" ng-model="newUser.email">
+                <div ng-messages="registerForm.email.$error">
+                    <div ng-message="required">Please fill in email field.</div>
+                </div>
+            </md-input-container>
+        </form>
         <div layout="row">
             <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
-            <md-button class="md-warn md-raised" ng-click="signup()">Sign up</md-button>
+            <md-button class="md-warn md-raised" ng-click="signUp()">Sign up</md-button>
         </div>
     </div>
 </div>

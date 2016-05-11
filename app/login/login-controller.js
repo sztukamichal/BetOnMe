@@ -4,12 +4,13 @@ module.exports = /*@ngInject*/ function ($scope, $rootScope, $timeout, UserServi
 
   $scope.registerMode = false;
   $scope.errorMessage = '';
+  $scope.newUser = {};
 
   $scope.login = function () {
     if ($scope.registerMode === true) {
       $scope.errorMessage = '';
       $scope.registerMode = false;
-    } else if ($scope.username !== undefined && $scope.password !== undefined) {
+    } else if ($scope.loginForm.password.$error === {} && $scope.loginForm.username.$error === {} ) {
       UserService.login($scope.username, $scope.password);
     } else {
       showErrorMessage('Fill in your credentials');
@@ -17,8 +18,14 @@ module.exports = /*@ngInject*/ function ($scope, $rootScope, $timeout, UserServi
   };
 
   $scope.signUp = function () {
-    $scope.errorMessage = '';
-    $scope.registerMode = true;
+    if ($scope.registerMode === false) {
+      $scope.errorMessage = '';
+      $scope.registerMode = true;
+    } else if($scope.registerForm.username === {} && $scope.registerForm.password === {} && $scope.registerForm.firstName === {} && $scope.registerForm.email === {}) {
+      UserService.createUser($scope.newUser);
+    } else {
+      showErrorMessage('Fill in every required fields');
+    }
   };
 
   function showErrorMessage(text){
