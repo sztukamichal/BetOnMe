@@ -19,6 +19,8 @@ router.get('/', function(req, res, next) {
   }
 });
 
+
+// TODO: Przed rejestracj¹ nowego u¿ytkownika nale¿y sprawdziæ czy nie istnieje inny u¿ytkownik o tej nazwie
 router.post('/', function(req, res, next) {
   var user = new User(
     {
