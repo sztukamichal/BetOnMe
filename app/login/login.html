@@ -73,9 +73,10 @@
             </md-input-container>
             <md-input-container>
                 <label>Email*</label>
-                <input required name="email" ng-model="newUser.email">
+                <input required name="email" ng-model="newUser.email" type="email">
                 <div ng-messages="registerForm.email.$error">
                     <div ng-message="required">Please fill in email field.</div>
+                    <div ng-message="email">Email is not correct.</div>
                 </div>
             </md-input-container>
         </form>

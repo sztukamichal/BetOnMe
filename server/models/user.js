@@ -1,7 +1,7 @@
 'use strict';
 
 var db = require('../db');
-var User = db.model('User', {
+var UserSchema = db.Schema({
   username: {type: String, required: true},
   password: {type: String, required: true, select: false},
   registerDate: {type: Date, required: true, default: Date.now},
@@ -9,5 +9,7 @@ var User = db.model('User', {
   lastName: {type:String, required: false},
   email: {type:String, required: true}
 });
+
+var User = db.model('User', UserSchema);
 
 module.exports = User;
