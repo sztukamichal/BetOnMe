@@ -4,6 +4,9 @@
         <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
             {{errorMessage}}
         </div>
+        <div ng-hide="errorMessage !== ''" style="text-align:center;">
+            Log in or create new account.
+        </div>
         <form name="loginForm" layout="column">
             <md-input-container>
                 <label>Username</label>

@@ -12,7 +12,7 @@ module.exports = /*@ngInject*/ function ($scope, $rootScope, $timeout, UserServi
     } else if ($scope.username !== undefined && $scope.password !== undefined) {
       UserService.login($scope.username, $scope.password);
     } else {
-      $scope.errorText = 'Fill in your credentials';
+      showErrorMessage('Fill in your credentials');
     }
   };
 
@@ -25,7 +25,7 @@ module.exports = /*@ngInject*/ function ($scope, $rootScope, $timeout, UserServi
     $scope.errorMessage = text;
     $timeout(function() {
       $scope.errorMessage = '';
-    },5000);
+    },4000);
   }
 
   $rootScope.$on('login-failed', function () {

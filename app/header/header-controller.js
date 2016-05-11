@@ -8,12 +8,16 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
     $scope.isUserLogged = UserService.isUserLogged();
     if($scope.isUserLogged) {
       $scope.currentUser = UserService.getCurrentUser();
+      $scope.name = $scope.currentUser.firstName;
+    } else {
+      $scope.name = 'Guest';
     }
   }
   init();
 
   $scope.logout = function() {
     $scope.isUserLogged = false;
+    $scope.name = 'Guest';
     UserService.logout();
   };
 
@@ -27,8 +31,7 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
   };
 
   $rootScope.$on('login-success', function(event, data) {
-    $scope.isUserLogged = true;
-    $scope.currentUser = UserService.getCurrentUser();
+    init();
   });
 
   document.getElementById("hideAll").style.display = "block";

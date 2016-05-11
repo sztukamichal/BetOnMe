@@ -21,7 +21,8 @@ angular.module('betOnMe', [
   require('./profile').name,
   require('./header').name,
   require('./tournament').name,
-  require('./login').name
+  require('./login').name,
+  require('./services').name
 ])
   .run(require('./run.js'))
 

@@ -6,6 +6,8 @@ module.exports = function () {
 
     var Settings = require('../settings');
     var token;
+    var those = this;
+    var User;
 
     function saveTokenToCookie(token) {
       return localStorageService.cookie.set('token', token);
@@ -17,13 +19,12 @@ module.exports = function () {
       return token;
     };
 
-    this.getToken();
+    this.getCurrentUser = function() {
+      return User;
+    };
 
-    this.getCurrentUser = function () {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getCurrentUser, {headers: {'X-Auth':token}})
-        .then(function (data) {
-          console.log(data);
-        });
+    this.getCurrentUserFromServer = function () {
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getCurrentUser, {headers: {'X-Auth':token}});
     };
 
     this.login = function (username, password) {
@@ -33,7 +34,11 @@ module.exports = function () {
           saveTokenToCookie(token);
           $rootScope.$emit('login-success', token);
           $http.defaults.headers.common['X-Auth'] = token;
-          $state.go('home');
+          those.getCurrentUserFromServer()
+            .then(function(res) {
+              User = res.data;
+              $state.go('home');
+            });
         }, function (res) {
           $rootScope.$emit('login-failed', res);
         });
@@ -47,9 +52,20 @@ module.exports = function () {
     };
 
     this.isUSerLogged = function () {
-      this.getToken();
       return token !== undefined;
     };
+
+    function init(){
+      token = those.getToken();
+      if(token !== undefined) {
+        those.getCurrentUserFromServer()
+          .then(function(res) {
+            User = res.data;
+          });
+      }
+    }
+
+    init();
 
     return {
       login: this.login,
