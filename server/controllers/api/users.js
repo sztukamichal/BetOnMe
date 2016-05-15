@@ -19,9 +19,23 @@ router.get('/', function(req, res, next) {
   }
 });
 
-
-// TODO: Przed rejestracj¹ nowego u¿ytkownika nale¿y sprawdziæ czy nie istnieje inny u¿ytkownik o tej nazwie
 router.post('/', function(req, res, next) {
+  function createNewUser() {
+    bcrypt.hash(req.body.password, 10, function (err, hash) {
+      if (err) {
+        return next(err);
+      } else {
+        user.password = hash;
+        user.save(function (err) {
+          if (err) {
+            return next(err);
+          } else {
+            return res.sendStatus(201);
+          }
+        });
+      }
+    });
+  }
   var user = new User(
     {
       username: req.body.username,
@@ -29,18 +43,13 @@ router.post('/', function(req, res, next) {
       lastName: req.body.lastName,
       email: req.body.email
     });
-  bcrypt.hash(req.body.password, 10, function(err, hash) {
+  User.findOne({username: user.username}, function (err, user) {
     if (err) {
       return next(err);
+    } else if (user === null){
+      createNewUser();
     } else {
-      user.password = hash;
-      user.save(function(err) {
-        if (err) {
-          return next(err);
-        } else {
-          return res.sendStatus(201);
-        }
-      });
+      res.sendStatus(409);
     }
   });
 });

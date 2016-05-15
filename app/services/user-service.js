@@ -23,6 +23,9 @@ module.exports = function () {
         function(res) {
           console.log('Error during creating new user');
           console.log(res);
+          if(res.status === 409) {
+            $rootScope.$emit('username-exist-error', res);
+          }
         });
     };
     
