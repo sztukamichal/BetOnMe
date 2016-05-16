@@ -64,6 +64,7 @@ module.exports = function () {
       localStorageService.cookie.remove('token');
       token = undefined;
       $http.defaults.headers.common['X-Auth'] = token;
+      $http.defaults.headers.common['X-Auth-Token'] = Settings.footballApiToken;
       $rootScope.$emit('logout');
       $state.go('login');
     };

@@ -1,0 +1,25 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://api.football-data.org/v1/soccerseasons/424"
+    },
+    "teams": {
+      "href": "http://api.football-data.org/v1/soccerseasons/424/teams"
+    },
+    "fixtures": {
+      "href": "http://api.football-data.org/v1/soccerseasons/424/fixtures"
+    },
+    "leagueTable": {
+      "href": "http://api.football-data.org/v1/soccerseasons/424/leagueTable"
+    }
+  },
+  "id": 424,
+  "caption": "European Championships France 2016",
+  "league": "EC",
+  "year": "2016",
+  "currentMatchday": 1,
+  "numberOfMatchdays": 6,
+  "numberOfTeams": 24,
+  "numberOfGames": 36,
+  "lastUpdated": "2016-04-19T07:31:47Z"
+}
