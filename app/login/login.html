@@ -1,6 +1,5 @@
-<div layout="column" layout-fill flex layout-align="center center"
-     style="background-image:  url(../assets/img/background_logging_blur.jpg); background-size: cover ">
-    <div ng-hide="registerMode" layout="column" class="box" style="padding: 1%">
+<div layout="column" layout-align="center center" style="padding: 5%">
+    <div ng-hide="registerMode" layout="column" class="box" style="padding: 1%" my-enter="login()">
         <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
             {{errorMessage}}
         </div>
@@ -28,7 +27,7 @@
             </div>
         </form>
     </div>
-    <div ng-show="registerMode" layout="column" class="box" style="padding: 20px 60px 20px 60px">
+    <div ng-show="registerMode" layout="column" class="box" style="padding: 20px 60px 20px 60px" my-enter="signUp()">
         <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
             {{errorMessage}}
         </div>

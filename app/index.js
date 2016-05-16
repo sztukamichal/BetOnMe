@@ -22,9 +22,20 @@ angular.module('betOnMe', [
   require('./header').name,
   require('./tournament').name,
   require('./login').name,
-  require('./services').name
+  require('./services').name,
+  require('./directives').name
 ])
   .run(require('./run.js'))
+
+  .controller('mainController', function($scope, $rootScope, UserService) {
+    $scope.isUserLogged = UserService.isUserLogged();
+    $rootScope.$on('login-success', function() {
+      $scope.isUserLogged = true;
+    });
+    $rootScope.$on('logout', function() {
+      $scope.isUserLogged = false;
+    });
+  })
 
   .config(/*@ngInject*/ function($urlRouterProvider) {
     $urlRouterProvider
