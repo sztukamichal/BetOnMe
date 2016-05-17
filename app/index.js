@@ -24,7 +24,8 @@ angular.module('betOnMe', [
     require('./login').name,
     require('./league').name,
     require('./services').name,
-    require('./directives').name
+    require('./directives').name,
+    require('./filters').name
   ])
   .run(require('./run.js'))
 
@@ -36,14 +37,6 @@ angular.module('betOnMe', [
     $rootScope.$on('logout', function () {
       $scope.isUserLogged = false;
     });
-  })
-
-  .config(/*@ngInject*/ function ($httpProvider) {
-    //Reset headers to avoid OPTIONS request (aka preflight)
-    $httpProvider.defaults.headers.common = {};
-    $httpProvider.defaults.headers.post = {};
-    $httpProvider.defaults.headers.put = {};
-    $httpProvider.defaults.headers.patch = {};
   })
 
   .config(/*@ngInject*/ function ($urlRouterProvider) {

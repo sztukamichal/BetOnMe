@@ -1,4 +1,4 @@
-<div layout-padding layout="column" layout-align="center center">
+<div layout="column" layout-align="center center" style="padding: 5%;">
 
     <h1>{{league.caption}}</h1>
 
@@ -11,7 +11,7 @@
 
     <md-tabs layout-fill flex md-dynamic-height md-border-bottom>
         <md-tab label="Teams" flex>
-            <md-content flex class="md-padding" layout="row" layout-wrap layout-align="center center">
+            <div flex class="md-padding" layout="row" layout-wrap layout-align="center center">
                 <md-card flex="30" ng-repeat="team in teams">
                     <md-card-title>
                         <md-card-title-text>
@@ -20,7 +20,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                                <img ng-src="{{team.crestUrl}}">
+                                <img ng-src="{{team.crestUrl | crestUrlChange}}" style="width: 80%; height: 80%">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
@@ -29,32 +29,32 @@
                         <md-button>Fixtures</md-button>
                     </md-card-actions>
                 </md-card>
-            </md-content>
+            </div>
         </md-tab>
-        <md-tab label="Fixtures" ng-click="loadFixtures()" >
+        <md-tab label="Fixtures" ng-click="loadFixtures()">
             <md-content layout="column" flex class="md-padding">
-                <md-card ng-repeat="match in matches">
+                <md-card ng-repeat="fixture in fixtures">
                     <md-card-title>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                                <img ng-src="getCrestUrl(match.homeTeamName)">
+                                <img ng-src="{{getCrestUrl(fixture.homeTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
                             </div>
                         </md-card-title-media>
                         <md-card-title-text>
-                            <span class="md-headline">{{match.homeTeamName}} vs {{match.awayTeamName}}</span>
-                            <span class="md-subhead" style="text-align: center">{{match.result.goalsHomeTeam}} : {{match.result.goalsAwayTeam}}</span>
-                            <span class="md-subhead" style="text-align: center">{{match.date}}</span>
+                            <span class="md-headline" style="text-align: center">{{fixture.homeTeamName}} vs {{fixture.awayTeamName}}</span>
+                            <span class="md-headline" style="text-align: center">{{fixture.result.goalsHomeTeam}} : {{fixture.result.goalsAwayTeam}}</span>
+                            <span class="md-subhead" style="text-align: center">{{fixture.date}}</span>
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
-                                <img ng-src="getCrestUrl(match.awayTeamName)">
+                                <img ng-src="{{getCrestUrl(fixture.awayTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
                             </div>
                         </md-card-title-media>
                     </md-card-title>
                 </md-card>
             </md-content>
         </md-tab>
-        <md-tab label="League Table">
+        <md-tab label="League Table" ng-click="loadLeagueTable()">
             <md-content class="md-padding">
                 <h1 class="md-display-2">Tab Three</h1>
                 <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>

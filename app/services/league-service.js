@@ -20,7 +20,7 @@ module.exports = function () {
     };
 
     this.getLeagueTable = function (id) {
-      return $http.get(Settings.footballQueries.getLeagueTable + id +'/leagueTable');
+      return $http.get(Settings.footballQueries.getLeagueInfo + id +'/leagueTable');
     };
     
     return {

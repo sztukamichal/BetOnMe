@@ -4,6 +4,7 @@ module.exports = /*@ngInject*/ function($stateParams, $scope, LeagueService) {
 
   $scope.leagueId = $stateParams.leagueId;
   $scope.fixtures = undefined;
+  $scope.leagueTable = undefined;
 
   LeagueService.getLeagueInfo($scope.leagueId)
     .success(function(res) {
@@ -20,6 +21,16 @@ module.exports = /*@ngInject*/ function($stateParams, $scope, LeagueService) {
       LeagueService.getLeagueFixtures($scope.leagueId)
         .success(function (res) {
           $scope.fixtures = res.fixtures;
+        });
+    }
+  };
+
+  $scope.loadLeagueTable = function () {
+    if($scope.leagueTable === undefined) {
+      LeagueService.getLeagueTable($scope.leagueId)
+        .success(function (res) {
+          console.log(res);
+          $scope.leagueTable = res.leagueTable;
         });
     }
   };
