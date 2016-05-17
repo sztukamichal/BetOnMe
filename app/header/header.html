@@ -8,21 +8,23 @@
         </div>
         <div ng-if="isUserLogged" flex="20" class="md-toolbar-tools" layout-align="end center">
             <md-menu>
-                <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                    <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item ng-repeat="season in seasons">
+                        <md-button ui-sref="league({leagueId:{{season.id}}})">{{season.caption}}</md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ui-sref="league({leagueId:424})">Euro 2016</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+            <md-menu>
+                <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
                     <md-icon md-menu-origin md-svg-icon="../assets/icons/settings.svg"></md-icon>
                 </md-button>
                 <md-menu-content width="4">
-                    <md-menu-item>
-                        <md-button>
-                            Redial
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                        <md-button disabled="disabled">
-                            Check voicemail
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-divider></md-menu-divider>
                     <md-menu-item>
                         <md-button ng-click="logout()">
                             Logout

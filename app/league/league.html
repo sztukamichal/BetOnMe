@@ -1,14 +1,11 @@
 <div layout="column" layout-align="center center" style="padding: 5%;">
-
     <h1>{{league.caption}}</h1>
-
     <div class="box" style="padding: 10px 150px 10px 150px; text-align: center">
         <h3>Current matchday: {{league.currentMatchday}}/{{league.numberOfMatchdays}}</h3>
         <h3>Number of teams: {{league.numberOfTeams}}</h3>
         <h3>Number of games: {{league.numberOfGames}}</h3>
         Last updated: {{league.lastUpdated}}
     </div>
-
     <md-tabs layout-fill flex md-dynamic-height md-border-bottom>
         <md-tab label="Teams" flex>
             <div flex class="md-padding" layout="row" layout-wrap layout-align="center center">
@@ -32,8 +29,8 @@
             </div>
         </md-tab>
         <md-tab label="Fixtures" ng-click="loadFixtures()">
-            <md-content layout="column" flex class="md-padding">
-                <md-card ng-repeat="fixture in fixtures">
+            <div layout="column" ng-if="fixtures !== undefined" flex class="md-padding">
+                <md-card ng-repeat="fixture in fixtures | reverse">
                     <md-card-title>
                         <md-card-title-media>
                             <div class="md-media-sm card-media">
@@ -52,13 +49,41 @@
                         </md-card-title-media>
                     </md-card-title>
                 </md-card>
-            </md-content>
+            </div>
         </md-tab>
-        <md-tab label="League Table" ng-click="loadLeagueTable()">
-            <md-content class="md-padding">
-                <h1 class="md-display-2">Tab Three</h1>
-                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-            </md-content>
+        <md-tab flex label="League Table" ng-click="loadLeagueTable()">
+            <div flex class="second-box md-padding">
+                <table flex layout-fill st-table="leagueTable" class="table table-striped">
+                    <thead>
+                    <tr style="text-align: left">
+                        <th>Pos.</th>
+                        <th>Name</th>
+                        <th>Match played</th>
+                        <th>Wins</th>
+                        <th>Draws</th>
+                        <th>Losses</th>
+                        <th>Goals</th>
+                        <th>Goals against</th>
+                        <th>+/-</th>
+                        <th>Points</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="team in leagueTable">
+                        <td>{{team.position}}.</td>
+                        <td><img ng-src="{{team.crestURI}}" style="height: auto; width: 20px">{{'       '+team.teamName}}</td>
+                        <td>{{team.playedGames}}</td>
+                        <td>{{team.wins}}</td>
+                        <td>{{team.draws}}</td>
+                        <td>{{team.losses}}</td>
+                        <td>{{team.goals}}</td>
+                        <td>{{team.goalsAgainst}}</td>
+                        <td>{{team.goalDifference}}</td>
+                        <td>{{team.points}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </md-tab>
     </md-tabs>
 

@@ -33,6 +33,13 @@ body {
     background-color: rgba(254, 253, 255, 0.5)
 }
 
+.second-box {
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5%;
+    background-color: rgba(254, 253, 255, 0.5)
+}
+
 .onlogin {
     background-image: url('../assets/img/background_logging_blur.jpg'); background-size: cover; height: 95%
 }

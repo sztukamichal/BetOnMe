@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserService) {
+module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserService, LeagueService) {
 
   var originatorEv;
 
@@ -9,6 +9,10 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
     if($scope.isUserLogged) {
       $scope.currentUser = UserService.getCurrentUser();
       $scope.name = $scope.currentUser.firstName;
+      LeagueService.getSeasons()
+        .success(function(res) {
+          $scope.seasons = res;
+        });
     } else {
       $scope.name = 'Guest';
     }

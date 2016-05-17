@@ -19,6 +19,7 @@
     "angular-material": "^1.0.7",
     "angular-messages": "^1.5.5",
     "angular-resource": "^1.5.5",
+    "angular-smart-table": "^2.1.8",
     "angular-ui-router": "^0.2.18",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.1",

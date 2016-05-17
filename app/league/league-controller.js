@@ -29,8 +29,8 @@ module.exports = /*@ngInject*/ function($stateParams, $scope, LeagueService) {
     if($scope.leagueTable === undefined) {
       LeagueService.getLeagueTable($scope.leagueId)
         .success(function (res) {
-          console.log(res);
-          $scope.leagueTable = res.leagueTable;
+          $scope.leagueTable = res.standing;
+          console.log($scope.leagueTable);
         });
     }
   };

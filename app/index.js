@@ -9,47 +9,49 @@ require('angular-material');
 require('angular-messages');
 require('angular-resource');
 require('angular-local-storage');
+require('angular-smart-table');
 
 angular.module('betOnMe', [
-    'ui.router',
-    'ngMaterial',
-    'ngMessages',
-    'ngResource',
-    'ngAnimate',
-    'LocalStorageModule',
-    require('./home').name,
-    require('./profile').name,
-    require('./header').name,
-    require('./tournament').name,
-    require('./login').name,
-    require('./league').name,
-    require('./services').name,
-    require('./directives').name,
-    require('./filters').name
-  ])
+  'ui.router',
+  'ngMaterial',
+  'ngMessages',
+  'ngResource',
+  'ngAnimate',
+  'LocalStorageModule',
+  'smart-table',
+  require('./home').name,
+  require('./profile').name,
+  require('./header').name,
+  require('./tournament').name,
+  require('./login').name,
+  require('./league').name,
+  require('./services').name,
+  require('./directives').name,
+  require('./filters').name
+])
   .run(require('./run.js'))
 
-  .controller('mainController', function ($scope, $rootScope, UserService) {
+  .controller('mainController', function($scope, $rootScope, UserService) {
     $scope.isUserLogged = UserService.isUserLogged();
-    $rootScope.$on('login-success', function () {
+    $rootScope.$on('login-success', function() {
       $scope.isUserLogged = true;
     });
-    $rootScope.$on('logout', function () {
+    $rootScope.$on('logout', function() {
       $scope.isUserLogged = false;
     });
   })
 
-  .config(/*@ngInject*/ function ($urlRouterProvider) {
+  .config(/*@ngInject*/ function($urlRouterProvider) {
     $urlRouterProvider
       .when('', '/home')
       .otherwise('/home');
   })
 
-  .config(/*@ngInject*/ function (localStorageServiceProvider) {
+  .config(/*@ngInject*/ function(localStorageServiceProvider) {
     localStorageServiceProvider.setPrefix('BetOnMe');
   })
 
-  .config(function ($mdThemingProvider) {
+  .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
     $mdThemingProvider.theme('light-green').backgroundPalette('light-green').dark();
     $mdThemingProvider.theme('lime').backgroundPalette('lime').dark();
