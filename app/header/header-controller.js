@@ -1,8 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserService, LeagueService) {
-
-  var originatorEv;
+module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserService, LeagueService, $mdMenu) {
 
   function init() {
     $scope.isUserLogged = UserService.isUserLogged();
@@ -19,15 +17,14 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
   }
   init();
 
+  $scope.hideMenu = function() {
+    $mdMenu.hide();
+  };
+
   $scope.logout = function() {
     $scope.isUserLogged = false;
     $scope.name = 'Guest';
     UserService.logout();
-  };
-
-  $scope.openMenu = function($mdOpenMenu, ev) {
-    originatorEv = ev;
-    $mdOpenMenu(ev);
   };
 
   $scope.toggleSidenav = function(id) {
