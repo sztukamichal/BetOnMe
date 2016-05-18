@@ -7,10 +7,12 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
     if($scope.isUserLogged) {
       $scope.currentUser = UserService.getCurrentUser();
       $scope.name = $scope.currentUser.firstName;
-      LeagueService.getSeasons()
-        .success(function(res) {
-          $scope.seasons = res;
-        });
+      if(!$scope.seasons) {
+        LeagueService.getSeasons()
+          .success(function(res) {
+            $scope.seasons = res;
+          });
+      }
     } else {
       $scope.name = 'Guest';
     }
@@ -33,6 +35,11 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
 
   $rootScope.$on('login-success', function(event, data) {
     init();
+  });
+
+  $rootScope.$on('user-update', function(event, user) {
+    $scope.currentUser = user;
+    $scope.name = $scope.currentUser.firstName;
   });
 
   document.getElementById("hideAll").style.display = "block";

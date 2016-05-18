@@ -10,6 +10,7 @@ require('angular-messages');
 require('angular-resource');
 require('angular-local-storage');
 require('angular-smart-table');
+require('angular-ui-bootstrap');
 
 angular.module('betOnMe', [
   'ui.router',
@@ -19,6 +20,7 @@ angular.module('betOnMe', [
   'ngAnimate',
   'LocalStorageModule',
   'smart-table',
+  'ui.bootstrap',
   require('./home').name,
   require('./profile').name,
   require('./header').name,

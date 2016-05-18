@@ -5,9 +5,7 @@
             md-component-id="left">
         <md-card md-theme="yellow">
             <md-card-title-media style="padding: 40px 40px 0px 40px">
-                <img src="../assets/icons/user.jpg" class="md-card-image" alt="image caption" style="border-radius: 50%; box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
-	-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);">
+                <img ng-src="{{'../assets/avatars/people-'+currentUser.avatar + '.svg'}}" class="md-card-image" alt="image caption" style="border-radius: 50%; box-shadow: 0 0 8px rgba(0, 0, 0, .8);-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);">
             </md-card-title-media>
             <md-card-content>
                 <h2>{{currentUser.firstName + ' ' + currentUser.lastName}}</h2>
@@ -15,8 +13,10 @@
                 <p>Nowicjusz</p>
             </md-card-content>
             <md-card-actions layout="row" layout-align="center center">
-                <md-button>Statystyki</md-button>
-                <md-button>Konto</md-button>
+                <md-button>Statistics</md-button>
+                <md-button ng-click="showEditUserDialog($event)" class="md-raised">
+                    Account
+                </md-button>
             </md-card-actions>
         </md-card>
         <md-list flex layout-padding>

@@ -6,7 +6,8 @@ module.exports = {
   apiQueries: {
     getSession: 'sessions',
     getCurrentUser: 'users',
-    createUser: 'users'
+    createUser: 'users',
+    updateUser: 'users/update/'
   },
   footballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons/'

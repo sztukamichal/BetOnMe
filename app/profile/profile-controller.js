@@ -1,21 +1,40 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($rootScope, $scope, UserService) {
-  
-  function init(){
+module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDialog) {
+
+  function init() {
     $scope.isUserLogged = UserService.isUserLogged();
-    if($scope.isUserLogged) {
+    if ($scope.isUserLogged) {
       $scope.currentUser = UserService.getCurrentUser();
     }
   }
+
   init();
 
-  $rootScope.$on('login-success', function() {
+  $scope.showEditUserDialog = function ($event) {
+    $mdDialog.show({
+      parent: angular.element(document.querySelector('#mainBody')),
+      targetEvent: $event,
+      templateUrl: './profile/edit-user-info.html',
+      locals: {
+        user: $scope.currentUser
+      },
+      controller: require('./edit-user-controller.js')
+    })
+      .then(function(user) {
+        $scope.currentUser = user;
+        $rootScope.$emit('user-update', user);
+      }, function() {
+        console.log('cancel');
+      });
+  };
+
+  $rootScope.$on('login-success', function () {
     $scope.isUserLogged = true;
     $scope.currentUser = UserService.getCurrentUser();
   });
 
-  $rootScope.$on('logout', function() {
+  $rootScope.$on('logout', function () {
     $scope.isUserLogged = false;
   });
 

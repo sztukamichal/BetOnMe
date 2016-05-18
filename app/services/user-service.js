@@ -14,19 +14,22 @@ module.exports = function () {
     }
 
     this.createUser = function(user) {
-      console.log("Jestem");
       $http.post(Settings.apiBaseUrl + Settings.apiQueries.createUser, user)
-        .then(function(res) {
-          console.log('New user created' + res);
+        .then(function() {
           those.login(user.username, user.password);
         },
         function(res) {
-          console.log('Error during creating new user');
-          console.log(res);
           if(res.status === 409) {
             $rootScope.$emit('username-exist-error', res);
+          } else {
+            console.log('Error during creating new user');
+            console.log(res);
           }
         });
+    };
+    
+    this.updateUser = function (user) {
+      return $http.post(Settings.apiBaseUrl + Settings.apiQueries.updateUser, user);
     };
     
     this.getToken = function() {
@@ -76,6 +79,7 @@ module.exports = function () {
     function init(){
       token = those.getToken();
       if(token !== undefined) {
+        $http.defaults.headers.common['X-Auth'] = token;
         those.getCurrentUserFromServer()
           .then(function(res) {
             User = res.data;
@@ -91,7 +95,8 @@ module.exports = function () {
       getCurrentUser: this.getCurrentUser,
       getToken: this.getToken,
       isUserLogged: this.isUSerLogged,
-      createUser: this.createUser
+      createUser: this.createUser,
+      updateUser: this.updateUser
     };
   };
 };

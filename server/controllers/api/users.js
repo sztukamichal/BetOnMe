@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs');
 var User = require('./../../models/user');
 
 router.get('/', function(req, res, next) {
-  if(req.auth.username) {
+  if(req.auth && req.auth.username) {
     User.findOne({username: req.auth.username}, function(err, user) {
       if (err) {
         return next(err);
@@ -14,6 +14,19 @@ router.get('/', function(req, res, next) {
         res.json(user);
       }
     });
+  } else {
+    return res.sendStatus(401);
+  }
+});
+
+router.post('/update/',function (req, res, next) {
+  if(req.auth && req.auth.username) {
+    User.update({username:req.auth.username}, {firstName: req.body.firstName, lastName: req.body.lastName, email:req.body.email, avatar:req.body.avatar}, {multi:false}, function (err, raw) {
+      if(err) {
+        return res.sendStatus(500);
+      }
+    });
+    res.sendStatus(200);
   } else {
     return res.sendStatus(401);
   }

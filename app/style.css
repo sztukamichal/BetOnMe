@@ -40,6 +40,8 @@ body {
     background-color: rgba(254, 253, 255, 0.5)
 }
 
+.carousel-indicators li { visibility: hidden; }
+
 .onlogin {
     background-image: url('../assets/img/background_logging_blur.jpg'); background-size: cover; height: 95%
 }
