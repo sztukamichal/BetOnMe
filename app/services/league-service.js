@@ -5,26 +5,25 @@ module.exports = function () {
   this.$get = /*@ngInject*/  function ($http) {
 
     var Settings = require('../settings');
-    $http.defaults.headers.common['X-Auth-Token'] = Settings.footballApiToken;
 
     this.getLeagueInfo = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id);
+      return $http.get(Settings.footballQueries.soccerSeasons + id, {headers:{"X-Auth-Token":Settings.footballApiToken}});
     };
 
     this.getLeagueTeams = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/teams');
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/teams', {headers:{"X-Auth-Token":Settings.footballApiToken}});
     };
 
     this.getLeagueFixtures = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/fixtures');
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/fixtures', {headers:{"X-Auth-Token":Settings.footballApiToken}});
     };
 
     this.getLeagueTable = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/leagueTable');
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/leagueTable', {headers:{"X-Auth-Token":Settings.footballApiToken}});
     };
 
     this.getSeasons = function() {
-      return $http.get(Settings.footballQueries.soccerSeasons);
+      return $http.get(Settings.footballQueries.soccerSeasons, {headers:{"X-Auth-Token":Settings.footballApiToken}});
     };
 
     

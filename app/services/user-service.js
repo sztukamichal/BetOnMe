@@ -14,7 +14,7 @@ module.exports = function () {
     }
 
     this.createUser = function(user) {
-      $http.post(Settings.apiBaseUrl + Settings.apiQueries.createUser, user)
+      $http.post(Settings.apiBaseUrl + Settings.apiQueries.createUser, user, {headers: {'X-Auth':token}})
         .then(function() {
           those.login(user.username, user.password);
         },
@@ -29,7 +29,7 @@ module.exports = function () {
     };
     
     this.updateUser = function (user) {
-      return $http.post(Settings.apiBaseUrl + Settings.apiQueries.updateUser, user);
+      return $http.post(Settings.apiBaseUrl + Settings.apiQueries.updateUser, user, {headers: {'X-Auth':token}});
     };
     
     this.getToken = function() {
@@ -47,11 +47,10 @@ module.exports = function () {
     };
 
     this.login = function (username, password) {
-      $http.post(Settings.apiBaseUrl + Settings.apiQueries.getSession, {username: username, password: password})
+      $http.post(Settings.apiBaseUrl + Settings.apiQueries.getSession, {username: username, password: password}, {headers: {'X-Auth':token}})
         .then(function (res) {
           token = res.data;
           saveTokenToCookie(token);
-          $http.defaults.headers.common['X-Auth'] = token;
           those.getCurrentUserFromServer()
             .then(function(res) {
               User = res.data;
@@ -66,8 +65,6 @@ module.exports = function () {
     this.logout = function () {
       localStorageService.cookie.remove('token');
       token = undefined;
-      $http.defaults.headers.common['X-Auth'] = token;
-      $http.defaults.headers.common['X-Auth-Token'] = Settings.footballApiToken;
       $rootScope.$emit('logout');
       $state.go('login');
     };
@@ -79,7 +76,6 @@ module.exports = function () {
     function init(){
       token = those.getToken();
       if(token !== undefined) {
-        $http.defaults.headers.common['X-Auth'] = token;
         those.getCurrentUserFromServer()
           .then(function(res) {
             User = res.data;
