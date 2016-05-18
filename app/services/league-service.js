@@ -2,28 +2,46 @@
 
 module.exports = function () {
 
-  this.$get = /*@ngInject*/  function ($http) {
+  this.$get = /*@ngInject*/  function ($q, $http) {
 
     var Settings = require('../settings');
+    var config = {headers:{"X-Auth-Token":Settings.footballApiToken}};
+    var seasonsDeferred = $q.defer();
+
+    this.getSeasons = function() {
+      return seasonsDeferred.promise;
+    };
+
+    $http.get(Settings.footballQueries.soccerSeasons, config).then(function (res) {
+      seasonsDeferred.resolve(res.data);
+    });
 
     this.getLeagueInfo = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id, {headers:{"X-Auth-Token":Settings.footballApiToken}});
+      return $http.get(Settings.footballQueries.soccerSeasons + id, config);
     };
 
     this.getLeagueTeams = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/teams', {headers:{"X-Auth-Token":Settings.footballApiToken}});
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/teams', config);
     };
 
     this.getLeagueFixtures = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/fixtures', {headers:{"X-Auth-Token":Settings.footballApiToken}});
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/fixtures', config);
     };
 
     this.getLeagueTable = function (id) {
-      return $http.get(Settings.footballQueries.soccerSeasons + id +'/leagueTable', {headers:{"X-Auth-Token":Settings.footballApiToken}});
+      return $http.get(Settings.footballQueries.soccerSeasons + id +'/leagueTable', config);
     };
-
-    this.getSeasons = function() {
-      return $http.get(Settings.footballQueries.soccerSeasons, {headers:{"X-Auth-Token":Settings.footballApiToken}});
+    
+    this.getMatches = function (timeFrame, league) {
+      if(timeFrame === undefined && league === undefined) {
+        return $http.get(Settings.footballQueries.fixtures, config);
+      } else if(timeFrame !== undefined && league === undefined) {
+        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + timeFrame, config);
+      } else if(timeFrame !== undefined && league !== undefined) {
+        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + timeFrame + '&league=' + league, config);
+      } else if(timeFrame === undefined && league !== undefined) {
+        return $http.get(Settings.footballQueries.fixtures + '?league=' + league, config);
+      }
     };
 
     
@@ -32,7 +50,8 @@ module.exports = function () {
       getLeagueTeams: this.getLeagueTeams,
       getLeagueFixtures: this.getLeagueFixtures,
       getLeagueTable: this.getLeagueTable,
-      getSeasons: this.getSeasons
+      getSeasons: this.getSeasons,
+      getMatches: this.getMatches
     };
   };
 };

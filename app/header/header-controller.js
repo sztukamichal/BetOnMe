@@ -9,7 +9,7 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
       $scope.name = $scope.currentUser.firstName;
       if(!$scope.seasons) {
         LeagueService.getSeasons()
-          .success(function(res) {
+          .then(function(res) {
             $scope.seasons = res;
           });
       }

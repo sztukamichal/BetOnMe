@@ -1,0 +1,28 @@
+<md-dialog aria-label="Search leagues" style="width: 370px">
+    <md-toolbar style="background-color: #82a43a; text-align: center">
+        <div class="md-toolbar-tools">
+            <h2>Choose leagues for searching matches</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="column" style="padding: 10%;">
+        <div flex-xs flex="50">
+            <md-checkbox aria-label="Select All"
+                         ng-checked="isChecked()"
+                         md-indeterminate="isIndeterminate()"
+                         ng-click="toggleAll()">
+                <span ng-if="isChecked()">Un-</span>Select All
+            </md-checkbox>
+        </div>
+        <div style="padding-left: 30px" flex="100" ng-repeat="league in leagues">
+            <md-checkbox ng-checked="exists(league)" ng-click="toggle(league)">
+                {{ league.caption }}
+            </md-checkbox>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="close()" style="margin-right:20px;">
+            Ok
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

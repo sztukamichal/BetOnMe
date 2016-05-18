@@ -1,0 +1,31 @@
+<div layout-fill flex layout-padding layout-align="center">
+    <div layout="row">
+        <md-button aria-label="Choose leagues" class="md-icon-button md-raised"
+                   ng-click="showChooseLeaguesDialog($event)" style="background-color: #82a43a">
+            <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
+        </md-button>
+        <md-input-container>
+            <label>Number of days</label>
+            <input ng-model="days" type="number" step="1">
+        </md-input-container>
+    </div>
+    <md-card ng-repeat="fixture in fixtures">
+        <md-card-title>
+            <md-card-title-media>
+                <div class="md-media-sm card-media">
+                    <img ng-src="{{getCrestUrl(fixture.homeTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
+                </div>
+            </md-card-title-media>
+            <md-card-title-text>
+                <span class="md-headline" style="text-align: center">{{fixture.homeTeamName}} vs {{fixture.awayTeamName}}</span>
+                <span class="md-headline" style="text-align: center">{{fixture.result.goalsHomeTeam}} : {{fixture.result.goalsAwayTeam}}</span>
+                <span class="md-subhead" style="text-align: center">{{fixture.date}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-sm card-media">
+                    <img ng-src="{{getCrestUrl(fixture.awayTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+    </md-card>
+</div>
