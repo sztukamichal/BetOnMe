@@ -2,13 +2,15 @@
 
 module.exports = /*@ngInject*/ function ($scope, $mdDialog, chosenLeagues, LeagueService) {
 
-  $scope.chosenLeagues = chosenLeagues;
   LeagueService.getSeasons().then(function (data) {
     $scope.leagues = data;
+    $scope.chosenLeagues = chosenLeagues;
   });
 
   $scope.toggle = function (league) {
-    var idx = $scope.chosenLeagues.indexOf(league);
+    var idx = $scope.chosenLeagues.findIndex(function (element) {
+      return element.id === league.id;
+    });
     if (idx > -1) {
       $scope.chosenLeagues.splice(idx, 1);
     }
@@ -17,7 +19,9 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, chosenLeagues, Leagu
     }
   };
   $scope.exists = function (league) {
-    return $scope.chosenLeagues.indexOf(league) > -1;
+    return $scope.chosenLeagues.findIndex(function (element) {
+        return element.id === league.id;
+      }) > -1;
   };
 
   $scope.isIndeterminate = function() {

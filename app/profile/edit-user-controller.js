@@ -23,12 +23,16 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, user, UserService) {
   }
 
   $scope.validateUpdateForm = function() {
-    return !($scope.updateForm.firstName.$error.hasOwnProperty(('required')) || $scope.updateForm.email.$error.hasOwnProperty('required') || $scope.updateForm.email.$error.hasOwnProperty('email'));
+    if($scope.updateForm !== undefined) {
+      return !($scope.updateForm.firstName.$error.hasOwnProperty(('required')) || $scope.updateForm.email.$error.hasOwnProperty('required') || $scope.updateForm.email.$error.hasOwnProperty('email'));
+    } else {
+      return false;
+    }
   };
 
   $scope.update = function () {
     UserService.updateUser($scope.currentUser)
-      .success(function (res) {
+      .success(function () {
         $mdDialog.hide($scope.currentUser);
       })
       .error(function (res) {

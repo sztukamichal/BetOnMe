@@ -1,15 +1,27 @@
 <div layout-fill flex layout-padding layout-align="center">
-    <div layout="row">
-        <md-button aria-label="Choose leagues" class="md-icon-button md-raised"
-                   ng-click="showChooseLeaguesDialog($event)" style="background-color: #82a43a">
-            <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
-        </md-button>
-        <md-input-container>
-            <label>Number of days</label>
-            <input ng-model="days" type="number" step="1">
-        </md-input-container>
+    <div style="border-style: double; background-color: rgba(255,255,255,0.3)">
+        <h3 style="text-align: center">Create new bet</h3>
+        <div style="text-align: center">Search for matches in the nearest future.</div>
+        <div layout="row" layout-fill layout-padding layout-align="center center" >
+            <md-button aria-label="Choose league" ng-click="showChooseLeaguesDialog($event)" flex="5" class="md-icon-button">
+                <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
+            </md-button>
+            <md-input-container flex="80" style="margin-top: 40px">
+                <label>Search by the names</label>
+                <input ng-model="inputTeamName" ng-change="filterFixtures()">
+            </md-input-container>
+            <md-input-container flex="10" style="margin-top: 40px">
+                <label>Number of days</label>
+                <input ng-model="days" type="number" step="1">
+            </md-input-container>
+            <md-button aria-label="Search" flex="5" class="md-icon-button" ng-click="findMatches()">
+                <md-icon md-svg-icon="../assets/icons/search.svg"></md-icon>
+            </md-button>
+        </div>
     </div>
-    <md-card ng-repeat="fixture in fixtures">
+    <br>
+    <br>
+    <md-card ng-repeat="fixture in filteredFixtures">
         <md-card-title>
             <md-card-title-media>
                 <div class="md-media-sm card-media">

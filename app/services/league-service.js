@@ -32,13 +32,13 @@ module.exports = function () {
       return $http.get(Settings.footballQueries.soccerSeasons + id +'/leagueTable', config);
     };
     
-    this.getMatches = function (timeFrame, league) {
+    this.getMatches = function (period, timeFrame, league) {
       if(timeFrame === undefined && league === undefined) {
         return $http.get(Settings.footballQueries.fixtures, config);
       } else if(timeFrame !== undefined && league === undefined) {
-        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + timeFrame, config);
+        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + period + timeFrame, config);
       } else if(timeFrame !== undefined && league !== undefined) {
-        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + timeFrame + '&league=' + league, config);
+        return $http.get(Settings.footballQueries.fixtures + '?timeFrame=' + period  + timeFrame + '&league=' + league, config);
       } else if(timeFrame === undefined && league !== undefined) {
         return $http.get(Settings.footballQueries.fixtures + '?league=' + league, config);
       }

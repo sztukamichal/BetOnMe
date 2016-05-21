@@ -24,8 +24,6 @@ module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDia
       .then(function(user) {
         $scope.currentUser = user;
         $rootScope.$emit('user-update', user);
-      }, function() {
-        console.log('cancel');
       });
   };
 
