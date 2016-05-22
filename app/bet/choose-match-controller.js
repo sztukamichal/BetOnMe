@@ -4,6 +4,7 @@
 module.exports = function ($scope, $mdDialog, LeagueService) {
   $scope.chosenLeagues = [];
   $scope.days = 7;
+  $scope.inputTeamName = '';
   function createPrefixes(chosenLeagues) {
     $scope.leaguePrefixes = '';
     chosenLeagues.forEach(function (league, index) {
@@ -48,7 +49,7 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
   $scope.filterFixtures = function () {
     if($scope.fixtures !== undefined) {
       $scope.filteredFixtures = $scope.fixtures.filter(function (fixture) {
-        var name = fixture.homeTeamName + fixture.awayTeamName;
+        var name = fixture.homeTeamName + ' ' + fixture.awayTeamName;
         var index = name.toLowerCase().search($scope.inputTeamName.toLowerCase());
         return index > -1;
       });
