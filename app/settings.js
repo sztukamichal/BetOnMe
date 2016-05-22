@@ -7,9 +7,10 @@ module.exports = {
     getSession: 'sessions',
     getCurrentUser: 'users',
     createUser: 'users',
-    updateUser: 'users/update/'
+    updateUser: 'users/update/',
+    getSeasonsWithoutFixtures: 'seasons'
   },
-  footballQueries: {
+  externalFootballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons',
     fixtures: 'http://api.football-data.org/v1/fixtures',
     teams: 'http://api.football-data.org/v1/teams'
