@@ -9,7 +9,7 @@
     <md-tabs layout-fill flex md-dynamic-height md-border-bottom>
         <md-tab label="Teams" flex>
             <div flex class="md-padding" layout="row" layout-wrap layout-align="center center">
-                <md-card flex="30" ng-repeat="team in teams">
+                <md-card flex="30" ng-repeat="team in league.teams.teams">
                     <md-card-title>
                         <md-card-title-text>
                             <span class="md-headline">{{team.name}}</span>
@@ -51,9 +51,9 @@
                 </md-card>
             </div>
         </md-tab>
-        <md-tab flex label="League Table" ng-click="loadLeagueTable()">
+        <md-tab flex label="League Table">
             <div flex class="second-box md-padding">
-                <table flex layout-fill st-table="leagueTable" class="table table-striped">
+                <table flex layout-fill st-table="league.leagueTable.standing" class="table table-striped">
                     <thead>
                     <tr style="text-align: left">
                         <th>Pos.</th>
@@ -69,7 +69,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="team in leagueTable">
+                    <tr ng-repeat="team in league.leagueTable.standing">
                         <td>{{team.position}}.</td>
                         <td><img ng-src="{{team.crestURI}}" style="height: auto; width: 20px">{{'       '+team.teamName}}</td>
                         <td>{{team.playedGames}}</td>

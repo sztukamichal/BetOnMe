@@ -8,7 +8,8 @@ module.exports = {
     getCurrentUser: 'users',
     createUser: 'users',
     updateUser: 'users/update/',
-    getSeasonsWithoutFixtures: 'seasons'
+    getSeasonsWithoutFixtures: 'seasons',
+    getSeasonFixtures: 'seasons/fixtures'
   },
   externalFootballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons',
