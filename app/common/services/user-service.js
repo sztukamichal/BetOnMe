@@ -4,7 +4,7 @@ module.exports = function () {
 
   this.$get = /*@ngInject*/  function ($http, $state, $rootScope, localStorageService) {
 
-    var Settings = require('../settings');
+    var Settings = require('../../settings');
     var token;
     var those = this;
     var User;
@@ -69,7 +69,7 @@ module.exports = function () {
       $state.go('login');
     };
 
-    this.isUSerLogged = function () {
+    this.isUserLogged = function () {
       return token !== undefined;
     };
 
@@ -90,7 +90,7 @@ module.exports = function () {
       logout: this.logout,
       getCurrentUser: this.getCurrentUser,
       getToken: this.getToken,
-      isUserLogged: this.isUSerLogged,
+      isUserLogged: this.isUserLogged,
       createUser: this.createUser,
       updateUser: this.updateUser
     };

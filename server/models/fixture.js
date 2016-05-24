@@ -25,7 +25,11 @@ var FixtureSchema = db.Schema({
     awayTeamName: String,
     result: {
       goalsHomeTeam: Number,
-      goalsAwayTeam: Number
+      goalsAwayTeam: Number,
+      halfTime: {
+        goalsHomeTeam: Number,
+        goalsAwayTeam: Number
+      }
     }
   },
   head2head: {
@@ -57,7 +61,11 @@ var FixtureSchema = db.Schema({
       awayTeamName: String,
       result: {
         goalsHomeTeam: Number,
-        goalsAwayTeam: Number
+        goalsAwayTeam: Number,
+        halfTime: {
+          goalsHomeTeam: Number,
+          goalsAwayTeam: Number
+        }
       }
     },
     lastWinHomeTeam: {
@@ -82,7 +90,11 @@ var FixtureSchema = db.Schema({
       awayTeamName: String,
       result: {
         goalsHomeTeam: Number,
-        goalsAwayTeam: Number
+        goalsAwayTeam: Number,
+        halfTime: {
+          goalsHomeTeam: Number,
+          goalsAwayTeam: Number
+        }
       }
     },
     lastAwayWinAwayTeam: {
@@ -107,7 +119,11 @@ var FixtureSchema = db.Schema({
       awayTeamName: String,
       result: {
         goalsHomeTeam: Number,
-        goalsAwayTeam: Number
+        goalsAwayTeam: Number,
+        halfTime: {
+          goalsHomeTeam: Number,
+          goalsAwayTeam: Number
+        }
       }
     },
     lastWinAwayTeam: {
@@ -132,7 +148,11 @@ var FixtureSchema = db.Schema({
       awayTeamName: String,
       result: {
         goalsHomeTeam: Number,
-        goalsAwayTeam: Number
+        goalsAwayTeam: Number,
+        halfTime: {
+          goalsHomeTeam: Number,
+          goalsAwayTeam: Number
+        }
       }
     },
     fixtures: [
@@ -158,7 +178,11 @@ var FixtureSchema = db.Schema({
         awayTeamName: String,
         result: {
           goalsHomeTeam: Number,
-          goalsAwayTeam: Number
+          goalsAwayTeam: Number,
+          halfTime: {
+            goalsHomeTeam: Number,
+            goalsAwayTeam: Number
+          }
         }
       }
     ]

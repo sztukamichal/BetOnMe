@@ -1,6 +1,6 @@
 'use strict';
 
-var services = angular.module('directives', [])
+var directives = angular.module('directives', [])
 
   .directive('myEnter', function () {
     return function (scope, element, attrs) {
@@ -16,4 +16,4 @@ var services = angular.module('directives', [])
     };
   });
 
-module.exports = services;
+module.exports = directives;

@@ -33,9 +33,7 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $mdSidenav, UserServ
     $mdSidenav(id).toggle();
   };
 
-  $rootScope.$on('login-success', function(event, data) {
-    init();
-  });
+  $rootScope.$on('login-success', init);
 
   $rootScope.$on('user-update', function(event, user) {
     $scope.currentUser = user;

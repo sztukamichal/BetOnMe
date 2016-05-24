@@ -1,52 +1,63 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function() {
 
-  this.$get = /*@ngInject*/  function ($q, $http, UserService) {
+  this.$get = /*@ngInject*/  function($q, $http, $rootScope, UserService) {
 
-    var Settings = require('../settings');
-    var externalConfig = {headers: {"X-Auth-Token": Settings.footballApiToken}};
-    var config = {headers: {"X-Auth": UserService.getToken()}};
+    var Settings = require('../../settings');
     var seasonsDeferred = $q.defer();
+    var externalConfig;
+    var config;
     var those = this;
+
+    function init() {
+      externalConfig = {headers: {"X-Auth-Token": Settings.footballApiToken}};
+      config = {headers: {"X-Auth": UserService.getToken()}};
+      $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonsWithoutFixtures, config).then(function(res) {
+        var seasons = res.data;
+        seasonsDeferred.resolve(seasons);
+      });
+    }
+
+    if(UserService.isUserLogged()) {
+      init();
+    }
+
+    $rootScope.$on('login-success', init);
 
     function findSeason(id) {
       var seasons = [];
       var result = $q.defer();
-      those.getSeasons().then(function (data) {
+      those.getSeasons().then(function(data) {
         seasons = data;
-        result.resolve(seasons.find(function (season) {
+        result.resolve(seasons.find(function(season) {
           return season.id == id;
         }));
       });
       return result.promise;
     }
 
-    this.getSeasons = function () {
+    this.getSeasons = function() {
       return seasonsDeferred.promise;
     };
 
-    $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonsWithoutFixtures, config).then(function (res) {
-      var seasons = res.data;
-      seasonsDeferred.resolve(seasons);
-    });
 
-    this.getLeague = function (id) {
+    this.getLeague = function(id) {
       return findSeason(id);
     };
 
-    this.getLeagueTeams = function (id) {
+    this.getLeagueTeams = function(id) {
       return $http.get(Settings.externalFootballQueries.soccerSeasons + '/' + id + '/teams', externalConfig);
     };
 
-    this.getLeagueFixtures = function (id) {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + '/' + id , config);
+    this.getLeagueFixtures = function(id) {
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + '/' + id, config);
     };
 
-    this.getLeagueTable = function (id) {
+    this.getLeagueTable = function(id) {
       var leagueTable = $q.defer();
-      findSeason(id).then(function (season) {
-        if(season !== undefined) {
+      findSeason(id).then(function(season) {
+        if (season !== undefined) {
           leagueTable.resolve(season.leagueTable);
         } else {
           console.log('league not found');
@@ -55,7 +66,7 @@ module.exports = function () {
       return leagueTable.promise;
     };
 
-    this.getMatches = function (period, timeFrame, league) {
+    this.getMatches = function(period, timeFrame, league) {
       if (timeFrame === undefined && league === undefined) {
         return $http.get(Settings.externalFootballQueries.fixtures, externalConfig);
       } else if (timeFrame !== undefined && league === undefined) {
