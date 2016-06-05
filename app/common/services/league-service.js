@@ -47,11 +47,19 @@ module.exports = function() {
     };
 
     this.getLeagueTeams = function(id) {
-      return $http.get(Settings.externalFootballQueries.soccerSeasons + '/' + id + '/teams', externalConfig);
+      return $http.get(Settings.externalFootballQueries.soccerSeasons + id + '/teams', externalConfig);
     };
 
-    this.getLeagueFixtures = function(id) {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + '/' + id, config);
+    this.getFixtures = function (timeFrame) {
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures + '?timeFrame=' + timeFrame, config);
+    };
+
+    this.getLeagueFixtures = function(id, timeFrame) {
+      if(timeFrame === undefined) {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + id , config);
+      } else {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + id + '?timeFrame=' + timeFrame, config);
+      }
     };
 
     this.getLeagueTable = function(id) {

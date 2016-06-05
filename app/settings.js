@@ -4,12 +4,13 @@ module.exports = {
 
   apiBaseUrl: 'http://localhost:3000/api/',
   apiQueries: {
-    getSession: 'sessions',
-    getCurrentUser: 'users',
-    createUser: 'users',
+    getSession: 'sessions/',
+    getCurrentUser: 'users/',
+    createUser: 'users/',
     updateUser: 'users/update/',
-    getSeasonsWithoutFixtures: 'seasons',
-    getSeasonFixtures: 'seasons/fixtures',
+    getSeasonsWithoutFixtures: 'seasons/',
+    getSeasonFixtures: 'seasons/fixtures/',
+    getFixtures: 'seasons/fixtures',
     getTeam: 'teams/'
   },
   externalFootballQueries: {

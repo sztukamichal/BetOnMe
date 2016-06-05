@@ -22,7 +22,7 @@ router.get('/', function (req, res) {
 router.get('/fixtures', function (req, res) {
   if(req.auth && req.auth.username) {
     if(req.query.timeFrame !== undefined) {
-      SoccerSeason.getFixturesByDate(undefined, req.query.timeFrame, function (err, result) {
+      SoccerSeason.getFixturesByDate(undefined, req.query.timeFrame, req.query.leagueCodes, function (err, result) {
         if (err) {
           res.sendStatus(500);
           return;

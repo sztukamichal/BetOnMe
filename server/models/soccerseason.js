@@ -163,7 +163,7 @@ SoccerSeasonSchema.statics.findAllSeasonsWithoutFixtures = function (callback) {
   this.find({}, {"fixtures": 0}, callback);
 };
 
-SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, callback) {
+SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCodes, callback) {
   function getDateRange(timeFrame) {
     var from = new Date(),
       to = new Date(),
@@ -187,6 +187,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, callback
   var __ret = getDateRange(timeFrame);
   var from = __ret.from;
   var to = __ret.to;
+  leagueCodes = leagueCodes === undefined ? 'BL1,BL2,FL1,FL2,PL,PD,SD,SA,PPL,BL3,DED,CL,EL1,EC'.split(',') : leagueCodes.split(',');
   var pipelinesWithId = [
     {$match : {id: id}},
     {$unwind: "$fixtures.fixtures"},
@@ -203,6 +204,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, callback
     }
   ];
   var pipelinesWithoutId = [
+    {$match: {league: {$in: leagueCodes}}},
     {$unwind: "$fixtures.fixtures"},
     {
       $match: {
