@@ -189,6 +189,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
   var __ret = getDateRange(timeFrame);
   var from = __ret.from;
   var to = __ret.to;
+  id = parseInt(id);
   var pipelinesWithId = [
     {$match: {id: id}},
     {$unwind: "$fixtures.fixtures"},
@@ -198,9 +199,8 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
       }
     },
     {
-      $group: {
-        _id: {id: "$id", caption: "$caption"},
-        fixtures: {$push: "$fixtures.fixtures"}
+      $project: {
+        leagueId: "$id", caption: "$caption", fixture: '$fixtures.fixtures', _id: 0
       }
     }
   ];

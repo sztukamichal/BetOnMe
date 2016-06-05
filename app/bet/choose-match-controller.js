@@ -43,8 +43,8 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
   $scope.findMatches = function() {
     LeagueService.getFixtures('n', $scope.days, $scope.leaguePrefixes).then(function (res) {
       console.log(res);
-      //$scope.fixtures = res.data.fixtures;
-      //$scope.filterFixtures();
+      $scope.fixtures = res.data;
+      $scope.filterFixtures();
     });
   };
   $scope.filterFixtures = function () {
