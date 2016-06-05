@@ -184,12 +184,13 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
     return {from: from, to: to};
   }
 
+  timeFrame = timeFrame === undefined ? 'n7' : timeFrame;
+  leagueCodes = leagueCodes === undefined ? 'BL1,BL2,FL1,FL2,PL,PD,SD,SA,PPL,BL3,DED,CL,EL1,EC'.split(',') : leagueCodes.split(',');
   var __ret = getDateRange(timeFrame);
   var from = __ret.from;
   var to = __ret.to;
-  leagueCodes = leagueCodes === undefined ? 'BL1,BL2,FL1,FL2,PL,PD,SD,SA,PPL,BL3,DED,CL,EL1,EC'.split(',') : leagueCodes.split(',');
   var pipelinesWithId = [
-    {$match : {id: id}},
+    {$match: {id: id}},
     {$unwind: "$fixtures.fixtures"},
     {
       $match: {
@@ -212,13 +213,12 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
       }
     },
     {
-      $group: {
-        _id: {id: "$id", caption: "$caption"},
-        fixtures: {$push: "$fixtures.fixtures"}
+      $project: {
+        leagueId: "$id", caption: "$caption", fixture: '$fixtures.fixtures', _id: 0
       }
     }
   ];
-  if(id !== undefined) {
+  if (id !== undefined) {
     this.aggregate(pipelinesWithId).exec(callback);
   } else {
     this.aggregate(pipelinesWithoutId).exec(callback);

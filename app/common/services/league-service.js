@@ -50,8 +50,16 @@ module.exports = function() {
       return $http.get(Settings.externalFootballQueries.soccerSeasons + id + '/teams', externalConfig);
     };
 
-    this.getFixtures = function (timeFrame) {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures + '?timeFrame=' + timeFrame, config);
+    this.getFixtures = function(period, timeFrame, league) {
+      if (timeFrame === undefined && league === undefined) {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures, config);
+      } else if (timeFrame !== undefined && league === undefined) {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures + '?timeFrame=' + period + timeFrame, config);
+      } else if (timeFrame !== undefined && league !== undefined) {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures + '?timeFrame=' + period + timeFrame + '&leagueCodes=' + league, config);
+      } else if (timeFrame === undefined && league !== undefined) {
+        return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtures + '?leagueCodes=' + league, config);
+      }
     };
 
     this.getLeagueFixtures = function(id, timeFrame) {
@@ -93,7 +101,8 @@ module.exports = function() {
       getLeagueFixtures: this.getLeagueFixtures,
       getLeagueTable: this.getLeagueTable,
       getSeasons: this.getSeasons,
-      getMatches: this.getMatches
+      getMatches: this.getMatches,
+      getFixtures: this.getFixtures
     };
   };
 };
