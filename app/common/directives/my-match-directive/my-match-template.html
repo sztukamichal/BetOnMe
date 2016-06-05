@@ -2,17 +2,22 @@
     <md-card-title ng-if="loaded">
         <md-card-title-media>
             <div class="md-media-sm card-media">
-                <img ng-src="{{homeTeam.crestUrl | crestUrlChange}}" style="width: 80%; height: 80%">
+                <div style="width: 80%; height: 80%">
+                    <img ng-src="{{homeTeam.crestUrl | crestUrlChange}}" style="border-style:solid; border-width: 1px; ">
+                </div>
             </div>
         </md-card-title-media>
         <md-card-title-text>
-            <span class="md-headline" style="text-align: center">{{fixture.homeTeamName}} vs {{fixture.awayTeamName}}</span>
+            <span class="md-headline" style="text-align: center">{{fixture.match.homeTeamName}} vs {{fixture.match.awayTeamName}}</span>
             <span class="md-headline" style="text-align: center" ng-if="type !== 'bet'">{{fixture.result.goalsHomeTeam}} : {{fixture.result.goalsAwayTeam}}</span>
-            <span class="md-subhead" style="text-align: center">{{fixture.date}}</span>
+            <span class="md-subhead" style="text-align: center">{{fixture.caption}}</span>
+            <span class="md-subhead" style="text-align: center">{{fixture.match.date | date:'dd.MM.yyyy HH:mm'}}</span>
         </md-card-title-text>
         <md-card-title-media>
             <div class="md-media-sm card-media">
-                <img ng-src="{{awayTeam.crestUrl | crestUrlChange}}" style="width: 80%; height: 80%">
+                <div style="width: 80%; height: 80%">
+                    <img ng-src="{{awayTeam.crestUrl | crestUrlChange}}" style="border-style:solid; border-width: 1px; ">
+                </div>
             </div>
         </md-card-title-media>
     </md-card-title>

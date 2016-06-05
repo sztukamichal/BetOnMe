@@ -7,6 +7,7 @@
             <h2 style="font-family: 'Dancing Script', cursive; font-size: 150%">Hello, {{name}}!</h2>
         </div>
         <div ng-if="isUserLogged" flex="20" class="md-toolbar-tools" layout-align="end center">
+            <md-button md-theme="dark-purple" ui-sref="add-bet.chooseMatch" class="md-raised">Create bet</md-button>
             <md-menu>
                 <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>

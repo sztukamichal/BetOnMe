@@ -1,4 +1,4 @@
-<div layout-fill flex layout-padding layout-align="center">
+<div layout-fill flex layout-padding layout-align="center" style="margin-bottom: 40px">
     <div style="border-style: double; background-color: rgba(255,255,255,0.3)">
         <h3 style="text-align: center">Create new bet</h3>
         <div style="text-align: center">Search for matches in the nearest future.</div>
@@ -20,6 +20,6 @@
         </div>
     </div>
     <br>
-    <br>
    <my-match ng-repeat="fixture in filteredFixtures" fixture="fixture" type="'bet'"></my-match>
+    <md-button ng-if="filteredFixtures.length > 0" md-theme="dark-orange" class="pull-right md-block md-raised" ui-sref=".chooseMatch">Next!</md-button>
 </div>

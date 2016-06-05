@@ -10,6 +10,7 @@ var bet = angular.module('bet', [])
       .state('add-bet', {
         url: '/add/bet',
         templateUrl: 'bet/add-bet.html',
+        abstract: true,
         controller: 'AddBetController'
       })
       .state('add-bet.chooseMatch', {

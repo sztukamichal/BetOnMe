@@ -170,8 +170,6 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
       prefix = timeFrame.slice(0, 1),
       timeFrame = timeFrame.slice(1, timeFrame.length),
       days = parseInt(timeFrame);
-    from.setHours(from.getHours() + 2);
-    to.setHours(to.getHours() + 2);
     days = prefix === 'n' ? days : -days;
     to.setDate(to.getDate() + days);
     if (from > to) {
@@ -189,7 +187,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
   var __ret = getDateRange(timeFrame);
   var from = __ret.from;
   var to = __ret.to;
-  id = parseInt(id);
+  id = id !== undefined? parseInt(id): undefined;
   var pipelinesWithId = [
     {$match: {id: id}},
     {$unwind: "$fixtures.fixtures"},
@@ -200,7 +198,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
     },
     {
       $project: {
-        leagueId: "$id", caption: "$caption", fixture: '$fixtures.fixtures', _id: 0
+        leagueId: "$id", caption: "$caption", match: '$fixtures.fixtures', _id: 0
       }
     }
   ];
@@ -214,7 +212,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
     },
     {
       $project: {
-        leagueId: "$id", caption: "$caption", fixture: '$fixtures.fixtures', _id: 0
+        leagueId: "$id", caption: "$caption", match: '$fixtures.fixtures', _id: 0
       }
     }
   ];

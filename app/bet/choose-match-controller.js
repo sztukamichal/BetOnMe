@@ -50,7 +50,7 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
   $scope.filterFixtures = function () {
     if($scope.fixtures !== undefined) {
       $scope.filteredFixtures = $scope.fixtures.filter(function (fixture) {
-        var name = fixture.homeTeamName + ' ' + fixture.awayTeamName;
+        var name = fixture.match.homeTeamName + ' ' + fixture.match.awayTeamName;
         var index = name.toLowerCase().search($scope.inputTeamName.toLowerCase());
         return index > -1;
       });
