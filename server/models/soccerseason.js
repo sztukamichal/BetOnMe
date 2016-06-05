@@ -90,7 +90,19 @@ var SoccerSeasonSchema = db.Schema({
         awayTeamName: String,
         result: {
           goalsHomeTeam: Number,
-          goalsAwayTeam: Number
+          goalsAwayTeam: Number,
+          halfTime: {
+            goalsHomeTeam: Number,
+            goalsAwayTeam: Number
+          },
+          extraTime: {
+            goalsHomeTeam: Number,
+            goalsAwayTeam: Number
+          },
+          penaltyShootout: {
+            goalsHomeTeam: Number,
+            goalsAwayTeam: Number
+          }
         }
       }
     ]
@@ -144,12 +156,46 @@ var SoccerSeasonSchema = db.Schema({
 });
 
 SoccerSeasonSchema.statics.findAllTeams = function (callback) {
-  this.find({"league": "EC"}, {"teams.teams._links.self.href":1, "_id":0}, callback);
+  this.find({"league": "EC"}, {"teams.teams._links.self.href": 1, "_id": 0}, callback);
 };
 
 SoccerSeasonSchema.statics.findAllSeasonsWithoutFixtures = function (callback) {
-  this.find({}, {"fixtures":0}, callback);
+  this.find({}, {"fixtures": 0}, callback);
 };
+
+SoccerSeasonSchema.statics.getFixturesByDate = function (timeFrame, callback) {
+  var from = new Date(),
+    to = new Date(),
+    prefix = timeFrame.slice(0,1),
+    timeFrame = timeFrame.slice(1,timeFrame.length),
+    days = parseInt(timeFrame);
+  from.setHours(from.getHours() + 2);
+  to.setHours(to.getHours() + 2);
+  days = prefix === 'n' ? days : -days;
+  to.setDate(to.getDate() + days);
+  if(from > to) {
+    var tmp = from;
+    from = to;
+    to = tmp;
+  }
+  from = from.toISOString();
+  to = to.toISOString();
+    this.aggregate([
+      {$unwind: "$fixtures.fixtures"},
+      {
+        $match: {
+          'fixtures.fixtures.date': {$gte: new Date(from), $lte: new Date(to)}
+        }
+      },
+      {
+        $group: {
+          _id: {id: "$id", caption: "$caption"},
+          fixtures: {$push: "$fixtures.fixtures"}
+        }
+      }
+    ]).exec(callback);
+};
+
 
 var SoccerSeason = db.model('SoccerSeason', SoccerSeasonSchema);
 
