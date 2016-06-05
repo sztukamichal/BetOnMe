@@ -14,6 +14,18 @@ var directives = angular.module('directives', [])
         }
       });
     };
-  });
+  })
+  .directive('myMatch', function () {
+    return {
+      restrict: 'E',
+      scope: {
+        fixture: '=fixture',
+        type: '=type'
+      },
+      templateUrl: './common/directives/my-match-directive/my-match-template.html',
+      controller: require('./my-match-directive/my-match-controller.js')
+    };
+  })
+  ;
 
 module.exports = directives;

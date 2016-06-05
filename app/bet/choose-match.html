@@ -21,23 +21,5 @@
     </div>
     <br>
     <br>
-    <md-card ng-repeat="fixture in filteredFixtures">
-        <md-card-title>
-            <md-card-title-media>
-                <div class="md-media-sm card-media">
-                    <img ng-src="{{getCrestUrl(fixture.homeTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
-                </div>
-            </md-card-title-media>
-            <md-card-title-text>
-                <span class="md-headline" style="text-align: center">{{fixture.homeTeamName}} vs {{fixture.awayTeamName}}</span>
-                <span class="md-headline" style="text-align: center">{{fixture.result.goalsHomeTeam}} : {{fixture.result.goalsAwayTeam}}</span>
-                <span class="md-subhead" style="text-align: center">{{fixture.date}}</span>
-            </md-card-title-text>
-            <md-card-title-media>
-                <div class="md-media-sm card-media">
-                    <img ng-src="{{getCrestUrl(fixture.awayTeamName)| crestUrlChange}}" style="width: 80%; height: 80%">
-                </div>
-            </md-card-title-media>
-        </md-card-title>
-    </md-card>
+   <my-match ng-repeat="fixture in filteredFixtures" fixture="fixture" type="'bet'"></my-match>
 </div>

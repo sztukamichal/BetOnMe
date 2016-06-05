@@ -3,7 +3,6 @@
 var request = require('request');
 var config = require('./../config');
 var Season = require('./../models/soccerseason');
-var Team = require('./../models/team');
 var headers = {"X-Auth-Token": config.footballApiToken};
 var Q = require('q');
 

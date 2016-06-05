@@ -8,7 +8,7 @@
     "gulp-war": "^0.1.4",
     "gulp-zip": "^3.2.0",
     "mongoose": "^4.4.16",
-    "nodemon": "^1.9.2",
+    "nodemon": "1.7.3",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {

@@ -9,7 +9,8 @@ module.exports = {
     createUser: 'users',
     updateUser: 'users/update/',
     getSeasonsWithoutFixtures: 'seasons',
-    getSeasonFixtures: 'seasons/fixtures'
+    getSeasonFixtures: 'seasons/fixtures',
+    getTeam: 'teams/'
   },
   externalFootballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons',
