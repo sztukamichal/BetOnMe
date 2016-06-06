@@ -1,6 +1,7 @@
 .tall {
-    height: 100%;   
+    height: 100%;
 }
+
 .menuBtn {
     background-color: transparent;
     border: none;
@@ -8,6 +9,7 @@
     width: 50px;
     background: url("../assets/icons/menu-button.png") no-repeat center center;
 }
+
 .toolbar {
     background-color: #964c47;
     color: black;
@@ -40,18 +42,23 @@ body {
     background-color: rgba(254, 253, 255, 0.5)
 }
 
-.carousel-indicators li { visibility: hidden; }
+.carousel-indicators li {
+    visibility: hidden;
+}
 
 .onlogin {
-    background-image: url('../assets/img/background_logging_blur.jpg'); background-size: cover; height: 95%
+    background-image: url('../assets/img/background_logging_blur.jpg');
+    background-size: cover;
+    height: 95%
 }
 
 .default {
-    background-image: url('../assets/img/background_brighter.jpg'); background-size: cover; height: 95%
+    background-image: url('../assets/img/background_brighter.jpg');
+    background-size: cover;
+    height: 95%
 }
 
-#hideAll
-{
+#hideAll {
     position: fixed;
     left: 0px;
     right: 0px;
@@ -60,4 +67,78 @@ body {
     background-color: white;
     z-index: 99; /* Higher than anything else in the document */
 
+}
+
+.bubble {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    vertical-align: top;
+}
+
+.bubble::before {
+    background-color: #F2F2F2;
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    position: absolute;
+    bottom: 11px;
+    transform: rotate(29deg) skew(-35deg);
+    -moz-transform: rotate(29deg) skew(-35deg);
+    -ms-transform: rotate(29deg) skew(-35deg);
+    -o-transform: rotate(29deg) skew(-35deg);
+    -webkit-transform: rotate(29deg) skew(-35deg);
+    width: 20px;
+}
+
+.me {
+    margin: 5px 45px 5px 20px;
+}
+
+.me::before {
+    box-shadow: -2px 2px 2px 0 rgba(178, 178, 178, .4);
+    left: -9px;
+}
+
+.you {
+    float: right;
+    margin: 5px 20px 5px 45px;
+}
+
+.you::before {
+    box-shadow: 2px -2px 2px 0 rgba(178, 178, 178, .4);
+    right: -9px;
+}
+
+.options {
+    border-style: dashed;
+    border-width: 1px;
+    border-radius: 20px;
+    padding: 1%;
+    background-color: rgba(255, 255, 255, 0.7)
+}
+
+.fade {
+    opacity: 1;
+    transition: 1s linear all;
+    -webkit-transition: 1s linear all;
+}
+
+.fade.ng-enter {
+    opacity: 0;
+}
+
+.fade.ng-enter.ng-enter-active {
+    opacity: 0.8;
+}
+
+.fade.ng-leave {
+    opacity: 0.8;
+}
+
+.fade.ng-leave.ng-leave-active {
+    opacity: 0.2;
 }

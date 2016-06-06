@@ -63,4 +63,5 @@ angular.module('betOnMe', [
     $mdThemingProvider.theme('warn').accentPalette('orange').dark().primaryPalette('pink');
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+    $mdThemingProvider.theme('switches').accentPalette('green').dark().backgroundPalette('deep-orange').primaryPalette('pink');
   });

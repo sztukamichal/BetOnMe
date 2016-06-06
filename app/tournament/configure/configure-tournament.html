@@ -1,24 +1,92 @@
 <div layout-padding>
-    <form name="tournamentForm" class="md-block" flex-gt-sm style="padding: 10%">
-        <h2 style="text-align: center">Fill the following information to create new tournament</h2>
-        <div class="box" style="padding: 5%">
+    <div style="border-style: double; background-color: rgba(255,255,255,0.2)">
+        <h3 style="text-align: center">Create new tournament</h3>
+
+        <form name="tournamentForm" class="md-block" flex-gt-sm style="padding: 40px">
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Name</label>
                 <input required name="tournamentName" ng-model="tournament.name">
+
                 <div ng-messages="tournamentForm.tournamentName.$error">
-                    <div ng-message="required">This is required.</div>
+                    <div ng-message="required">Name is required.</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
-                <label>Description</label>
-                <textarea required name="description" ng-model="tournament.description" md-maxlength="100" rows="5" md-select-on-focus></textarea>
+                <label>General information</label>
+                <textarea required name="description" ng-model="tournament.description" md-maxlength="500" rows="5"
+                          md-select-on-focus></textarea>
+
                 <div ng-messages="tournamentForm.description.$error">
                     <div ng-message="required">This is required.</div>
-                    <div ng-message="md-maxlength">Description has to be less than 100 characters long.</div>
+                    <div ng-message="md-maxlength">Description has to be less than 500 characters long.</div>
                 </div>
             </md-input-container>
-            <md-contact-chips ng-model="contacts" md-contacts="querySearch($query)" md-contact-name="name" md-contact-image="image" md-contact-email="email" md-require-match="true" md-highlight-flags="i" filter-selected="filterSelected" placeholder="Start typing...">
-            </md-contact-chips>
-        </div>
-    </form>
+            <div layout=row>
+                <md-input-container>
+                    <h4 style="font-weight: bold">Tournament type </h4>
+                    <select>
+                        <option value="volvo">Custom</option>
+                        <option value="saab">Euro 2016</option>
+                    </select>
+                </md-input-container>
+                <div flex class="bubble me" style="margin-left: 40px">Description</div>
+            </div>
+            <br>
+
+            <div layout-gt-sm="row" layout="column" layout-align="space-around" class="options md-block md-padding">
+                <div>
+                    <h4 style="font-weight: bold">Type of bets</h4>
+
+                    <div style="margin-left: 20px;">
+                        <div layout="row">
+                            <md-switch ng-model="winner.enabled" md-theme="switches" flex="50" style="min-width: 150px">
+                                Winner / draw
+                            </md-switch>
+                            <md-input-container class="fade" ng-if="winner.enabled" style="font-size: 16px;" flex>
+                                <label>Possible points</label>
+                                <input ng-model="winner.points" type="number" step="1">
+                            </md-input-container>
+                        </div>
+                        <div layout="row">
+                            <md-switch ng-model="exactScore.enabled" md-theme="switches" flex="50" style="min-width: 150px">
+                                Exact score
+                            </md-switch>
+                            <md-input-container class="fade" ng-if="exactScore.enabled" style="font-size: 16px;" flex>
+                                <label>Possible points</label>
+                                <input ng-model="exactScore.points" type="number" step="1">
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-weight: bold">General settings</h4>
+
+                    <div style="margin-left: 20px;">
+                        <md-switch ng-model="settings.private" md-theme="switches">
+                            Private tournament
+                        </md-switch>
+                        <md-switch ng-model="settings.invitePrivilege" md-theme="switches">
+                            Participants can invite other users
+                        </md-switch>
+                        <md-switch ng-model="settings.majorityToKick" md-theme="switches">
+                            Required majority to delete participant
+                        </md-switch>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-weight: bold">Allow adding matches during tournament</h4>
+
+                    <div style="margin-left: 20px;">
+                        <md-radio-group ng-model="settings.addMatchPrivilege" md-theme="switches">
+                            <md-radio-button value="true">Enable</md-radio-button>
+                            <md-radio-button value="false"> Disable</md-radio-button>
+                            <md-radio-button value="vote">Voting</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <md-button md-theme="dark-orange" class="pull-right md-block md-raised" ui-sref="add-tournament.chooseMatch">Next!
+    </md-button>
 </div>
