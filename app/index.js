@@ -25,7 +25,6 @@ angular.module('betOnMe', [
   require('./profile').name,
   require('./header').name,
   require('./tournament').name,
-  require('./bet').name,
   require('./login').name,
   require('./league').name,
   require('./common/services').name,

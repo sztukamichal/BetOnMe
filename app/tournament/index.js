@@ -1,14 +1,24 @@
 'use strict';
 
-var tournament = angular.module('tournament', [])
-  .controller('AddingTournamentController', require('./adding-tournament-controller.js'))
-  .config(/*@ngInject*/ function($stateProvider) {
+var bet = angular.module('bet', [])
+
+  .controller('AddBetController', require('./add-bet-controller.js'))
+  .controller('ChooseMatchController', require('./choose-match-controller.js'))
+  
+  .config(/*@ngInject*/ function ($stateProvider) {
     $stateProvider
-      .state('tournament', {
+      .state('add-tournament', {
         url: '/add/tournament',
-        templateUrl: 'tournament/adding-tournament.html',
-        controller: 'AddingTournamentController'
-      });
+        templateUrl: './tournament/add-bet.html',
+        abstract: true,
+        controller: 'AddBetController'
+      })
+      .state('add-tournament.chooseMatch', {
+        url: '/chooseMatch',
+        templateUrl: './tournament/choose-match.html',
+        controller: 'ChooseMatchController'
+      })
+    ;
   });
 
-module.exports = tournament;
+module.exports = bet;

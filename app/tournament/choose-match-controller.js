@@ -27,7 +27,7 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
     $mdDialog.show({
         parent: angular.element(document.querySelector('#mainBody')),
         targetEvent: $event,
-        templateUrl: './bet/choose-leagues.html',
+        templateUrl: '/choose-leagues.html',
         locals: {
           chosenLeagues: $scope.chosenLeagues
         },
@@ -42,7 +42,6 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
   };
   $scope.findMatches = function() {
     LeagueService.getFixtures('n', $scope.days, $scope.leaguePrefixes).then(function (res) {
-      console.log(res);
       $scope.fixtures = res.data;
       $scope.filterFixtures();
     });
