@@ -24,15 +24,14 @@
             <div layout=row>
                 <md-input-container>
                     <h4 style="font-weight: bold">Tournament type </h4>
-                    <select>
-                        <option value="volvo">Custom</option>
-                        <option value="saab">Euro 2016</option>
+                    <select ng-model="template">
+                        <option value="custom">Custom</option>
+                        <option value="euro2016">Euro 2016</option>
                     </select>
                 </md-input-container>
-                <div flex class="bubble me" style="margin-left: 40px">Description</div>
+                <div flex class="bubble me" style="margin-left: 40px">{{descriptions[template]}}</div>
             </div>
             <br>
-
             <div layout-gt-sm="row" layout="column" layout-align="space-around" class="options md-block md-padding">
                 <div>
                     <h4 style="font-weight: bold">Type of bets</h4>
@@ -87,6 +86,6 @@
             </div>
         </form>
     </div>
-    <md-button md-theme="dark-orange" class="pull-right md-block md-raised" ui-sref="add-tournament.chooseMatch">Next!
+    <md-button md-theme="dark-orange" class="pull-right md-block md-raised" ui-sref="add-tournament.chooseMatch">Continue
     </md-button>
 </div>

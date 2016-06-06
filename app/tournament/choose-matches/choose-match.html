@@ -2,7 +2,7 @@
     <div style="border-style: double; background-color: rgba(255,255,255,0.3)">
         <h3 style="text-align: center">Create new bet</h3>
         <div style="text-align: center">Search for matches in the nearest future.</div>
-        <div layout="row" layout-fill layout-padding layout-align="center center" >
+        <div layout="row" layout-fill layout-padding layout-align="center center">
             <md-button aria-label="Choose league" ng-click="showChooseLeaguesDialog($event)" flex="5" class="md-icon-button">
                 <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
             </md-button>
@@ -21,5 +21,6 @@
     </div>
     <br>
    <my-match ng-repeat="fixture in filteredFixtures" fixture="fixture" type="'bet'"></my-match>
-    <md-button ng-if="filteredFixtures.length > 0" md-theme="dark-orange" class="pull-right md-block md-raised" ui-sref=".chooseMatch">Next!</md-button>
+    <md-button ng-if="filteredFixtures.length > 0" md-theme="dark-orange" class="md-raised" ui-sref="add-tournament.configure">Back</md-button>
+    <md-button ng-if="filteredFixtures.length > 0" md-theme="dark-orange" class="pull-right md-raised" ui-sref=".chooseMatch">Continue</md-button>
 </div>
