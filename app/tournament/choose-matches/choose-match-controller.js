@@ -27,7 +27,7 @@ module.exports = function ($scope, $mdDialog, LeagueService) {
     $mdDialog.show({
         parent: angular.element(document.querySelector('#mainBody')),
         targetEvent: $event,
-        templateUrl: '/choose-leagues.html',
+        templateUrl: './tournament/choose-matches/choose-leagues.html',
         locals: {
           chosenLeagues: $scope.chosenLeagues
         },
