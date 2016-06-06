@@ -4,7 +4,8 @@ var bet = angular.module('bet', [])
 
   .controller('AddBetController', require('./add-bet-controller.js'))
   .controller('ChooseMatchController', require('./choose-matches/choose-match-controller.js'))
-  
+  .controller('ConfigureTournamentController', require('./configure/configure-tournament-controller.js'))
+
   .config(/*@ngInject*/ function ($stateProvider) {
     $stateProvider
       .state('add-tournament', {
@@ -15,7 +16,7 @@ var bet = angular.module('bet', [])
       })
       .state('add-tournament.configure', {
         url: '/configure',
-        templateUrl: './tournament/configure-tournament.html',
+        templateUrl: './tournament/configure/configure-tournament.html',
         controller: 'ConfigureTournamentController'
       })
       .state('add-tournament.chooseMatch', {
