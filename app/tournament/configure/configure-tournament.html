@@ -106,15 +106,19 @@
                 <div flex class="bubble me" style="margin-left: 40px">{{descriptions[template]}}</div>
             </div>
             <br>
-            <div layout-gt-sm="row">
-                <div ng-repeat="stage in tournamentTemplate.stages" flex>
+            <div layout-gt-sm="row" layout-align="center center" layout-wrap>
+                <div ng-repeat="stage in tournamentTemplate.stages" style="min-width: 350px">
                     <div class="options" style="margin: 20px; background-color: white">
                         <div layout="row">
                             <h5 style="font-weight: bold">{{stage.stageName}}</h5>
-                            <md-button aria-label="Remove" class="md-icon-button" style="float: right">
+                            <md-button aria-label="Remove" class="md-icon-button" style="margin-left: auto">
                                 <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
                             </md-button>
                         </div>
+                        Extra points: {{stage.extraPoints}}
+                        <p>
+                            Number of matches: {{stage.fixtures.length}}
+                        </p>
                     </div>
                 </div>
                 <md-button aria-label="Add" flex="5" class="md-icon-button" style="margin: 20px;">
