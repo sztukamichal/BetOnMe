@@ -34,19 +34,21 @@
                                 </md-tooltip>
                             </md-switch>
                             <div ng-if="betType.enabled" style="margin-left: 20px;">
-                                <div  layout="column" style="margin-left: 20px; margin-right: 20px;">
+                                <div layout="column" style="margin-left: 20px; margin-right: 20px;">
                                     <div ng-repeat="predict in betType.possibleValues" layout="row">
                                         <h5 style="min-width: 120px">{{predict.name}}</h5>
                                         <md-input-container class="fade" style="font-size: 16px;">
                                             <label>Possible points</label>
                                             <input ng-model="predict.possiblePoints" type="number" step="1">
                                         </md-input-container>
-                                        <md-switch ng-if="predict.typeWinner !== undefined" ng-model="predict.typeWinner.enabled" md-theme="switches">Type winner
+                                        <md-switch ng-if="predict.typeWinner !== undefined"
+                                                   ng-model="predict.typeWinner.enabled" md-theme="switches">Type winner
                                             <md-tooltip md-direction="right" md-theme="tooltip">
                                                 Works only on knockout phase.
                                             </md-tooltip>
                                         </md-switch>
-                                        <md-input-container ng-if="predict.typeWinner.enabled" class="fade" style="font-size: 16px;">
+                                        <md-input-container ng-if="predict.typeWinner.enabled" class="fade"
+                                                            style="font-size: 16px;">
                                             <label>Extra points</label>
                                             <input ng-model="predict.typeWinner.extraPoints" type="number" step="1">
                                         </md-input-container>
@@ -107,21 +109,29 @@
             </div>
             <br>
             <div layout-gt-sm="row" layout-align="center center" layout-wrap>
-                <div ng-repeat="stage in tournamentTemplate.stages" style="min-width: 350px">
-                    <div class="options" style="margin: 20px; background-color: white">
+                <div ng-repeat="stage in tournamentTemplate.stages track by $index" style="min-width: 350px">
+                    <div class="stage-header">
                         <div layout="row">
-                            <h5 style="font-weight: bold">{{stage.stageName}}</h5>
-                            <md-button aria-label="Remove" class="md-icon-button" style="margin-left: auto">
-                                <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
-                            </md-button>
+                            <h4 style="font-weight: bold">{{stage.stageName}}</h4>
+                            <div style="margin-left: auto">
+                                <md-button aria-label="Remove" class="md-icon-button" ng-click="showDialog()">
+                                    <md-icon md-svg-icon="../assets/icons/edit-button.svg"></md-icon>
+                                </md-button>
+                                <md-button aria-label="Remove" class="md-icon-button" ng-click="remove($index)">
+                                    <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
+                                </md-button>
+                            </div>
                         </div>
-                        Extra points: {{stage.extraPoints}}
-                        <p>
-                            Number of matches: {{stage.fixtures.length}}
-                        </p>
+                    </div>
+                    <div class="stage-body" style="text-align: center">
+                        <h4>Extra points: {{stage.extraPoints}}
+                            <p>
+                                Number of matches: {{stage.fixtures.length}}
+                            </p>
+                        </h4>
                     </div>
                 </div>
-                <md-button aria-label="Add" flex="5" class="md-icon-button" style="margin: 20px;">
+                <md-button aria-label="Add" flex="5" class="md-icon-button" style="margin: 20px;" ng-click="addNewStage()">
                     <md-icon md-svg-icon="../assets/icons/add-button.svg"></md-icon>
                 </md-button>
             </div>

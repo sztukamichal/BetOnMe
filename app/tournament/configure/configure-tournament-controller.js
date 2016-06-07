@@ -109,8 +109,36 @@ module.exports = /*@ngInject*/ function($scope, $state, TournamentService) {
     custom: customTemplate
   };
 
+  $scope.tournamentTemplate = {
+    stages:[
+      {
+        stageTemplateId: 'custom',
+        stageName: 'Example',
+        extraPoints: 1,
+        knockoutPhase: false,
+        fixtures: []
+      }
+    ]
+  };
+
   $scope.changeTemplate = function() {
-    $scope.tournamentTemplate = templates[$scope.template];
+    $scope.tournamentTemplate = {};
+    angular.copy(templates[$scope.template], $scope.tournamentTemplate);
+  };
+
+  $scope.remove = function (index) {
+    $scope.tournamentTemplate.stages.splice(index,1);
+  };
+
+  $scope.addNewStage = function () {
+    $scope.tournamentTemplate.stages.push(
+      {
+        stageTemplateId: 'custom',
+        stageName: 'Example' + $scope.tournamentTemplate.stages.length,
+        extraPoints: $scope.tournamentTemplate.stages.length,
+        knockoutPhase: false,
+        fixtures: []
+      });
   };
 
   function getSettings() {
