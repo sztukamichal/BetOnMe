@@ -27,7 +27,7 @@
                     <h4 style="font-weight: bold">Choose type of bets</h4>
                     <div style="margin-left: 20px;">
                         <div ng-repeat="betType in betTypes">
-                            <md-switch ng-model="betType.enabled" md-theme="switches" style="min-width: 150px">
+                            <md-switch ng-model="betType.enabled" md-theme="switches" style="max-width: 150px">
                                 <h5 style="font-weight: bold; ">{{betType.name}}</h5>
                                 <md-tooltip md-direction="right" md-theme="tooltip">
                                     {{betType.description}}
@@ -95,8 +95,34 @@
                 </div>
             </div>
             <br>
+            <div layout=row>
+                <md-input-container>
+                    <h4 style="font-weight: bold">Tournament type </h4>
+                    <select ng-model="template" ng-change="changeTemplate()">
+                        <option value="custom">Custom</option>
+                        <option value="euro2016">Euro 2016</option>
+                    </select>
+                </md-input-container>
+                <div flex class="bubble me" style="margin-left: 40px">{{descriptions[template]}}</div>
+            </div>
+            <br>
+            <div layout-gt-sm="row">
+                <div ng-repeat="stage in tournamentTemplate.stages" flex>
+                    <div class="options" style="margin: 20px; background-color: white">
+                        <div layout="row">
+                            <h5 style="font-weight: bold">{{stage.stageName}}</h5>
+                            <md-button aria-label="Remove" class="md-icon-button" style="float: right">
+                                <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <md-button aria-label="Add" flex="5" class="md-icon-button" style="margin: 20px;">
+                    <md-icon md-svg-icon="../assets/icons/add-button.svg"></md-icon>
+                </md-button>
+            </div>
         </form>
     </div>
-    <md-button md-theme="dark-orange" ng-click="continue()" class="pull-right md-block md-raised">Continue
+    <md-button md-theme="dark-orange" ng-click="continue()" class="pull-right md-raised">Continue
     </md-button>
 </div>

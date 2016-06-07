@@ -39,7 +39,7 @@ var TournamentSchema = db.Schema({
   },
   stages: [
     {
-      stageId: String,
+      stageTemplateId: String,
       stageName: String,
       extraPoints: Number,
       knockoutPhase: Boolean,

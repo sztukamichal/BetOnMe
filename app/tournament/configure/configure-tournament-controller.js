@@ -27,6 +27,92 @@ module.exports = /*@ngInject*/ function($scope, $state, TournamentService) {
     $state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
   };
 
+  var customTemplate = {
+    stages:[
+      {
+        stageTemplateId: 'custom',
+        stageName: 'Example',
+        extraPoints: 1,
+        knockoutPhase: false,
+        fixtures: []
+      }
+    ]
+  };
+
+  var euro2016template = {
+    stages: [
+      {
+        stageTemplateId: 'euro2016groupStage',
+        stageName: 'Euro 2016 - Group stage',
+        extraPoints: 1,
+        knockoutPhase: false,
+        fixtures: [
+          {
+            fixtureId: 23,
+            bets: []
+          }
+        ]
+      },
+      {
+        stageTemplateId: 'euro2016roundOf16',
+        stageName: 'Euro 2016 - 1/8 final',
+        extraPoints: 2,
+        knockoutPhase: true,
+        fixtures: [
+          {
+            fixtureId: 23,
+            bets: []
+          }
+        ]
+      },
+      {
+        stageTemplateId: 'euro2016quarters',
+        stageName: 'Euro 2016 - Quarter final',
+        extraPoints: 3,
+        knockoutPhase: true,
+        fixtures: [
+          {
+            fixtureId: 23,
+            bets: []
+          }
+        ]
+      },
+      {
+        stageTemplateId: 'euro2016semis',
+        stageName: 'Euro 2016 - Semi final',
+        extraPoints: 4,
+        knockoutPhase: true,
+        fixtures: [
+          {
+            fixtureId: 23,
+            bets: []
+          }
+        ]
+      },
+      {
+        stageTemplateId: 'euro2016final',
+        stageName: 'Euro 2016 - Final',
+        extraPoints: 5,
+        knockoutPhase: true,
+        fixtures: [
+          {
+            fixtureId: 23,
+            bets: []
+          }
+        ]
+      }
+    ]
+  };
+
+  var templates = {
+    euro2016: euro2016template,
+    custom: customTemplate
+  };
+
+  $scope.changeTemplate = function() {
+    $scope.tournamentTemplate = templates[$scope.template];
+  };
+
   function getSettings() {
     var settings = $scope.settings;
     var tmp = angular.toJson($scope.betTypes);
