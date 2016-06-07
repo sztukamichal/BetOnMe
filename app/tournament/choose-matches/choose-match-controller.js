@@ -1,7 +1,7 @@
 'use strict';
 
 
-module.exports = function ($scope, $mdDialog, LeagueService) {
+module.exports = function ($scope, $stateParams, $mdDialog, LeagueService) {
   $scope.chosenLeagues = [];
   $scope.days = 7;
   $scope.inputTeamName = '';

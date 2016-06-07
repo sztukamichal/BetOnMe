@@ -14,6 +14,7 @@ app.use('/api/users', require('./controllers/api/users'));
 app.use('/api/sessions', require('./controllers/api/sessions'));
 app.use('/api/seasons', require('./controllers/api/soccerSeasons'));
 app.use('/api/teams', require('./controllers/api/teams'));
+app.use('/api/bets', require('./controllers/api/bets'));
 
 
 var server = app.listen(3000, function() {

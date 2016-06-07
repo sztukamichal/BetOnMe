@@ -1,15 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, UserService) {
-
-  $scope.exactScore = {
-    enabled: false,
-    points: 3
-  };
-  $scope.winner = {
-    enabled: true,
-    points: 2
-  };
+module.exports = /*@ngInject*/ function($scope, $state, TournamentService) {
 
   $scope.template='custom';
 
@@ -22,7 +13,45 @@ module.exports = /*@ngInject*/ function($scope, UserService) {
     private: false,
     invitePrivilege: true,
     majorityToKick: true,
-    addMatchPrivilege: 'vote'
+    addMatchPrivilege: 'vote',
+    countPointsMethod: 'best',
+    maxBetsPerMatch: 1
   };
+
+  $scope.continue = function() {
+    var tournament = {
+      name: $scope.name,
+      description : $scope.description,
+      settings: getSettings()
+    };
+    $state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
+  };
+
+  function getSettings() {
+    var settings = $scope.settings;
+    var tmp = angular.toJson($scope.betTypes);
+    tmp = JSON.parse(tmp);
+    settings.betTypesConfiguration = tmp.filter(function(betType) {
+      betType.possibleValues.forEach(function(value) {
+        if(value.hasOwnProperty('typeWinner')){
+          if(value.typeWinner.hasOwnProperty('enabled') && value.typeWinner.enabled === true) {
+            delete value.typeWinner.enabled;
+          } else {
+            delete value.typeWinner;
+          }
+        }
+      });
+      var isEnabled = betType.enabled === true;
+      if(isEnabled) {
+        delete betType.enabled;
+      }
+      return isEnabled;
+    });
+    return settings;
+  }
+
+  TournamentService.getBetTypes().then(function(result) {
+    $scope.betTypes = result.data;
+  });
 
 };

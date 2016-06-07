@@ -6,53 +6,61 @@ var TournamentSchema = db.Schema({
   name: String,
   description: String,
   settings: {
-    private: Boolean,
+    addMatchPrivilege: String,
+    privateTournament: Boolean,
     invitePrivilege: Boolean,
     majorityToKick: Boolean,
-    addMatchPrivilege: String,
-    typeOfBets: [
+    countPointsMethod: String,
+    maxBetsPerMatch: Number,
+    betTypesConfiguration: [
       {
-        typeName: String,
-        possiblePoints: Number
+        _id: String,
+        name: String,
+        code: String,
+        description: String,
+        onlyKnockoutStage: Boolean,
+        possibleValues: [
+          {
+            name: String,
+            code: String,
+            possiblePoints: Number,
+            exactScore: {
+              goalsHomeTeam: Number,
+              goalsAwayTeam: Number
+            },
+            typeWinner: {
+              homeTeamWins: Boolean,
+              extraPoints: Number
+            }
+          }
+        ]
       }
     ]
   },
   stages: [
     {
-      id: String,
-      name: String,
+      stageId: String,
+      stageName: String,
       extraPoints: Number,
-      fixtures: [
-        {
-          fixtureId: String,
-          possiblePoints: [
-            {
-              typeName: String,
-              possiblePoints: Number
-            }
-          ],
-          bets: [
-            {
-              username: String,
-              types: [{
-                typeName: String,
-                prediction: String
-              }],
-              date: Date
-            }
-          ]
-        }
-      ]
+      knockoutPhase: Boolean,
+      fixtures: [{
+        fixtureId: String,
+        bets: [
+          {
+            betId: String
+          }
+        ]
+      }]
     }
   ],
   participants: [
     {
-      username: String,
+      userId: String,
       pointsInTournament: Number
     }
   ]
 });
 
-var Tournament = db.model('Tournament', TournamentSchema);
+var Tournament = db.model('TypeOfBet', TournamentSchema);
 
 module.exports = Tournament;

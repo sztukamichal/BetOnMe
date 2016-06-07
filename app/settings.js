@@ -11,7 +11,8 @@ module.exports = {
     getSeasonsWithoutFixtures: 'seasons/',
     getSeasonFixtures: 'seasons/fixtures/',
     getFixtures: 'seasons/fixtures',
-    getTeam: 'teams/'
+    getTeam: 'teams/',
+    getBetTypes: 'bets/getTypes'
   },
   externalFootballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons',

@@ -21,6 +21,9 @@ var bet = angular.module('bet', [])
       })
       .state('add-tournament.chooseMatch', {
         url: '/chooseMatch',
+        params: {
+          tournament: {value: undefined}
+        },
         templateUrl: './tournament/choose-matches/choose-match.html',
         controller: 'ChooseMatchController'
       })
