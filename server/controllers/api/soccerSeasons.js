@@ -33,6 +33,21 @@ router.get('/fixtures', function (req, res) {
   }
 });
 
+router.get('/fixture', function (req, res) {
+  if(req.auth && req.auth.username) {
+    SoccerSeason.getFixtureByLink(req.headers['x-selflink'], function (err, team) {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      } else {
+        res.json(team);
+      }
+    });
+  } else {
+    return res.sendStatus(401);
+  }
+});
+
 router.get('/fixtures/:seasonId', function (req, res) {
   if (req.auth && req.auth.username) {
     if (req.query.timeFrame !== undefined) {

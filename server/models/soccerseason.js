@@ -155,15 +155,15 @@ var SoccerSeasonSchema = db.Schema({
   }
 });
 
-SoccerSeasonSchema.statics.findAllTeams = function (callback) {
+SoccerSeasonSchema.statics.findAllTeams = function(callback) {
   this.find({"league": "EC"}, {"teams.teams._links.self.href": 1, "_id": 0}, callback);
 };
 
-SoccerSeasonSchema.statics.findAllSeasonsWithoutFixtures = function (callback) {
+SoccerSeasonSchema.statics.findAllSeasonsWithoutFixtures = function(callback) {
   this.find({}, {"fixtures": 0}, callback);
 };
 
-SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCodes, callback) {
+SoccerSeasonSchema.statics.getFixturesByDate = function(id, timeFrame, leagueCodes, callback) {
   function getDateRange(timeFrame) {
     var from = new Date(),
       to = new Date(),
@@ -187,7 +187,7 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
   var __ret = getDateRange(timeFrame);
   var from = __ret.from;
   var to = __ret.to;
-  id = id !== undefined? parseInt(id): undefined;
+  id = id !== undefined ? parseInt(id) : undefined;
   var pipelinesWithId = [
     {$match: {id: id}},
     {$unwind: "$fixtures.fixtures"},
@@ -221,6 +221,24 @@ SoccerSeasonSchema.statics.getFixturesByDate = function (id, timeFrame, leagueCo
   } else {
     this.aggregate(pipelinesWithoutId).exec(callback);
   }
+};
+
+SoccerSeasonSchema.statics.getFixtureByLink = function(link, callback) {
+
+  var pipelinesWithoutId = [
+    {$unwind: "$fixtures.fixtures"},
+    {
+      $match: {
+        'fixtures.fixtures._links.self.href': {$eq: link}
+      }
+    },
+    {
+      $project: {
+        leagueId: "$id", caption: "$caption", match: '$fixtures.fixtures', _id: 0
+      }
+    }
+  ];
+  this.aggregate(pipelinesWithoutId).exec(callback);
 };
 
 
