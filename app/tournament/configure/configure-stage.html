@@ -1,0 +1,78 @@
+<md-dialog aria-label="Edit stage information" style="width: 600px">
+    <md-toolbar style="background-color: #82a43a; text-align: center">
+        <div class="md-toolbar-tools">
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="../assets/icons/cancel.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="column" style="padding:5%; padding-top: 1%">
+        <div class="options" style="padding: 5%; padding-top: 1%; padding-bottom: 2%; font-size: 16px;">
+            <h3 style="text-align: center; font-weight: bold">Edit your stage</h3>
+            <br>
+            <form name="updateForm" layout="row">
+                <md-input-container flex="66">
+                    <label>Name</label>
+                    <input required name="name" ng-model="stage.stageName">
+
+                    <div ng-messages="updateForm.name.$error">
+                        <div ng-message="required">Please fill in name field.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="33">
+                    <label>Extra points</label>
+                    <input required name="extraPoints" ng-model="stage.extraPoints" type="number" step="1">
+
+                    <div ng-messages="updateForm.extraPoints.$error">
+                        <div ng-message="required">Please fill in extra points field.</div>
+                    </div>
+                </md-input-container>
+            </form>
+            <div style="text-align: center; font-weight: bold">Search for matches in the nearest future.</div>
+            <div layout="row" layout-fill layout-padding layout-align="center center">
+                <md-button aria-label="Choose league" ng-click="showLeagues=!showLeagues" flex="10"
+                           class="md-icon-button" style="background-color: #82A43A">
+                    <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
+                    <md-tooltip>
+                        Show possible leagues
+                    </md-tooltip>
+                </md-button>
+                <md-input-container flex="65" style="margin-top: 40px">
+                    <label>Search by names</label>
+                    <input ng-model="inputTeamName" ng-change="filterFixtures()">
+                </md-input-container>
+                <md-input-container flex="15" style="margin-top: 40px">
+                    <label>Number of days</label>
+                    <input ng-model="days" type="number" step="1">
+                </md-input-container>
+                <md-button aria-label="Search" flex="10" class="md-icon-button" style="background-color: #82A43A" ng-click="findMatches()">
+                    <md-icon md-svg-icon="../assets/icons/search.svg"></md-icon>
+                </md-button>
+            </div>
+            <div ng-show="showLeagues" layout="column" style="padding: 10%; padding-top: 0">
+                <div flex-xs flex="50">
+                    <md-checkbox aria-label="Select All"
+                                 ng-checked="isChecked()"
+                                 md-indeterminate="isIndeterminate()"
+                                 ng-click="toggleAll()">
+                        <span ng-if="isChecked()">Un-</span>Select All
+                    </md-checkbox>
+                </div>
+                <div style="padding-left: 30px" flex="100" ng-repeat="league in leagues">
+                    <md-checkbox ng-checked="exists(league)" ng-click="toggle(league)">
+                        {{ league.caption }}
+                    </md-checkbox>
+                </div>
+            </div>
+        </div>
+        <br>
+        <my-match ng-repeat="fixture in filteredFixtures" fixture="fixture" type="'bet'"></my-match>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button ng-click="update()" style="margin-right:20px;" ng-disabled="!validateUpdateForm()">
+            Update
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, $state, TournamentService) {
+module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentService) {
 
   $scope.template='custom';
 
@@ -107,6 +107,23 @@ module.exports = /*@ngInject*/ function($scope, $state, TournamentService) {
   var templates = {
     euro2016: euro2016template,
     custom: customTemplate
+  };
+
+
+  $scope.showEditStageDialog = function ($event, index) {
+    $mdDialog.show({
+      parent: angular.element(document.querySelector('#mainBody')),
+      targetEvent: $event,
+      templateUrl: './tournament/configure/configure-stage.html',
+      locals: {
+        stage: $scope.tournamentTemplate.stages[index]
+      },
+      controller: 'ConfigureStageController',
+      hasBackdrop: false
+    })
+      .then(function(stage) {
+        $scope.tournamentTemplate.stages[index] = stage;
+      });
   };
 
   $scope.tournamentTemplate = {

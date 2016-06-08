@@ -5,7 +5,6 @@ require('angular-ui-router');
 require('angular-aria');
 require('angular-animate');
 require('angular-material');
-require('angular-material');
 require('angular-messages');
 require('angular-resource');
 require('angular-local-storage');

@@ -122,27 +122,26 @@ body {
 }
 
 .stage-header {
-    border-style: dashed;
-    border-bottom-style: solid;
-    border-width: 1px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    text-align: center;
     padding: 1%;
     margin: 20px;
     margin-bottom: 0;
-    background-color: rgb(249, 168, 37)
+    background-color: rgb(249, 168, 37);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
 .stage-body {
-    border-style: dashed;
-    border-top-style: none;
-    border-width: 1px;
     padding: 1%;
     margin: 20px;
     margin-top: 0px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: white;
+    background-color: rgba(255,255,255,0.7);
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+md-backdrop.md-opaque.md-default-theme,
+.md-dialog-container {
+    position:fixed;
+    background-color: rgba(0,0,0,0.3);
 }
 
 .fade {

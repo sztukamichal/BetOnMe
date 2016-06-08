@@ -109,13 +109,13 @@
             </div>
             <br>
             <div layout-gt-sm="row" layout-align="center center" layout-wrap>
-                <div ng-repeat="stage in tournamentTemplate.stages track by $index" style="min-width: 350px">
+                <div ng-repeat="stage in tournamentTemplate.stages track by $index" style="min-width: 350px; ">
                     <div class="stage-header">
                         <div layout="row">
                             <h4 style="font-weight: bold">{{stage.stageName}}</h4>
                             <div style="margin-left: auto">
-                                <md-button aria-label="Remove" class="md-icon-button" ng-click="showDialog()">
-                                    <md-icon md-svg-icon="../assets/icons/edit-button.svg"></md-icon>
+                                <md-button aria-label="Remove" class="md-icon-button" ng-click="showEditStageDialog($event,$index)">
+                                    <md-icon md-svg-icon="../assets/icons/new-file.svg"></md-icon>
                                 </md-button>
                                 <md-button aria-label="Remove" class="md-icon-button" ng-click="remove($index)">
                                     <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
