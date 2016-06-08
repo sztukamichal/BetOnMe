@@ -47,10 +47,6 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         extraPoints: 1,
         knockoutPhase: false,
         fixtures: [
-          {
-            fixtureId: 23,
-            bets: []
-          }
         ]
       },
       {
@@ -59,10 +55,6 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         extraPoints: 2,
         knockoutPhase: true,
         fixtures: [
-          {
-            fixtureId: 23,
-            bets: []
-          }
         ]
       },
       {
@@ -71,10 +63,6 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         extraPoints: 3,
         knockoutPhase: true,
         fixtures: [
-          {
-            fixtureId: 23,
-            bets: []
-          }
         ]
       },
       {
@@ -83,10 +71,6 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         extraPoints: 4,
         knockoutPhase: true,
         fixtures: [
-          {
-            fixtureId: 23,
-            bets: []
-          }
         ]
       },
       {
@@ -95,10 +79,6 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         extraPoints: 5,
         knockoutPhase: true,
         fixtures: [
-          {
-            fixtureId: 23,
-            bets: []
-          }
         ]
       }
     ]

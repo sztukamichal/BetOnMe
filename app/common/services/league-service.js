@@ -62,6 +62,12 @@ module.exports = function() {
       }
     };
 
+    this.getFixtureByLink = function(link) {
+      var conf = config;
+      conf.headers['x-selflink'] = link;
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getFixtureByLink , conf);
+    };
+
     this.getLeagueFixtures = function(id, timeFrame) {
       if(timeFrame === undefined) {
         return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getSeasonFixtures + id , config);
@@ -102,7 +108,8 @@ module.exports = function() {
       getLeagueTable: this.getLeagueTable,
       getSeasons: this.getSeasons,
       getMatches: this.getMatches,
-      getFixtures: this.getFixtures
+      getFixtures: this.getFixtures,
+      getFixtureByLink: this.getFixtureByLink
     };
   };
 };

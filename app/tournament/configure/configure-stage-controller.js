@@ -5,6 +5,16 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
   var _ = require('lodash');
 
   $scope.stage = _.cloneDeep(stage);
+  $scope.fixtures = [];
+  $scope.stage.fixtures.forEach(function(fixture, index) {
+    LeagueService.getFixtureByLink(fixture.fixtureId).then(function(result) {
+      result.data[0].selected = true;
+      $scope.fixtures.push(result.data[0]);
+      if(index === $scope.stage.fixtures.length -1 ){
+        $scope.filterFixtures();
+      }
+    });
+  });
   $scope.chosenLeagues = [];
   $scope.days = 7;
   $scope.inputTeamName = '';
@@ -18,9 +28,6 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
       }
     });
   };
-  $scope.show = function(es) {
-    console.log(es)
-  }
   LeagueService.getSeasons().then(function (data) {
     $scope.leagues = data;
     $scope.chosenLeagues = angular.copy(data);
@@ -31,7 +38,7 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
   };
   $scope.findMatches = function() {
     LeagueService.getFixtures('n', $scope.days, $scope.leaguePrefixes).then(function (res) {
-      $scope.fixtures = res.data;
+      $scope.fixtures = $scope.fixtures.concat(res.data);
       $scope.fixtures.forEach(function(fixture, index) {
         fixture.selected = false;
         fixture.index = index;
@@ -111,7 +118,7 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
         $scope.stage.fixtures.push(tmp);
       }
       if(index === $scope.fixtures.length - 1) {
-        console.log($scope.stage)
+        console.log($scope.stage);
         $mdDialog.hide($scope.stage);
       }
     });

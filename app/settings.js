@@ -11,6 +11,7 @@ module.exports = {
     getSeasonsWithoutFixtures: 'seasons/',
     getSeasonFixtures: 'seasons/fixtures/',
     getFixtures: 'seasons/fixtures',
+    getFixtureByLink: 'seasons/fixture',
     getTeam: 'teams/',
     getBetTypes: 'bets/getTypes'
   },
