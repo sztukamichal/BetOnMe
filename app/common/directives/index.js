@@ -20,7 +20,8 @@ var directives = angular.module('directives', [])
       restrict: 'E',
       scope: {
         fixture: '=fixture',
-        type: '=type'
+        type: '=type',
+        selected: '=selected'
       },
       templateUrl: './common/directives/my-match-directive/my-match-template.html',
       controller: require('./my-match-directive/my-match-controller.js')

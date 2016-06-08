@@ -3,6 +3,10 @@
 module.exports = function ($q, $scope, TeamService) {
   $scope.welcome = $scope.fixture;
   $scope.loaded = false;
+  $scope.selected = $scope.selected === undefined ? false : $scope.selected;
+  $scope.toggleSelected = function() {
+    $scope.selected = !$scope.selected;
+  };
   function init() {
     $q.all([TeamService.getTeam($scope.fixture.match._links.homeTeam.href),
     TeamService.getTeam($scope.fixture.match._links.awayTeam.href)]).then(function (results) {

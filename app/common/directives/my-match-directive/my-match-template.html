@@ -1,4 +1,4 @@
-<md-card>
+<md-card ng-class="selected ? 'my-match-selected' : 'my-match-non-selected'" ng-click="toggleSelected()">
     <md-card-title ng-if="loaded">
         <md-card-title-media>
             <div class="md-media-sm card-media">

@@ -19,7 +19,8 @@ module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDia
       locals: {
         user: $scope.currentUser
       },
-      controller: require('./edit-user-controller.js')
+      controller: require('./edit-user-controller.js'),
+      hasBackdrop: false
     })
       .then(function(user) {
         $scope.currentUser = user;

@@ -165,3 +165,11 @@ md-backdrop.md-opaque.md-default-theme,
 .fade.ng-leave.ng-leave-active {
     opacity: 0.2;
 }
+
+.my-match-non-selected {
+    background-color: rgba(255, 255, 255)
+}
+
+.my-match-selected {
+    background-color: #9CCC65;
+}
