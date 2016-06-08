@@ -4,14 +4,30 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
 
   var _ = require('lodash');
 
+  function arrayUnique(array) {
+    var a = array.concat();
+    for(var i=0; i<a.length; i+=1) {
+      for(var j=i+1; j<a.length; j+=1) {
+        if(a[i].match._links.self.href === a[j].match._links.self.href){
+          a.splice(j, 1);
+          j-=1;
+        }
+      }
+    }
+
+    return a;
+  }
+
   $scope.stage = _.cloneDeep(stage);
   $scope.fixtures = [];
   $scope.stage.fixtures.forEach(function(fixture, index) {
     LeagueService.getFixtureByLink(fixture.fixtureId).then(function(result) {
       result.data[0].selected = true;
+      result.data[0].index = index;
       $scope.fixtures.push(result.data[0]);
       if(index === $scope.stage.fixtures.length -1 ){
         $scope.filterFixtures();
+        $scope.stage.fixtures = [];
       }
     });
   });
@@ -38,9 +54,9 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
   };
   $scope.findMatches = function() {
     LeagueService.getFixtures('n', $scope.days, $scope.leaguePrefixes).then(function (res) {
-      $scope.fixtures = $scope.fixtures.concat(res.data);
+      $scope.fixtures = arrayUnique($scope.fixtures.concat(res.data));
       $scope.fixtures.forEach(function(fixture, index) {
-        fixture.selected = false;
+        fixture.selected = fixture.selected === true ;
         fixture.index = index;
       });
       $scope.filterFixtures();
@@ -118,7 +134,6 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
         $scope.stage.fixtures.push(tmp);
       }
       if(index === $scope.fixtures.length - 1) {
-        console.log($scope.stage);
         $mdDialog.hide($scope.stage);
       }
     });
