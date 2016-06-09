@@ -18,13 +18,37 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     maxBetsPerMatch: 1
   };
 
+  function getParticipants() {
+    var participants = $scope.asyncContacts.map(function(contact) {
+      return {
+        username: contact.username,
+        pointsInTournament: 0
+      };
+    });
+
+    participants.push({
+      username: $scope.currentUser.username,
+      isAdmin: true,
+      pointsInTournament: 0
+    })
+
+    return participants;
+  }
+
+  $scope.currentUser = UserService.getCurrentUser();
+
   $scope.continue = function() {
     var tournament = {
       name: $scope.name,
       description : $scope.description,
-      settings: getSettings()
+      settings: getSettings(),
+      participants: getParticipants(),
+      stages: $scope.tournamentTemplate.stages
     };
-    $state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
+    TournamentService.createTournament(tournament).then(function(res) {
+      console.log(res);
+    })
+    //$state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
   };
 
   var customTemplate = {
@@ -224,9 +248,13 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     UserService.getAllUsers().then(function(result) {
       $scope.allContacts = result.data;
       $scope.allContacts.forEach(function(contact) {
-        contact.avatar = '../assets/avatars/people-'+contact.avatar + '.svg';
-        contact.name = contact.firstName + ' ' + contact.lastName;
-        contact._lowname = contact.name.toLowerCase();
+        if(contact.username !== $scope.currentUser.username) {
+          contact.avatar = '../assets/avatars/people-'+contact.avatar + '.svg';
+          contact.name = contact.firstName + ' ' + contact.lastName;
+          contact._lowname = contact.name.toLowerCase();
+        } else {
+          contact._lowname = '';
+        }
       });
     });
   }

@@ -55,12 +55,13 @@ var TournamentSchema = db.Schema({
   ],
   participants: [
     {
-      userId: String,
+      username: String,
+      isAdmin: Boolean,
       pointsInTournament: Number
     }
   ]
 });
 
-var Tournament = db.model('TypeOfBet', TournamentSchema);
+var Tournament = db.model('Tournament', TournamentSchema);
 
 module.exports = Tournament;

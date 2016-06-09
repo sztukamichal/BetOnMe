@@ -20,8 +20,13 @@ module.exports = function () {
       return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getBetTypes, config);
     };
 
+    this.createTournament = function(tournament) {
+     return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config);
+    };
+
     return {
-      getBetTypes: this.getBetTypes
+      getBetTypes: this.getBetTypes,
+      createTournament: this.createTournament
     };
   };
 };

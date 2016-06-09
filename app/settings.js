@@ -14,7 +14,8 @@ module.exports = {
     getFixtures: 'seasons/fixtures',
     getFixtureByLink: 'seasons/fixture',
     getTeam: 'teams/',
-    getBetTypes: 'bets/getTypes'
+    getBetTypes: 'bets/getTypes',
+    createTournament: 'tournament/'
   },
   externalFootballQueries: {
     soccerSeasons: 'http://api.football-data.org/v1/soccerseasons',
