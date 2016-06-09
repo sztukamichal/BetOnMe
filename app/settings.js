@@ -6,6 +6,7 @@ module.exports = {
   apiQueries: {
     getSession: 'sessions/',
     getCurrentUser: 'users/',
+    getAllUsers: 'users/getUsers',
     createUser: 'users/',
     updateUser: 'users/update/',
     getSeasonsWithoutFixtures: 'seasons/',

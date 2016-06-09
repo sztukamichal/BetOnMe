@@ -46,6 +46,10 @@ module.exports = function () {
       return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getCurrentUser, {headers: {'X-Auth':token}});
     };
 
+    this.getAllUsers = function () {
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getAllUsers, {headers: {'X-Auth':token}});
+    };
+
     this.login = function (username, password) {
       $http.post(Settings.apiBaseUrl + Settings.apiQueries.getSession, {username: username, password: password}, {headers: {'X-Auth':token}})
         .then(function (res) {
@@ -89,6 +93,7 @@ module.exports = function () {
       login: this.login,
       logout: this.logout,
       getCurrentUser: this.getCurrentUser,
+      getAllUsers: this.getAllUsers,
       getToken: this.getToken,
       isUserLogged: this.isUserLogged,
       createUser: this.createUser,

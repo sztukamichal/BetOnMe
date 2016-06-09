@@ -126,6 +126,15 @@ body {
     padding: 1%;
     margin: 20px;
     margin-bottom: 0;
+    background-color: #6f909e;
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+.invitations-header {
+    text-align: center;
+    padding: 1%;
+    margin: 20px;
+    margin-bottom: 0;
     background-color: rgb(249, 168, 37);
     box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
@@ -172,4 +181,14 @@ md-backdrop.md-opaque.md-default-theme,
 
 .my-match-selected {
     background-color: #9CCC65;
+}
+
+md-virtual-repeat-container {
+    background-color: #9CCC65;
+    color: #003366;
+    width: 400px;
+}
+
+.bold-text {
+    font-weight: bold;
 }

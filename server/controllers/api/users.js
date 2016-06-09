@@ -19,6 +19,20 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/getUsers', function(req, res, next) {
+  if(req.auth && req.auth.username) {
+    User.find({}, {password:0, registerDate:0, _id:0, __v:0}, function(err, user) {
+      if (err) {
+        return next(err);
+      } else {
+        res.json(user);
+      }
+    });
+  } else {
+    return res.sendStatus(401);
+  }
+});
+
 router.post('/update/',function (req, res, next) {
   if(req.auth && req.auth.username) {
     User.update({username:req.auth.username}, {firstName: req.body.firstName, lastName: req.body.lastName, email:req.body.email, avatar:req.body.avatar}, {multi:false}, function (err, raw) {
