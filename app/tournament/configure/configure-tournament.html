@@ -68,13 +68,13 @@
                     <h4 style="font-weight: bold">General settings</h4>
 
                     <div style="margin-left: 20px;">
-                        <md-switch ng-model="settings.private" md-theme="switches">
+                        <md-switch ng-model="chosenTemplate.settings.private" md-theme="switches">
                             Private tournament
                         </md-switch>
-                        <md-switch ng-model="settings.invitePrivilege" md-theme="switches">
+                        <md-switch ng-model="chosenTemplate.settings.invitePrivilege" md-theme="switches">
                             Participants can invite other users
                         </md-switch>
-                        <md-switch ng-model="settings.majorityToKick" md-theme="switches">
+                        <md-switch ng-model="chosenTemplate.settings.majorityToKick" md-theme="switches">
                             Required majority to delete participant
                         </md-switch>
                     </div>
@@ -83,7 +83,7 @@
                     <h4 style="font-weight: bold">Allow adding matches during tournament</h4>
 
                     <div style="margin-left: 40px;">
-                        <md-radio-group ng-model="settings.addMatchPrivilege" md-theme="switches">
+                        <md-radio-group ng-model="chosenTemplate.settings.addMatchPrivilege" md-theme="switches">
                             <md-radio-button value="true">Enable</md-radio-button>
                             <md-radio-button value="false"> Disable</md-radio-button>
                             <md-radio-button value="vote">Voting</md-radio-button>
@@ -94,7 +94,7 @@
                     <h4 style="font-weight: bold">Method of counting points per bet</h4>
 
                     <div style="margin-left: 40px;">
-                        <md-radio-group ng-model="settings.countPointsMethod" md-theme="switches">
+                        <md-radio-group ng-model="chosenTemplate.settings.countPointsMethod" md-theme="switches">
                             <md-radio-button value="sum">Sum points</md-radio-button>
                             <md-radio-button value="best">Only best</md-radio-button>
                         </md-radio-group>
@@ -107,17 +107,16 @@
         <div layout=row>
             <md-input-container>
                 <h4 style="font-weight: bold">Tournament type </h4>
-                <select ng-model="template" ng-change="changeTemplate()">
-                    <option value="custom">Custom</option>
-                    <option value="euro2016">Euro 2016</option>
+                <select ng-model="chosenTemplateIdx" ng-change="changeTournamentTemplate()">
+                    <option ng-repeat="template in tournamentTemplates track by $index" ng-value="$index">{{template.templateName}}</option>
                 </select>
             </md-input-container>
-            <div flex class="bubble me" style="margin-left: 40px">{{descriptions[template]}}</div>
+            <div flex class="bubble me" style="margin-left: 40px">{{chosenTemplate.description}}</div>
         </div>
         <br>
 
         <div layout="row" layout-align="center center" layout-wrap>
-            <div ng-repeat="stage in tournamentTemplate.stages track by $index" style="width: 350px;">
+            <div ng-repeat="stage in chosenTemplate.stages track by $index" style="width: 350px;">
                 <div class="stage-header">
                     <div layout="row">
                         <h4 style="font-weight: bold">{{stage.stageName}}</h4>
@@ -127,7 +126,7 @@
                                        ng-click="showEditStageDialog($event,$index)">
                                 <md-icon md-svg-icon="../assets/icons/new-file.svg"></md-icon>
                             </md-button>
-                            <md-button aria-label="Remove" class="md-icon-button" ng-click="remove($index)">
+                            <md-button aria-label="Remove" class="md-icon-button" ng-click="removeStage($index)">
                                 <md-icon md-svg-icon="../assets/icons/close.svg"></md-icon>
                             </md-button>
                         </div>
@@ -153,14 +152,14 @@
             </div>
             <div class="stage-body">
                 <md-contact-chips flex
-                                  ng-model="asyncContacts"
+                                  ng-model="chosenUsers"
                                   md-contacts="delayedQuerySearch($query)"
                                   md-contact-name="name"
                                   md-contact-image="avatar"
                                   md-contact-email="email"
                                   md-require-match="true"
                                   md-highlight-flags="i"
-                                  filter-selected="filterSelected"
+                                  filter-selected="true"
                                   placeholder="Send invitation to">
                 </md-contact-chips>
             </div>

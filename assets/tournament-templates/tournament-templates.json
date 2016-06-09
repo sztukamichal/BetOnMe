@@ -1,0 +1,213 @@
+[
+  {
+    "templateName": "Custom",
+    "code": "custom",
+    "description": "Select this type of tournament if you want decide by yourself which matches will be bet on.",
+    "settings": {
+      "private": false,
+      "invitePrivilege": true,
+      "majorityToKick": true,
+      "addMatchPrivilege": "vote",
+      "countPointsMethod": "best",
+      "maxBetsPerMatch": 1
+    },
+    "stages": [
+      {
+        "stageName": "Custom stage name",
+        "extraPoints": 1,
+        "knockoutPhase": false,
+        "fixtures": []
+      }
+    ]
+  },
+  {
+    "templateName": "Euro 2016 tournament",
+    "code": "euro2016",
+    "description": "Select this type of tournament if you want to bet on Euro 2016 matches.",
+    "settings": {
+      "private": false,
+      "invitePrivilege": true,
+      "majorityToKick": true,
+      "addMatchPrivilege": "vote",
+      "countPointsMethod": "best",
+      "maxBetsPerMatch": 1
+    },
+    "stages": [
+      {
+        "stageName": "Euro 2016 - Group stage",
+        "extraPoints": 1,
+        "knockoutPhase": false,
+        "fixtures": [
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149855"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149885"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149861"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149860"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149873"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149867"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149866"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149872"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149879"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149878"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149882"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149888"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149859"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149854"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149884"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149858"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149865"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149864"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149877"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149871"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149870"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149876"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149887"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149881"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149883"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149853"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149857"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149856"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149863"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149862"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149869"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149868"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149886"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149880"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149875"
+          },
+          {
+            "bets": [],
+            "fixtureId": "http://api.football-data.org/v1/fixtures/149874"
+          }
+        ]
+      },
+      {
+        "stageName": "Euro 2016 - 1/8 final",
+        "extraPoints": 2,
+        "knockoutPhase": true,
+        "fixtures": []
+      },
+      {
+        "stageName": "Euro 2016 - Quarter final",
+        "extraPoints": 3,
+        "knockoutPhase": true,
+        "fixtures": []
+      },
+      {
+        "stageName": "Euro 2016 - Semi final",
+        "extraPoints": 4,
+        "knockoutPhase": true,
+        "fixtures": []
+      },
+      {
+        "stageName": "Euro 2016 - Final",
+        "extraPoints": 5,
+        "knockoutPhase": true,
+        "fixtures": []
+      }
+    ]
+  }
+]

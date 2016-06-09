@@ -24,9 +24,14 @@ module.exports = function () {
      return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config);
     };
 
+    this.getTournamentTemplates = function(tournament) {
+      return $http.get('../assets/tournament-templates/tournament-templates.json', config);
+    };
+
     return {
       getBetTypes: this.getBetTypes,
-      createTournament: this.createTournament
+      createTournament: this.createTournament,
+      getTournamentTemplates: this.getTournamentTemplates
     };
   };
 };

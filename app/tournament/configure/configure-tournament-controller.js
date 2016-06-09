@@ -1,169 +1,21 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentService, $q, $timeout, UserService, $mdToast) {
+module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentService, $q, $timeout, UserService) {
 
-  $scope.template='custom';
+  var pendingSearch, cancelSearch = angular.noop;
+  var cachedQuery, lastSearch;
 
-  $scope.descriptions = {
-    custom: 'Select this type of tournament if you want decide by yourself which matches will be bet on.',
-    euro2016: 'Select this type of tournament if you want to bet on Euro 2016 matches.'
-  };
-
-  $scope.settings = {
-    private: false,
-    invitePrivilege: true,
-    majorityToKick: true,
-    addMatchPrivilege: 'vote',
-    countPointsMethod: 'best',
-    maxBetsPerMatch: 1
-  };
-
-  function getParticipants() {
-    var participants = $scope.asyncContacts.map(function(contact) {
-      return {
-        username: contact.username,
-        pointsInTournament: 0
-      };
+  function setTournamentTemplates() {
+    TournamentService.getTournamentTemplates().then(function (result) {
+      $scope.tournamentTemplates = result.data;
+      $scope.chosenTemplateIdx = 0;
+      $scope.chosenTemplate = {};
+      angular.copy($scope.tournamentTemplates[$scope.chosenTemplateIdx], $scope.chosenTemplate);
     });
-
-    participants.push({
-      username: $scope.currentUser.username,
-      isAdmin: true,
-      pointsInTournament: 0
-    })
-
-    return participants;
   }
 
-  $scope.currentUser = UserService.getCurrentUser();
-
-  $scope.continue = function() {
-    var tournament = {
-      name: $scope.name,
-      description : $scope.description,
-      settings: getSettings(),
-      participants: getParticipants(),
-      stages: $scope.tournamentTemplate.stages
-    };
-    TournamentService.createTournament(tournament).then(function(res) {
-      console.log(res);
-    })
-    //$state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
-  };
-
-  var customTemplate = {
-    stages:[
-      {
-        stageTemplateId: 'custom',
-        stageName: 'Example',
-        extraPoints: 1,
-        knockoutPhase: false,
-        fixtures: []
-      }
-    ]
-  };
-
-  var euro2016template = {
-    stages: [
-      {
-        stageTemplateId: 'euro2016groupStage',
-        stageName: 'Euro 2016 - Group stage',
-        extraPoints: 1,
-        knockoutPhase: false,
-        fixtures: [
-        ]
-      },
-      {
-        stageTemplateId: 'euro2016roundOf16',
-        stageName: 'Euro 2016 - 1/8 final',
-        extraPoints: 2,
-        knockoutPhase: true,
-        fixtures: [
-        ]
-      },
-      {
-        stageTemplateId: 'euro2016quarters',
-        stageName: 'Euro 2016 - Quarter final',
-        extraPoints: 3,
-        knockoutPhase: true,
-        fixtures: [
-        ]
-      },
-      {
-        stageTemplateId: 'euro2016semis',
-        stageName: 'Euro 2016 - Semi final',
-        extraPoints: 4,
-        knockoutPhase: true,
-        fixtures: [
-        ]
-      },
-      {
-        stageTemplateId: 'euro2016final',
-        stageName: 'Euro 2016 - Final',
-        extraPoints: 5,
-        knockoutPhase: true,
-        fixtures: [
-        ]
-      }
-    ]
-  };
-
-  var templates = {
-    euro2016: euro2016template,
-    custom: customTemplate
-  };
-
-
-  $scope.showEditStageDialog = function ($event, index) {
-    $mdDialog.show({
-      parent: angular.element(document.querySelector('#mainBody')),
-      targetEvent: $event,
-      templateUrl: './tournament/configure/configure-stage.html',
-      locals: {
-        stage: $scope.tournamentTemplate.stages[index]
-      },
-      controller: 'ConfigureStageController',
-      hasBackdrop: false
-    })
-      .then(function(stage) {
-        $scope.tournamentTemplate.stages[index] = stage;
-      });
-  };
-
-  $scope.tournamentTemplate = {
-    stages:[
-      {
-        stageTemplateId: 'custom',
-        stageName: 'Example',
-        extraPoints: 1,
-        knockoutPhase: false,
-        fixtures: []
-      }
-    ]
-  };
-
-  $scope.changeTemplate = function() {
-    $scope.tournamentTemplate = {};
-    angular.copy(templates[$scope.template], $scope.tournamentTemplate);
-  };
-
-  $scope.remove = function (index) {
-    $scope.tournamentTemplate.stages.splice(index,1);
-  };
-
-  $scope.addNewStage = function () {
-    $scope.tournamentTemplate.stages.push(
-      {
-        stageTemplateId: 'custom',
-        stageName: 'Example' + $scope.tournamentTemplate.stages.length,
-        extraPoints: $scope.tournamentTemplate.stages.length,
-        knockoutPhase: false,
-        fixtures: []
-      });
-  };
-
   function getSettings() {
-    var settings = $scope.settings;
+    var settings = $scope.chosenTemplate.settings;
     var tmp = angular.toJson($scope.betTypes);
     tmp = JSON.parse(tmp);
     settings.betTypesConfiguration = tmp.filter(function(betType) {
@@ -185,69 +37,43 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     return settings;
   }
 
-  TournamentService.getBetTypes().then(function(result) {
-    $scope.betTypes = result.data;
-  });
+  function getParticipants() {
+    var participants = $scope.chosenUsers.map(function(contact) {
+      return {
+        username: contact.username,
+        pointsInTournament: 0
+      };
+    });
 
-  var pendingSearch, cancelSearch = angular.noop;
-  var cachedQuery, lastSearch;
-  $scope.asyncContacts = [];
-  $scope.filterSelected = true;
-  $scope.querySearch = querySearch;
-  $scope.delayedQuerySearch = delayedQuerySearch;
-  $scope.allContacts = [];
-  /**
-   * Search for contacts; use a random delay to simulate a remote call
-   */
-  function querySearch (criteria) {
-    cachedQuery = cachedQuery || criteria;
-    return cachedQuery ? $scope.allContacts.filter(createFilterFor(cachedQuery)) : [];
+    participants.push({
+      username: $scope.currentUser.username,
+      isAdmin: true,
+      pointsInTournament: 0
+    });
+
+    return participants;
   }
-  /**
-   * Async search for contacts
-   * Also debounce the queries; since the md-contact-chips does not support this
-   */
-  function delayedQuerySearch(criteria) {
-    cachedQuery = criteria;
-    if ( !pendingSearch || !debounceSearch() )  {
-      cancelSearch();
-      return pendingSearch = $q(function(resolve, reject) {
-        // Simulate async search... (after debouncing)
-        cancelSearch = reject;
-        $timeout(function() {
-          resolve( $scope.querySearch() );
-          refreshDebounce();
-        }, Math.random() * 500, true);
-      });
-    }
-    return pendingSearch;
-  }
-  function refreshDebounce() {
-    lastSearch = 0;
-    pendingSearch = null;
-    cancelSearch = angular.noop;
-  }
-  /**
-   * Debounce if querying faster than 300ms
-   */
-  function debounceSearch() {
-    var now = new Date().getMilliseconds();
-    lastSearch = lastSearch || now;
-    return ((now - lastSearch) < 300);
-  }
-  /**
-   * Create filter function for a query string
-   */
-  function createFilterFor(query) {
-    var lowercaseQuery = angular.lowercase(query);
-    return function filterFn(contact) {
-      return (contact._lowname.indexOf(lowercaseQuery) !== -1);
+
+  function getTournamentObject() {
+    return {
+      name: $scope.name,
+      description: $scope.description,
+      settings: getSettings(),
+      participants: getParticipants(),
+      stages: $scope.chosenTemplate.stages
     };
   }
+
+  function setBetTypes() {
+    TournamentService.getBetTypes().then(function (result) {
+      $scope.betTypes = result.data;
+    });
+  }
+  
   function loadUsers() {
     UserService.getAllUsers().then(function(result) {
-      $scope.allContacts = result.data;
-      $scope.allContacts.forEach(function(contact) {
+      $scope.allUsers = result.data;
+      $scope.allUsers.forEach(function(contact) {
         if(contact.username !== $scope.currentUser.username) {
           contact.avatar = '../assets/avatars/people-'+contact.avatar + '.svg';
           contact.name = contact.firstName + ' ' + contact.lastName;
@@ -259,5 +85,100 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     });
   }
 
-  loadUsers();
+  function createFilterFor(query) {
+    var lowercaseQuery = angular.lowercase(query);
+    return function filterFn(contact) {
+      return (contact._lowname.indexOf(lowercaseQuery) !== -1);
+    };
+  }
+
+  function refreshDebounce() {
+    lastSearch = 0;
+    pendingSearch = null;
+    cancelSearch = angular.noop;
+  }
+
+  function debounceSearch() {
+    var now = new Date().getMilliseconds();
+    lastSearch = lastSearch || now;
+    return ((now - lastSearch) < 300);
+  }
+
+  function querySearch (criteria) {
+    cachedQuery = cachedQuery || criteria;
+    return cachedQuery ? $scope.allUsers.filter(createFilterFor(cachedQuery)) : [];
+  }
+
+  function delayedQuerySearch(criteria) {
+    cachedQuery = criteria;
+    if ( !pendingSearch || !debounceSearch() )  {
+      cancelSearch();
+      return pendingSearch = $q(function(resolve, reject) {
+        // Simulate async search... (after debouncing)
+        cancelSearch = reject;
+        $timeout(function() {
+          resolve( $scope.querySearch() );
+          refreshDebounce();
+        }, 120, true);
+      });
+    }
+    return pendingSearch;
+  }
+
+  function init() {
+    $scope.currentUser = UserService.getCurrentUser();
+    $scope.allUsers = [];
+    $scope.chosenUsers = [];
+    $scope.querySearch = querySearch;
+    $scope.delayedQuerySearch = delayedQuerySearch;
+    setTournamentTemplates();
+    setBetTypes();
+    loadUsers();
+  }
+
+  init();
+
+  $scope.continue = function() {
+    console.log(getTournamentObject())
+    /*TournamentService.createTournament(getTournamentObject()).then(function(res) {
+      console.log(res);
+    });*/
+    //$state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
+  };
+
+  $scope.showEditStageDialog = function ($event, index) {
+    $mdDialog.show({
+      parent: angular.element(document.querySelector('#mainBody')),
+      targetEvent: $event,
+      templateUrl: './tournament/configure/configure-stage.html',
+      locals: {
+        stage: $scope.chosenTemplate.stages[index]
+      },
+      controller: 'ConfigureStageController',
+      hasBackdrop: false
+    })
+      .then(function(stage) {
+        $scope.chosenTemplate.stages[index] = stage;
+      });
+  };
+
+  $scope.changeTournamentTemplate = function() {
+    $scope.chosenTemplate = {};
+    angular.copy($scope.tournamentTemplates[$scope.chosenTemplateIdx], $scope.chosenTemplate);
+  };
+
+  $scope.removeStage = function (index) {
+    $scope.chosenTemplate.stages.splice(index,1);
+  };
+
+  $scope.addNewStage = function () {
+    $scope.chosenTemplate.stages.push(
+      {
+        stageName: 'Example name # ' + $scope.chosenTemplate.stages.length,
+        extraPoints: $scope.chosenTemplate.stages.length,
+        knockoutPhase: false,
+        fixtures: []
+      });
+  };
+
 };
