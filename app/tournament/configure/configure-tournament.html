@@ -108,7 +108,9 @@
             <md-input-container>
                 <h4 style="font-weight: bold">Tournament type </h4>
                 <select ng-model="chosenTemplateIdx" ng-change="changeTournamentTemplate()">
-                    <option ng-repeat="template in tournamentTemplates track by $index" ng-value="$index">{{template.templateName}}</option>
+                    <option ng-repeat="template in tournamentTemplates track by $index" ng-value="$index">
+                        {{template.templateName}}
+                    </option>
                 </select>
             </md-input-container>
             <div flex class="bubble me" style="margin-left: 40px">{{chosenTemplate.description}}</div>
@@ -165,6 +167,8 @@
             </div>
         </div>
     </div>
-    <md-button md-theme="dark-orange" ng-click="continue()" class="pull-right md-raised">Continue
-    </md-button>
+    <div layout="row" layout-align="space-around">
+        <md-button md-theme="dark-orange" ng-click="createTournament()" class="md-raised">Create tournament
+        </md-button>
+    </div>
 </div>

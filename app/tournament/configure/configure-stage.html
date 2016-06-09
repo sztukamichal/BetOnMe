@@ -29,10 +29,10 @@
                     </div>
                 </md-input-container>
             </form>
-            <div style="text-align: center; font-weight: bold">Search for matches in the nearest future.</div>
-            <div layout="row" layout-fill layout-padding layout-align="center center">
+            <div style="text-align: center; font-weight: bold" ng-class="loaded ? '':'loading'">Search for matches in the nearest future.</div>
+            <div layout="row" layout-fill layout-padding layout-align="center center" ng-class="loaded ? '':'loading'">
                 <md-button aria-label="Choose league" ng-click="showLeagues=!showLeagues" flex="10"
-                           class="md-icon-button" style="background-color: #82A43A">
+                           class="md-icon-button" ng-disabled="!loaded" style="background-color: #82A43A">
                     <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
                     <md-tooltip>
                         Show possible leagues
@@ -40,15 +40,18 @@
                 </md-button>
                 <md-input-container flex="65" style="margin-top: 40px">
                     <label>Search by names</label>
-                    <input ng-model="inputTeamName" ng-change="filterFixtures()">
+                    <input ng-model="inputTeamName" ng-change="filterFixtures()" ng-disabled="!loaded">
                 </md-input-container>
                 <md-input-container flex="15" style="margin-top: 40px">
                     <label>Number of days</label>
-                    <input ng-model="days" type="number" step="1" min="1" max="99">
+                    <input ng-model="days" type="number" step="1" min="1" max="99" ng-disabled="!loaded">
                 </md-input-container>
-                <md-button aria-label="Search" flex="10" class="md-icon-button" style="background-color: #82A43A" ng-click="findMatches()">
+                <md-button aria-label="Search" flex="10" class="md-icon-button" style="background-color: #82A43A" ng-click="findMatches()" ng-disabled="!loaded">
                     <md-icon md-svg-icon="../assets/icons/search.svg"></md-icon>
                 </md-button>
+            </div>
+            <div layout="row" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate" ng-hide="loaded"></md-progress-circular>
             </div>
             <div ng-show="showLeagues" layout="column" style="padding: 10%; padding-top: 0">
                 <div flex-xs flex="50">

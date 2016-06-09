@@ -192,3 +192,7 @@ md-virtual-repeat-container {
 .bold-text {
     font-weight: bold;
 }
+
+.loading {
+    -webkit-filter: blur(5px);
+}

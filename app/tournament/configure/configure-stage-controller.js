@@ -17,9 +17,13 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
 
     return a;
   }
+  $scope.loaded=false;
 
   $scope.stage = _.cloneDeep(stage);
   $scope.fixtures = [];
+  if($scope.stage.fixtures.length === 0 ){
+    $scope.loaded = true;
+  }
   $scope.stage.fixtures.forEach(function(fixture, index) {
     LeagueService.getFixtureByLink(fixture.fixtureId).then(function(result) {
       result.data[0].selected = true;
@@ -28,6 +32,7 @@ module.exports = /*@ngInject*/ function ($scope, $mdDialog, stage, LeagueService
       if(index === $scope.stage.fixtures.length -1 ){
         $scope.filterFixtures();
         $scope.stage.fixtures = [];
+        $scope.loaded=true;
       }
     });
   });

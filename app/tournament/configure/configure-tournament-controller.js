@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentService, $q, $timeout, UserService) {
+module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentService, $q, $timeout, UserService, $mdToast) {
 
   var pendingSearch, cancelSearch = angular.noop;
   var cachedQuery, lastSearch;
@@ -125,6 +125,16 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     return pendingSearch;
   }
 
+  function checkStages(tournament) {
+    if(tournament.stages === undefined || tournament.stages.length === 0 ) {
+      return false;
+    } else {
+      return tournament.stages.every(function (stage) {
+        return stage.fixtures.length > 0;
+      });
+    }
+  }
+
   function init() {
     $scope.currentUser = UserService.getCurrentUser();
     $scope.allUsers = [];
@@ -138,12 +148,42 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
 
   init();
 
-  $scope.continue = function() {
-    console.log(getTournamentObject())
-    /*TournamentService.createTournament(getTournamentObject()).then(function(res) {
-      console.log(res);
-    });*/
-    //$state.go('add-tournament.chooseMatch', {test:true,tournament: tournament});
+  $scope.createTournament = function() {
+    var tournament = getTournamentObject();
+    if(!$scope.validateForm()) {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('You must fill in name and description field')
+            .position('top right')
+            .hideDelay(5000)
+        );
+    } else if(tournament.settings.betTypesConfiguration === undefined || tournament.settings.betTypesConfiguration.length === 0) {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('You must choose at least one type of bet!')
+            .position('top right')
+            .hideDelay(5000)
+        );
+    } else if(!checkStages(tournament)) {
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('You must create at least one stage that contain matches')
+            .position('top right')
+            .hideDelay(3000)
+        );
+    } else {
+      TournamentService.createTournament(tournament).then(function(res) {
+          $mdToast.show(
+            $mdToast.simple()
+              .textContent('Tournament created!')
+              .position('top right')
+              .hideDelay(3000)
+          );
+        $timeout(function() {
+          $state.go('home');
+        }, 3000);
+      });
+    }
   };
 
   $scope.showEditStageDialog = function ($event, index) {
@@ -179,6 +219,14 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         knockoutPhase: false,
         fixtures: []
       });
+  };
+
+  $scope.validateForm = function() {
+    if($scope.tournamentForm !== undefined) {
+      return !($scope.tournamentForm.tournamentName.$error.hasOwnProperty(('required')) || $scope.tournamentForm.description.$error.hasOwnProperty('required') || $scope.tournamentForm.description.$error.hasOwnProperty('maxlength'));
+    } else {
+      return false;
+    }
   };
 
 };
