@@ -41,7 +41,6 @@ module.exports = function() {
       return seasonsDeferred.promise;
     };
 
-
     this.getLeague = function(id) {
       return findSeason(id);
     };

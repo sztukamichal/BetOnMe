@@ -1,4 +1,4 @@
-v<div layout-padding>
+<div layout-padding layout-fill>
     <div layout="column">
 
         <h1 style="text-align: center">Witaj w serwisie typera!</h1>
@@ -20,4 +20,44 @@ v<div layout-padding>
             <md-button md-theme="dark-purple" class="md-raised">Dołącz do turnieju</md-button>
         </div>
     </div>
+    <div layout="row">
+        <div layout="column" flex style="padding: 0; margin: 0">
+            <div class="invitations-header">
+                <h4 class="bold-text">Dostępne turnieje</h4>
+            </div>
+            <div class="stage-body" layout="row" style="margin-top: 0;">
+                <md-content layout="column" flex="20" style="border-right: solid; border-width: 1px">
+                    <div ng-repeat="tournament in tournaments track by $index" ng-click="selectTournament($index)" ng-class="selected === $index? 'my-match-selected':'my-match-non-selected'">
+                        <h4>{{tournament.name}}</h4>
+                    </div>
+                </md-content>
+                <div style="padding-left: 10px" flex layout="column">
+                    <div style="text-align: center; border-bottom: solid; border-width: 1px">
+                        <h4>{{tournaments[selected].name}}</h4>
+                    </div>
+                    {{tournaments[selected].description}}
+                    <table flex>
+                        <tr>
+                            <th>Użytkownik</th>
+                            <th>Liczba punktów</th>
+                        </tr>
+                        <tr ng-repeat="participant in tournaments[selected].participants">
+                            <td>
+                                {{participant.username}}
+                            </td>
+                            <td>
+                                {{participant.pointsInTournament}}
+                            </td>
+                        </tr>
+                    </table>
+                    <div flex class="md-block">
+                        <md-button aria-label="Eat cake" style="position: relative;right:0;bottom:0;" class="md-block">
+                            <md-icon md-svg-src="../assets/icons/add-button.svg"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
