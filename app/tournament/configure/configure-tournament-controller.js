@@ -129,8 +129,8 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     if(tournament.stages === undefined || tournament.stages.length === 0 ) {
       return false;
     } else {
-      return tournament.stages.every(function (stage) {
-        return stage.fixtures.length > 0;
+      return !tournament.stages.every(function (stage) {
+        return stage.fixtures.length === 0;
       });
     }
   }
@@ -146,9 +146,23 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     loadUsers();
   }
 
+  function showConfirmationDialog($event) {
+    return $mdDialog.show({
+      parent: angular.element(document.querySelector('#mainBody')),
+      targetEvent: $event,
+      templateUrl: './tournament/configure/confirmation-dialog.html',
+      controller: function($scope) {
+        $scope.hide = function(state) {
+          $mdDialog.hide(state);
+        }
+      },
+      hasBackdrop: false
+    })
+  }
+
   init();
 
-  $scope.createTournament = function() {
+  $scope.createTournament = function($event) {
     var tournament = getTournamentObject();
     if(!$scope.validateForm()) {
         $mdToast.show(
@@ -173,15 +187,9 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         );
     } else {
       TournamentService.createTournament(tournament).then(function(res) {
-          $mdToast.show(
-            $mdToast.simple()
-              .textContent('Tournament created!')
-              .position('top right')
-              .hideDelay(3000)
-          );
-        $timeout(function() {
-          $state.go('home');
-        }, 3000);
+          showConfirmationDialog($event).then(function(state) {
+            $state.go(state);
+          });
       });
     }
   };
