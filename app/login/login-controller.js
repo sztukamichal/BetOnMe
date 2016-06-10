@@ -17,7 +17,7 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $timeout, UserServic
     } else if (validateLogin()) {
       UserService.login($scope.username, $scope.password);
     } else {
-      showErrorMessage('Fill in your credentials', 5000);
+      showErrorMessage('Wprowadź wszystkie wymagane dane', 5000);
     }
   };
 
@@ -35,7 +35,7 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $timeout, UserServic
     } else if (validateRegisterForm()) {
       UserService.createUser($scope.newUser);
     } else {
-      showErrorMessage('Fill in every required fields', 4000);
+      showErrorMessage('Wprowadź wszystkie wymagane dane', 4000);
     }
   };
 
@@ -47,9 +47,9 @@ module.exports = /*@ngInject*/ function($scope, $rootScope, $timeout, UserServic
   }
 
   $rootScope.$on('login-failed', function() {
-    showErrorMessage('Wrong credentials', 5000);
+    showErrorMessage('Złe hasło lub nazwa użytkownika', 5000);
   });
   $rootScope.$on('username-exist-error', function() {
-    showErrorMessage('This username is in usage', 10000);
+    showErrorMessage('Ta nazwa użytkownika już istnieje', 10000);
   });
 };

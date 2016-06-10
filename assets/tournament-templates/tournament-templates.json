@@ -1,8 +1,8 @@
 [
   {
-    "templateName": "Custom",
+    "templateName": "Niestandardowy",
     "code": "custom",
-    "description": "Select this type of tournament if you want decide by yourself which matches will be bet on.",
+    "description": "Niestandardowy typ turnieju pozwala na stworzenie turnieju złożonego z dowolnej ilości etapów oraz meczów. Sam decydujesz ile dodatkowych punktów przyznawane jest za każdy etap. Możesz również nadawać nazwę poszczególnym etapom.",
     "settings": {
       "private": false,
       "invitePrivilege": true,
@@ -13,7 +13,7 @@
     },
     "stages": [
       {
-        "stageName": "Custom stage name",
+        "stageName": "Przykładowa nazwa etapu",
         "extraPoints": 1,
         "knockoutPhase": false,
         "fixtures": []
@@ -23,7 +23,7 @@
   {
     "templateName": "Euro 2016 tournament",
     "code": "euro2016",
-    "description": "Select this type of tournament if you want to bet on Euro 2016 matches.",
+    "description": "Aby ułatwić Ci stworzenie turnieju złożonego z meczów Euro 2016 możesz wybrać tę opcję. Stworzyliśmy za Ciebie odpowiednie etapy, jednak musisz pamiętać o dodaniu meczów do późniejszych etapów, kiedy bedą one już dostępne w serwisie.",
     "settings": {
       "private": false,
       "invitePrivilege": true,
@@ -34,7 +34,7 @@
     },
     "stages": [
       {
-        "stageName": "Euro 2016 - Group stage",
+        "stageName": "Euro 2016 - Faza grupowa",
         "extraPoints": 1,
         "knockoutPhase": false,
         "fixtures": [
@@ -185,25 +185,25 @@
         ]
       },
       {
-        "stageName": "Euro 2016 - 1/8 final",
+        "stageName": "Euro 2016 - 1/8 finału",
         "extraPoints": 2,
         "knockoutPhase": true,
         "fixtures": []
       },
       {
-        "stageName": "Euro 2016 - Quarter final",
+        "stageName": "Euro 2016 - Ćwierćfinały",
         "extraPoints": 3,
         "knockoutPhase": true,
         "fixtures": []
       },
       {
-        "stageName": "Euro 2016 - Semi final",
+        "stageName": "Euro 2016 - Półfinały",
         "extraPoints": 4,
         "knockoutPhase": true,
         "fixtures": []
       },
       {
-        "stageName": "Euro 2016 - Final",
+        "stageName": "Euro 2016 - Finał",
         "extraPoints": 5,
         "knockoutPhase": true,
         "fixtures": []

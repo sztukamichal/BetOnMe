@@ -1,87 +1,96 @@
 <div layout="column" layout-align="center center" style="padding: 5%">
-    <div ng-hide="registerMode" layout="column" class="box" style="padding: 1%" my-enter="login()">
+    <div ng-hide="registerMode" layout="column" class="box" style="padding: 20px 60px 20px 60px; width: 400px; font-size: 16px" my-enter="login()">
         <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
             {{errorMessage}}
         </div>
         <div ng-hide="errorMessage !== ''" style="text-align:center;">
-            <h3>Log in or create new account.</h3>
+            <h3>Zaloguj się lub stwórz nowe konto.</h3>
         </div>
         <form name="loginForm" layout="column">
             <md-input-container>
-                <label>Username</label>
+                <label>Nazwa użytkownika</label>
                 <input required name="username" ng-model="username">
+
                 <div ng-messages="loginForm.username.$error">
-                    <div ng-message="required">Please fill in your username.</div>
+                    <div ng-message="required">Wprowadź nazwę użytkownika.</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>Password</label>
+                <label>Hasło</label>
                 <input required name="password" ng-model="password" type="password">
+
                 <div ng-messages="loginForm.password.$error">
-                    <div ng-message="required">Please fill in your password.</div>
+                    <div ng-message="required">Wprowadź hasło.</div>
                 </div>
             </md-input-container>
-            <div layout="row">
-                <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
-                <md-button class="md-warn md-raised" ng-click="signUp()">Sign up</md-button>
+            <div layout="row" layout-align="center center">
+                <md-button class="md-primary md-raised" ng-click="login()">Zaloguj</md-button>
+                <md-button class="md-warn md-raised" ng-click="signUp()">Zarejestruj</md-button>
             </div>
         </form>
     </div>
-    <div ng-show="registerMode" layout="column" class="box" style="padding: 20px 60px 20px 60px" my-enter="signUp()">
+    <div ng-show="registerMode" layout="column" class="box" style="padding: 20px 60px 20px 60px; width: 400px;font-size: 16px"
+         my-enter="signUp()">
         <div ng-show="errorMessage !== ''" style="text-align:center;color: #990000">
             {{errorMessage}}
         </div>
         <div ng-hide="errorMessage !== ''" style="text-align:center;">
-            <h3>Log in or create new account.</h3>
+            <h3>Zaloguj się lub stwórz nowe konto.</h3>
         </div>
         <form name="registerForm" layout="column">
             <md-input-container>
-                <label>Username*</label>
+                <label>Nazwa użytkownika*</label>
                 <input required name="username" ng-minlength="5" ng-model="newUser.username">
+
                 <div ng-messages="registerForm.username.$error">
-                    <div ng-message="required">Please fill in your username.</div>
-                    <div ng-message="minlength">Username must be at least 5 character long.</div>
+                    <div ng-message="required">Wprowadź nazwę użytkownika.</div>
+                    <div ng-message="minlength">Nazwa użytkownika musi mieć co najmniej 5 znaków.</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>Password*</label>
+                <label>Hasło*</label>
                 <input required name="password" ng-minlength="6" ng-model="newUser.password" type="password">
+
                 <div ng-messages="registerForm.password.$error">
-                    <div ng-message="required">Please fill in your password.</div>
-                    <div ng-message="minlength">Password must be at least 6 character long.</div>
+                    <div ng-message="required">wprowadź hasło.</div>
+                    <div ng-message="minlength">Hasło musi mieć co najmniej 6 znaków.</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>Confirm your password</label>
-                <input required name="confirmPassword" ng-model="confirmPassword" ng-pattern="\b{{newUser.password}}\b" type="password">
+                <label>Powtórz hasło</label>
+                <input required name="confirmPassword" ng-model="confirmPassword" ng-pattern="\b{{newUser.password}}\b"
+                       type="password">
+
                 <div ng-messages="registerForm.confirmPassword.$error">
-                    <div ng-message="required">Please confirm your password.</div>
-                    <div ng-message="pattern">Passwords are not equal.</div>
+                    <div ng-message="required">Powtórz hasło.</div>
+                    <div ng-message="pattern">Hasła nie są takie same.</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>First name*</label>
+                <label>Imię*</label>
                 <input required name="firstName" ng-model="newUser.firstName">
+
                 <div ng-messages="registerForm.firstName.$error">
-                    <div ng-message="required">Please fill in first name field.</div>
+                    <div ng-message="required">Wprowadź swoje imię.</div>
                 </div>
             </md-input-container>
             <md-input-container>
-                <label>Last name</label>
+                <label>Nazwisko</label>
                 <input ng-model="newUser.lastName">
             </md-input-container>
             <md-input-container>
                 <label>Email*</label>
                 <input required name="email" ng-model="newUser.email" type="email">
+
                 <div ng-messages="registerForm.email.$error">
-                    <div ng-message="required">Please fill in email field.</div>
-                    <div ng-message="email">Email is not correct.</div>
+                    <div ng-message="required">Wprowadź swój adres e-mail.</div>
+                    <div ng-message="email">Adres e-mail jest nieprawidłowy.</div>
                 </div>
             </md-input-container>
         </form>
-        <div layout="row">
-            <md-button class="md-primary md-raised" ng-click="login()">Login</md-button>
-            <md-button class="md-warn md-raised" ng-click="signUp()">Sign up</md-button>
+        <div layout="row" layout-align="center center">
+            <md-button class="md-primary md-raised" ng-click="login()">Zaloguj</md-button>
+            <md-button class="md-warn md-raised" ng-click="signUp()">Zarejestruj</md-button>
         </div>
     </div>
 </div>

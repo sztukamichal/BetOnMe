@@ -9,41 +9,40 @@
     </md-toolbar>
     <md-dialog-content layout="column" style="padding:5%; padding-top: 1%">
         <div class="options" style="padding: 5%; padding-top: 1%; padding-bottom: 2%; font-size: 16px;" layout-align="center center">
-            <h3 style="text-align: center; font-weight: bold">Edit your stage</h3>
+            <h3 style="text-align: center; font-weight: bold">Edytuj etap turnieju</h3>
             <br>
             <form name="updateForm" layout="row">
                 <md-input-container flex="66">
-                    <label>Name</label>
+                    <label>Nazwa</label>
                     <input required name="name" ng-model="stage.stageName">
-
                     <div ng-messages="updateForm.name.$error">
-                        <div ng-message="required">Please fill in name field.</div>
+                        <div ng-message="required">Wprowadź nazwę fazy.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex="33">
-                    <label>Extra points</label>
+                    <label>Dodatkowe punkty</label>
                     <input required name="extraPoints" ng-model="stage.extraPoints" type="number" step="1" min="1" max="99">
 
                     <div ng-messages="updateForm.extraPoints.$error">
-                        <div ng-message="required">Please fill in extra points field.</div>
+                        <div ng-message="required">Wprowadź liczbę dodatkowych punktów za tę fazę turnieju.</div>
                     </div>
                 </md-input-container>
             </form>
-            <div style="text-align: center; font-weight: bold" ng-class="loaded ? '':'loading'">Search for matches in the nearest future.</div>
+            <div style="text-align: center; font-weight: bold" ng-class="loaded ? '':'loading'">Znajdź najbliższe mecze a następnie dodaj je do etapu.</div>
             <div layout="row" layout-fill layout-padding layout-align="center center" ng-class="loaded ? '':'loading'">
                 <md-button aria-label="Choose league" ng-click="showLeagues=!showLeagues" flex="10"
                            class="md-icon-button" ng-disabled="!loaded" style="background-color: #82A43A">
                     <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
                     <md-tooltip>
-                        Show possible leagues
+                        Zaznacz odpowiednie ligi
                     </md-tooltip>
                 </md-button>
                 <md-input-container flex="65" style="margin-top: 40px">
-                    <label>Search by names</label>
+                    <label>Szukaj po nazwie...</label>
                     <input ng-model="inputTeamName" ng-change="filterFixtures()" ng-disabled="!loaded">
                 </md-input-container>
                 <md-input-container flex="15" style="margin-top: 40px">
-                    <label>Number of days</label>
+                    <label>Liczba dni</label>
                     <input ng-model="days" type="number" step="1" min="1" max="99" ng-disabled="!loaded">
                 </md-input-container>
                 <md-button aria-label="Search" flex="10" class="md-icon-button" style="background-color: #82A43A" ng-click="findMatches()" ng-disabled="!loaded">
@@ -69,7 +68,7 @@
                 </div>
             </div>
             <div layout-align="center center" flex layout="row">
-                <md-button ng-click="toggleAllMatches()" ng-if="filteredFixtures.length > 0" style="background-color: #82A43A; color: white; margin-bottom: 20px">Toggle all
+                <md-button ng-click="toggleAllMatches()" ng-if="filteredFixtures.length > 0" style="background-color: #82A43A; color: white; margin-bottom: 20px">Zaznacz wszystkie
                     <md-icon md-svg-icon="../assets/icons/check-square.svg" style="color: white"></md-icon>
                 </md-button>
             </div>
@@ -80,7 +79,7 @@
     <md-dialog-actions layout="row">
         <span flex></span>
         <md-button ng-click="update()" style="margin-right:20px;" ng-disabled="!validateUpdateForm()">
-            Update
+            Aktualizuj
         </md-button>
     </md-dialog-actions>
 </md-dialog>

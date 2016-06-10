@@ -1,13 +1,13 @@
 <div layout="column" layout-align="center center" style="padding: 5%;">
     <h1>{{league.caption}}</h1>
     <div class="box" style="padding: 10px 150px 10px 150px; text-align: center">
-        <h3>Current matchday: {{league.currentMatchday}}/{{league.numberOfMatchdays}}</h3>
-        <h3>Number of teams: {{league.numberOfTeams}}</h3>
-        <h3>Number of games: {{league.numberOfGames}}</h3>
-        Last updated: {{league.lastUpdated}}
+        <h3>Aktualna kolejka: {{league.currentMatchday}}/{{league.numberOfMatchdays}}</h3>
+        <h3>Liczba drużyn: {{league.numberOfTeams}}</h3>
+        <h3>Liczba meczy: {{league.numberOfGames}}</h3>
+        Ostatnia aktualizacja: {{league.lastUpdated | date:'dd.MM.yyyy HH:mm'}}
     </div>
     <md-tabs layout-fill flex md-dynamic-height md-border-bottom>
-        <md-tab label="Teams" flex>
+        <md-tab label="Drużyny" flex>
             <div flex class="md-padding" layout="row" layout-wrap layout-align="center center">
                 <md-card flex="30" ng-repeat="team in league.teams.teams">
                     <md-card-title>
@@ -22,13 +22,13 @@
                         </md-card-title-media>
                     </md-card-title>
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button>Squad</md-button>
-                        <md-button>Fixtures</md-button>
+                        <md-button>Skład</md-button>
+                        <md-button>Mecze</md-button>
                     </md-card-actions>
                 </md-card>
             </div>
         </md-tab>
-        <md-tab label="Fixtures" ng-click="loadFixtures()">
+        <md-tab label="Mecze" ng-click="loadFixtures()">
             <div layout="column" ng-if="fixtures !== undefined" flex class="md-padding">
                 <md-card ng-repeat="fixture in fixtures | reverse">
                     <md-card-title>
@@ -51,21 +51,21 @@
                 </md-card>
             </div>
         </md-tab>
-        <md-tab flex label="League Table">
+        <md-tab flex label="Tabela">
             <div flex class="second-box md-padding">
                 <table flex layout-fill st-table="league.leagueTable.standing" class="table table-striped">
                     <thead>
                     <tr style="text-align: left">
-                        <th>Pos.</th>
-                        <th>Name</th>
-                        <th>Match played</th>
-                        <th>Wins</th>
-                        <th>Draws</th>
-                        <th>Losses</th>
-                        <th>Goals</th>
-                        <th>Goals against</th>
+                        <th>Poz.</th>
+                        <th>Nazwa</th>
+                        <th>Rozegranych meczy</th>
+                        <th>Zwycięstwa</th>
+                        <th>Remisy</th>
+                        <th>Przegrane</th>
+                        <th>Strzelone gole</th>
+                        <th>Straceone gole</th>
                         <th>+/-</th>
-                        <th>Points</th>
+                        <th>Punkty</th>
                     </tr>
                     </thead>
                     <tbody>

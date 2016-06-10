@@ -1,24 +1,22 @@
 <div layout-padding>
     <div style="border-style: double; background-color: rgba(255,255,255,0.2); padding: 40px; font-size: 16px">
-        <h3 style="text-align: center; font-weight: bold; font-size: 26px">Create new tournament</h3>
+        <h3 style="text-align: center; font-weight: bold; font-size: 26px">Stwórz nowy turniej</h3>
 
         <form name="tournamentForm" class="md-block" flex-gt-sm>
             <md-input-container class="md-block" flex-gt-sm>
-                <label>Name</label>
+                <label>Nazwa</label>
                 <input required name="tournamentName" ng-model="name">
-
                 <div ng-messages="tournamentForm.tournamentName.$error">
-                    <div ng-message="required">Name is required.</div>
+                    <div ng-message="required">Wprowadź nazwę turnieju.</div>
                 </div>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
-                <label>General information</label>
+                <label>Opis turnieju</label>
                 <textarea required name="description" ng-model="description" md-maxlength="500" rows="5"
                           md-select-on-focus></textarea>
-
                 <div ng-messages="tournamentForm.description.$error">
-                    <div ng-message="required">This is required.</div>
-                    <div ng-message="md-maxlength">Description has to be less than 500 characters long.</div>
+                    <div ng-message="required">Wprowadź opis turnieju.</div>
+                    <div ng-message="md-maxlength">Opis nie może być dłuższy niż 500 znaków.</div>
                 </div>
             </md-input-container>
         </form>
@@ -26,7 +24,7 @@
 
         <div layout-gt-sm="row" layout-align="space-around" class="options">
             <div flex-gt-sm="50">
-                <h4 style="font-weight: bold">Type of bets and possible points</h4>
+                <h4 style="font-weight: bold">Typy zakładów</h4>
 
                 <div style="margin-left: 20px;">
                     <div ng-repeat="betType in betTypes">
@@ -47,13 +45,12 @@
                                     </md-input-container>
                                     <md-switch ng-if="predict.typeWinner !== undefined"
                                                ng-model="predict.typeWinner.enabled" md-theme="switches">
-                                        <div style="width: 40px;">Type also winner in case of draw (works only in
-                                            knockout phase)
+                                        <div style="width: 40px;">Typowanie zwyciezcy w przypadku remisu (tylko w fazie pucharowej)
                                         </div>
                                     </md-switch>
                                     <md-input-container ng-if="predict.typeWinner.enabled"
                                                         style="margin-left: 20px">
-                                        <label>Extra points</label>
+                                        <label>Dodatkowe punkty</label>
                                         <input ng-model="predict.typeWinner.extraPoints" type="number" step="1"
                                                min="1" max="99">
                                     </md-input-container>
@@ -65,38 +62,38 @@
             </div>
             <div layout-gt-sm="column" flex-gt-sm="50">
                 <div>
-                    <h4 style="font-weight: bold">General settings</h4>
+                    <h4 style="font-weight: bold">Ustawienia ogólne</h4>
 
                     <div style="margin-left: 20px;">
                         <md-switch ng-model="chosenTemplate.settings.private" md-theme="switches">
-                            Private tournament
+                            Turniej prywatny
                         </md-switch>
                         <md-switch ng-model="chosenTemplate.settings.invitePrivilege" md-theme="switches">
-                            Participants can invite other users
+                            Uczestnicy mogą zapraszać innych użytkowników
                         </md-switch>
                         <md-switch ng-model="chosenTemplate.settings.majorityToKick" md-theme="switches">
-                            Required majority to delete participant
+                            Wymagana większość głosów do usunięcia uczestnika z turnieju
                         </md-switch>
                     </div>
                 </div>
                 <div>
-                    <h4 style="font-weight: bold">Allow adding matches during tournament</h4>
+                    <h4 style="font-weight: bold">Dodawanie meczów w trakcie trwania turnieju</h4>
 
                     <div style="margin-left: 40px;">
                         <md-radio-group ng-model="chosenTemplate.settings.addMatchPrivilege" md-theme="switches">
-                            <md-radio-button value="true">Enable</md-radio-button>
-                            <md-radio-button value="false"> Disable</md-radio-button>
-                            <md-radio-button value="vote">Voting</md-radio-button>
+                            <md-radio-button value="true">Możliwe</md-radio-button>
+                            <md-radio-button value="false"> Niemożliwe</md-radio-button>
+                            <md-radio-button value="vote">Potrzebna większość głosów</md-radio-button>
                         </md-radio-group>
                     </div>
                 </div>
                 <div>
-                    <h4 style="font-weight: bold">Method of counting points per bet</h4>
+                    <h4 style="font-weight: bold">Metoda zliczania punktów za mecz</h4>
 
                     <div style="margin-left: 40px;">
                         <md-radio-group ng-model="chosenTemplate.settings.countPointsMethod" md-theme="switches">
-                            <md-radio-button value="sum">Sum points</md-radio-button>
-                            <md-radio-button value="best">Only best</md-radio-button>
+                            <md-radio-button value="sum">Suma wszystkich zakładów</md-radio-button>
+                            <md-radio-button value="best">Tylko najlepszy wynik</md-radio-button>
                         </md-radio-group>
                     </div>
                 </div>
@@ -106,7 +103,7 @@
 
         <div layout=row>
             <md-input-container>
-                <h4 style="font-weight: bold">Tournament type </h4>
+                <h4 style="font-weight: bold">Typ turnieju</h4>
                 <select ng-model="chosenTemplateIdx" ng-change="changeTournamentTemplate()">
                     <option ng-repeat="template in tournamentTemplates track by $index" ng-value="$index">
                         {{template.templateName}}
@@ -135,9 +132,9 @@
                     </div>
                 </div>
                 <div class="stage-body" style="text-align: center">
-                    <h4>Extra points: {{stage.extraPoints}}
+                    <h4>Dodatkowe punkty za etap: {{stage.extraPoints}}
                         <p>
-                            Number of matches: {{stage.fixtures.length}}
+                            Liczba meczów: {{stage.fixtures.length}}
                         </p>
                     </h4>
                 </div>
@@ -145,12 +142,12 @@
             <md-button aria-label="Add" class="md-icon-button" style="margin: 20px; width: 60px; height: 60px;"
                        ng-click="addNewStage()">
                 <md-icon md-svg-icon="../assets/icons/add-button.svg" style=" width: 50px; height: 50px;"></md-icon>
-                <md-tooltip>Add new stage</md-tooltip>
+                <md-tooltip>Dodaj nowy etap</md-tooltip>
             </md-button>
         </div>
         <div layout="column" flex>
             <div class="invitations-header" style="height: 40px; padding: 0">
-                <h4 style="font-weight: bold">Send invitations</h4>
+                <h4 style="font-weight: bold">Zaproszeni użytkownicy</h4>
             </div>
             <div class="stage-body">
                 <md-contact-chips flex
@@ -162,13 +159,13 @@
                                   md-require-match="true"
                                   md-highlight-flags="i"
                                   filter-selected="true"
-                                  placeholder="Send invitation to">
+                                  placeholder="Wyślij zaproszenie do ...">
                 </md-contact-chips>
             </div>
         </div>
     </div>
     <div layout="row" layout-align="space-around">
-        <md-button md-theme="dark-orange" ng-click="createTournament()" class="md-raised">Create tournament
+        <md-button md-theme="dark-orange" ng-click="createTournament()" class="md-raised">Stwórz turniej
         </md-button>
     </div>
 </div>

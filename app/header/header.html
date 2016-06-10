@@ -4,10 +4,10 @@
             <md-button ng-if="isUserLogged" layout-align="start center" aria-label="Toggle Menu" class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md>
                 <md-icon md-menu-origin md-svg-icon="../assets/icons/menu-button.svg"></md-icon>
             </md-button>
-            <h2 style="font-family: 'Dancing Script', cursive; font-size: 150%">Hello, {{name}}!</h2>
+            <h2 style="font-family: 'Dancing Script', cursive; font-size: 150%">Witaj, {{name}}!</h2>
         </div>
         <div ng-if="isUserLogged" flex="20" class="md-toolbar-tools" layout-align="end center">
-            <md-button md-theme="dark-purple" ui-sref="add-tournament.configure" class="md-raised">Create tournament</md-button>
+            <md-button md-theme="dark-purple" ui-sref="add-tournament.configure" class="md-raised">Stwórz turniej</md-button>
             <md-menu>
                 <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
                     <md-icon md-menu-origin md-svg-icon="../assets/icons/seasons.svg"></md-icon>
@@ -25,7 +25,7 @@
                 <md-menu-content width="4">
                     <md-menu-item>
                         <md-button ng-click="logout()">
-                            Logout
+                            Wyloguj
                         </md-button>
                     </md-menu-item>
                 </md-menu-content>
