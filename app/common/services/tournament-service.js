@@ -31,7 +31,7 @@ module.exports = function () {
     };
 
     this.createTournament = function(tournament) {
-     return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config);
+     return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config).then(init);
     };
 
     this.getTournamentTemplates = function() {

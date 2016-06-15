@@ -29,7 +29,8 @@ angular.module('betOnMe', [
   require('./league').name,
   require('./common/services').name,
   require('./common/directives').name,
-  require('./common/filters').name
+  require('./common/filters').name,
+  require('./tournament-view').name
 ])
   .run(require('./run.js'))
 
