@@ -3,18 +3,28 @@
 module.exports = function($scope, TournamentService) {
 
   function init() {
+    $scope.tournaments = [];
     TournamentService.getAllTournaments().then(function(res) {
-      console.log(res);
       $scope.tournaments = res;
-      $scope.selected = 0;
+      $scope.selectedTournament = $scope.tournaments.length > 0 ? $scope.tournaments[0] : {};
     });
     $scope.showList = true;
+    $scope.search = {
+      name: ''
+    };
+    $scope.alwaysTrue = true;
   }
 
   init();
 
-  $scope.selectTournament = function(index) {
-    $scope.selected = index;
+  $scope.toggleShowList = function() {
+    $scope.showList = !$scope.showList;
+  };
+
+  $scope.selectTournament = function(id) {
+    $scope.selectedTournament = $scope.tournaments.find(function(tournament) {
+      return tournament._id === id;
+    });
   };
 
 };
