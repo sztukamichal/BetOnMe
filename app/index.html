@@ -12,16 +12,33 @@
     <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet' type='text/css'>
 </head>
 <body layout="column" ng-cloak ng-controller="mainController">
-    <div style="display: none" id="hideAll">
-        <ng-include flex="5" src="'header/header.html'"></ng-include>
-        <div layout="row" layout-fill flex>
-            <ng-include src="'profile/profile.html'"></ng-include>
-            <md-content flex ng-class="isUserLogged ? 'default' : 'onlogin'">
-                    <div layout-fill flex ui-view id="mainBody">
-                    </div>
-            </md-content>
-        </div>
+<div style="display: none" id="hideAll">
+    <ng-include flex="5" src="'header/header.html'"></ng-include>
+    <div layout="row" layout-fill flex>
+        <ng-include src="'profile/profile.html'"></ng-include>
+        <md-content flex ng-class="isUserLogged ? 'default' : 'onlogin'">
+            <div layout="row" hide-gt-md style="margin-left:8px; ">
+                <md-button layout-fill
+                           ui-sref="home"
+                           class="md-primary md-raised small-button" aria-label="Strona domowa">
+                    <md-icon md-svg-icon="../assets/icons/home.svg"></md-icon>
+                </md-button>
+                <md-button layout-fill
+                           ui-sref="home"
+                           class="md-accent md-raised small-button" aria-label="Strona domowa">
+                    <md-icon md-svg-icon="../assets/icons/home.svg"></md-icon>
+                </md-button>
+                <md-button layout-fill
+                           ui-sref="home"
+                           class="md-warn md-raised small-button" aria-label="Strona domowa">
+                    <md-icon md-svg-icon="../assets/icons/home.svg"></md-icon>
+                </md-button>
+            </div>
+            <div layout-fill flex ui-view id="mainBody">
+            </div>
+        </md-content>
     </div>
-    <script src="bundle.js"></script>
+</div>
+<script src="bundle.js"></script>
 </body>
 </html>

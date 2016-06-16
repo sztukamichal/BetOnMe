@@ -3,7 +3,7 @@
             ng-if="isUserLogged"
             md-is-locked-open="$mdMedia('gt-md')"
             md-component-id="left">
-        <md-card md-theme="yellow">
+        <md-card md-theme="yellow" style="margin-bottom: 0px">
             <md-card-title-media style="padding: 40px 40px 0px 40px">
                 <img ng-src="{{'../assets/avatars/people-'+currentUser.avatar + '.svg'}}" class="md-card-image" alt="image caption" style="border-radius: 50%; box-shadow: 0 0 8px rgba(0, 0, 0, .8);-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);-moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);">
             </md-card-title-media>
@@ -19,24 +19,63 @@
                 </md-button>
             </md-card-actions>
         </md-card>
-        <md-list flex layout-padding>
-            <md-list-item class="md-2-line">
-                <md-button layout-fill
-                           ui-sref="home"
-                           style="border-width:1px; border-style:double;">
-                    <md-icon md-svg-icon="../assets/icons/home.svg" style="margin: 5%"></md-icon>
-                    Strona startowa
-                </md-button>
-            </md-list-item>
-            <md-list-item class="md-2-line">
-                <md-button layout-fill
-                           ui-sref="terms"
-                           style="border-width:1px; border-style:double;">
-                    <md-icon md-svg-icon="../assets/icons/new-file.svg" style="margin: 5%"></md-icon>
-                    Regulamin
-                </md-button>
-            </md-list-item>
-        </md-list>
+        <div layout="row" style="margin-left:8px">
+            <md-button layout-fill
+                       ui-sref="home"
+                       class="md-primary md-raised small-button" aria-label="Strona domowa">
+                <md-icon md-svg-icon="../assets/icons/home.svg"></md-icon>
+                <md-tooltip>Strona domowa</md-tooltip>
+            </md-button>
+            <md-button layout-fill
+                       ui-sref="tournament-list-view"
+                       class="md-accent md-raised small-button" aria-label="Strona domowa">
+                <md-icon md-svg-icon="../assets/icons/command.svg"></md-icon>
+                <md-tooltip>Szukaj turnieju</md-tooltip>
+            </md-button>
+            <md-button layout-fill
+                       ui-sref="home"
+                       class="md-warn md-raised small-button" aria-label="Strona domowa">
+                <md-icon md-svg-icon="../assets/icons/home.svg"></md-icon>
+            </md-button>
+        </div>
+        <md-content class="custom-border" style="margin: 10px; height: 400px">
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+            <div class="notify md-whiteframe-4dp">
+                Powiadomienie 1
+            </div>
+        </md-content>
     </md-sidenav>
 </div>
 

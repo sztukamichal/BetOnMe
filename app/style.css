@@ -176,7 +176,7 @@ md-backdrop.md-opaque.md-default-theme,
 }
 
 .my-match-non-selected {
-    background-color: rgba(255, 255, 255)
+    background-color: rgb(238, 237, 239)
 }
 
 .my-match-selected {
@@ -218,6 +218,10 @@ md-virtual-repeat-container {
     width: 100%;
 }
 
+.full-height {
+    height: 100%;
+}
+
 .underline {
     border-bottom: solid 1px;
 }
@@ -230,6 +234,23 @@ md-virtual-repeat-container {
     height: 250px;
 }
 
+.custom-border {
+    border: solid 1px;
+}
+
+.small-button {
+    width: 10px;
+    background-color: #9CCC65;
+}
+
 .loading {
     -webkit-filter: blur(5px);
+}
+
+.notify {
+    width: 100%;
+    height: 50px;
+    background-color: #FFECB3 ;
+    margin: 0px;
+    text-align: center;
 }

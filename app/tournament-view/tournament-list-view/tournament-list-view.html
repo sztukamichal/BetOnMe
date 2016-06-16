@@ -30,7 +30,8 @@
                     </div>
                     <div ng-repeat="tournament in tournaments | filter:search track by tournament._id"
                          ng-click="selectTournament(tournament._id)"
-                         ng-class="selectedTournament._id === tournament._id? 'my-match-selected':'my-match-non-selected'">
+                         ng-class="selectedTournament._id === tournament._id? 'my-match-selected':'my-match-non-selected'"
+                         class="md-whiteframe-1dp">
                         <h4>{{tournament.name}}</h4>
                     </div>
                 </md-content>
@@ -151,8 +152,8 @@
                                 <h4 class="bold-text">{{stage.stageName}}</h4>
                             </div>
                         </div>
-                        <div class="stage-body" class="center-text">
-                            <h5>Dodatkowe punkty za etap: {{stage.extraPoints}}
+                        <div class="stage-body">
+                            <h5 class="center-text">Dodatkowe punkty za etap: {{stage.extraPoints}}
                                 <p>
                                     Liczba meczów: {{stage.fixtures.length}}
                                 </p>
