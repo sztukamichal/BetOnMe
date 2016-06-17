@@ -67,42 +67,55 @@
                         <md-content class="transparent small-text medium-height">
                             <div>
                                 <h4 class="bold-text">Typy zakładów</h4>
+
                                 <div ng-repeat="betType in selectedTournament.settings.betTypesConfiguration">
-                                    <md-switch ng-disabled="true" ng-model="alwaysTrue">
-                                        {{betType.name}}
-                                        <md-tooltip md-direction="right" md-theme="tooltip">
-                                            {{betType.description}}
-                                        </md-tooltip>
-                                    </md-switch>
-                                    <div style="margin-left: 20px;">
-                                        <div layout="row">
-                                            <div ng-repeat="predict in betType.possibleValues" layout="column"
-                                                 style="margin-left: 10px;">
-                                                <h5 class="bold-text">{{predict.name}}</h5>
-                                                <md-input-container>
-                                                    <input aria-label="possible points"
-                                                           ng-model="predict.possiblePoints"
-                                                           type="number" step="1" min="1" max="99"
-                                                           ng-disabled="true">
-                                                </md-input-container>
-                                                <md-switch ng-if="predict.typeWinner !== undefined"
-                                                           ng-disabled="true" ng-model="alwaysTrue">
-                                                    <div style="width: 40px;">Typowanie zwyciezcy w przypadku remisu
-                                                        (tylko w fazie pucharowej)
+                                    <div style="margin-left: 20px; margin-right: 20px">
+                                        <table class="table table-striped table-bordered center-text small-text">
+                                            <tr style="background-color: #9CCC65;">
+                                                <th colspan="4" class="bold-text center-text">
+                                                    {{betType.name}}
+                                                    <md-tooltip md-direction="right" md-theme="tooltip">
+                                                        {{betType.description}}
+                                                    </md-tooltip>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="bold-text center-text">
+                                                    Możliwości
+                                                </th>
+                                                <th ng-repeat="predict in betType.possibleValues"
+                                                    class="bold-text center-text">
+                                                    {{predict.name}}
+                                                    <div ng-if="predict.typeWinner !== undefined"> + typowanie zwycięzcy (faza pucharowa)</div>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold-text">
+                                                    Punkty
+                                                </td>
+                                                <td ng-repeat="predict in betType.possibleValues">
+                                                    <div layout="row" flex layout-align="space-around">
+                                                        <input aria-label="possible points"
+                                                               ng-model="predict.possiblePoints"
+                                                               ng-disabled="true"
+                                                               type="number" step="1" min="1" max="99" class="center-text">
+
+                                                        <p class="non-margin" ng-if="predict.typeWinner !== undefined">
+                                                            +
+                                                        </p>
+                                                        <input ng-if="predict.typeWinner !== undefined"
+                                                               aria-label="possible points"
+                                                               ng-model="predict.typeWinner.extraPoints"
+                                                               ng-disabled="true"
+                                                               type="number" step="1" min="1" max="99" class="center-text">
                                                     </div>
-                                                </md-switch>
-                                                <md-input-container ng-if="predict.typeWinner !== undefined"
-                                                                    style="margin-left: 20px">
-                                                    <label>Dodatkowe punkty</label>
-                                                    <input ng-model="predict.typeWinner.extraPoints" type="number"
-                                                           step="1"
-                                                           min="1" max="99" ng-disabled="true">
-                                                </md-input-container>
-                                            </div>
-                                        </div>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                                 <h4 class="bold-text">Ustawienia ogólne</h4>
+
                                 <div style="margin-left: 20px">
                                     <md-switch ng-model="selectedTournament.settings.private" ng-disabled="true">
                                         Turniej prywatny
@@ -119,6 +132,7 @@
                             </div>
                             <div>
                                 <h4 class="bold-text">Dodawanie meczów w trakcie trwania turnieju</h4>
+
                                 <div style="margin-left: 40px;">
                                     <md-radio-group ng-model="selectedTournament.settings.addMatchPrivilege">
                                         <md-radio-button value="true" ng-disabled="true">Możliwe</md-radio-button>
@@ -132,6 +146,7 @@
                             </div>
                             <div>
                                 <h4 class="bold-text">Metoda zliczania punktów za mecz</h4>
+
                                 <div style="margin-left: 40px;">
                                     <md-radio-group ng-model="selectedTournament.settings.countPointsMethod">
                                         <md-radio-button value="sum" ng-disabled="true">Suma wszystkich zakładów
@@ -145,6 +160,7 @@
                     </div>
                 </div>
                 <h4 class="bold-text center-text" style="margin-top: 30px">Etapy</h4>
+
                 <div layout="row" layout-align="center center" layout-wrap>
                     <div ng-repeat="stage in selectedTournament.stages track by $index" style="width: 350px;">
                         <div class="stage-header">

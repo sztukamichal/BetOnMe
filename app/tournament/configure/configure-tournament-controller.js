@@ -141,6 +141,7 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     $scope.chosenUsers = [];
     $scope.querySearch = querySearch;
     $scope.delayedQuerySearch = delayedQuerySearch;
+    $scope.selectedBetTypes = [];
     setTournamentTemplates();
     setBetTypes();
     loadUsers();
@@ -234,6 +235,12 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
         knockoutPhase: false,
         fixtures: []
       });
+  };
+
+  $scope.applyBetTypes = function() {
+    $scope.selectedBetTypes.forEach(function(enabled, index) {
+      $scope.betTypes[index].enabled = enabled;
+    });
   };
 
   $scope.validateForm = function() {

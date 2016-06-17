@@ -118,7 +118,7 @@ body {
     border-width: 1px;
     border-radius: 20px;
     padding: 1%;
-    background-color: rgba(255, 255, 255, 0.7)
+    background-color: rgba(255, 255, 255, 1)
 }
 
 .stage-header {
@@ -224,6 +224,10 @@ md-virtual-repeat-container {
 
 .underline {
     border-bottom: solid 1px;
+}
+
+.dashed-underline {
+    border-bottom: dashed 1px;
 }
 
 .small-text {
