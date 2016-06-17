@@ -53,11 +53,13 @@ var TournamentSchema = db.Schema({
       }]
     }
   ],
+  owner: {
+    userId: {type: db.Schema.Types.ObjectId, ref: 'User'}
+  },
   participants: [
     {
-      username: String,
-      isAdmin: Boolean,
-      pointsInTournament: Number
+      userId: {type: db.Schema.Types.ObjectId, ref: 'User'},
+      pointsInTournament: {type: Number, default: 0}
     }
   ]
 });

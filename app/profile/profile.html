@@ -39,41 +39,21 @@
             </md-button>
         </div>
         <md-content class="custom-border" style="margin: 10px; height: 400px">
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
-            </div>
-            <div class="notify md-whiteframe-4dp">
-                Powiadomienie 1
+            <div ng-repeat="notification in currentUser.notifications" class="notify md-whiteframe-8dp">
+                {{notification.message}}
+                {{notification.notifiedBy}}
+                {{notification.tournamentId}}
+                <p>
+                    <md-button class="md-icon-button">
+                        <md-icon md-svg-icon="../assets/icons/confirm.svg"></md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button">
+                        <md-icon md-svg-icon="../assets/icons/tournament-detail.svg"></md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button">
+                        <md-icon md-svg-icon="../assets/icons/error.svg"></md-icon>
+                    </md-button>
+                </p>
             </div>
         </md-content>
     </md-sidenav>

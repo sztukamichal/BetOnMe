@@ -40,7 +40,7 @@ router.post('/update/',function (req, res, next) {
         return res.sendStatus(500);
       }
     });
-    res.sendStatus(200);
+    return res.sendStatus(200);
   } else {
     return res.sendStatus(401);
   }

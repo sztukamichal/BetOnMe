@@ -38,20 +38,11 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
   }
 
   function getParticipants() {
-    var participants = $scope.chosenUsers.map(function(contact) {
+    return $scope.chosenUsers.map(function(contact) {
       return {
-        username: contact.username,
-        pointsInTournament: 0
+        username: contact.username
       };
     });
-
-    participants.push({
-      username: $scope.currentUser.username,
-      isAdmin: true,
-      pointsInTournament: 0
-    });
-
-    return participants;
   }
 
   function getTournamentObject() {
@@ -183,9 +174,10 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
 
   $scope.createTournament = function($event) {
     var tournament = getTournamentObject();
+    var betTypesArentSet = tournament.settings.betTypesConfiguration === undefined || tournament.settings.betTypesConfiguration.length === 0;
     if (!$scope.validateForm()) {
       showErrorDialog($event, 'Musisz uzupełnić nazwę oraz opis turnieju');
-    } else if (tournament.settings.betTypesConfiguration === undefined || tournament.settings.betTypesConfiguration.length === 0) {
+    } else if (betTypesArentSet) {
       showErrorDialog($event, 'Aby uczestnicy mogli typować musisz wybrać co najmniej jeden typ zakładów');
     } else if (!checkStages(tournament)) {
       showErrorDialog($event, 'Musisz stworzyć co najmniej jeden etap, który zawiera mecze');

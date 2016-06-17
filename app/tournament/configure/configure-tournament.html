@@ -1,5 +1,5 @@
 <div layout-padding>
-    <div style="border-style: double; background-color: rgba(255,255,255,0.2); padding: 40px; font-size: 16px">
+    <div style="border-style: double; background-color: rgba(255,255,255,0.2); padding: 40px; font-size: 16px; margin:10px">
         <h3 style="text-align: center; font-weight: bold; font-size: 26px">Stwórz nowy turniej</h3>
 
         <form name="tournamentForm" class="md-block" flex-gt-sm>
@@ -26,75 +26,74 @@
 
         <div layout-gt-sm="row" layout-align="space-around">
             <div flex-gt-sm="50" style="margin: 10px;">
-                <div class="options">
+                <div layout="row" layout-align="center center">
 
-                    <div layout="row" layout-align="center center">
+                    <h4 style="font-weight: bold">Typy zakładów</h4>
 
-                        <h4 style="font-weight: bold">Typy zakładów</h4>
+                    <md-menu>
+                        <md-button aria-label="Open interactions menu" class="md-icon-button"
+                                   ng-click="$mdOpenMenu($event)">
+                            <md-icon md-menu-origin md-svg-icon="../assets/icons/add-button.svg"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item ng-repeat="betType in betTypes track by $index" style="margin-left: 10px">
+                                <md-checkbox ng-model="selectedBetTypes[$index]">
+                                    {{betType.name}}
+                                </md-checkbox>
+                            </md-menu-item>
+                            <md-menu-divider>
+                            </md-menu-divider>
+                            <md-menu-item>
+                                <md-button ng-click="applyBetTypes()">
+                                    Zatwierdź
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+                <div style="margin-left: 20px;">
 
-                        <md-menu>
-                            <md-button aria-label="Open interactions menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                <md-icon md-menu-origin md-svg-icon="../assets/icons/add-button.svg"></md-icon>
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item ng-repeat="betType in betTypes track by $index" style="margin-left: 10px">
-                                    <md-checkbox ng-model="selectedBetTypes[$index]">
+                    <div ng-repeat="betType in betTypes">
+
+                        <div ng-if="betType.enabled" style="margin-left: 20px; margin-right: 20px">
+                            <table class="table table-striped table-bordered center-text small-text"
+                                   style="background-color: white">
+                                <tr style="background-color: #9CCC65;">
+                                    <th colspan="4" class="bold-text center-text">
                                         {{betType.name}}
-                                    </md-checkbox>
-                                </md-menu-item>
-                                <md-menu-divider>
-                                </md-menu-divider>
-                                <md-menu-item>
-                                    <md-button ng-click="applyBetTypes()">
-                                        Zatwierdź
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </div>
-                    <div style="margin-left: 20px;">
+                                        <md-tooltip md-direction="right" md-theme="tooltip">
+                                            {{betType.description}}
+                                        </md-tooltip>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="bold-text center-text">
+                                        Możliwości
+                                    </th>
+                                    <th ng-repeat="predict in betType.possibleValues" class="bold-text center-text">
+                                        {{predict.name}}
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="bold-text">
+                                        Punkty
+                                    </td>
+                                    <td ng-repeat="predict in betType.possibleValues">
+                                        <input aria-label="possible points" ng-model="predict.possiblePoints"
+                                               type="number" step="1" min="1" max="99" class="center-text">
 
-                        <div ng-repeat="betType in betTypes">
-
-                            <div ng-if="betType.enabled" style="margin-left: 20px; margin-right: 20px">
-                                <table class="table table-striped table-bordered center-text small-text" style="background-color: white">
-                                    <tr style="background-color: #9CCC65;">
-                                        <th colspan="4" class="bold-text center-text">
-                                            {{betType.name}}
-                                            <md-tooltip md-direction="right" md-theme="tooltip">
-                                                {{betType.description}}
-                                            </md-tooltip>
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="bold-text center-text">
-                                            Możliwości
-                                        </th>
-                                        <th ng-repeat="predict in betType.possibleValues" class="bold-text center-text">
-                                            {{predict.name}}
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold-text">
-                                            Punkty
-                                        </td>
-                                        <td ng-repeat="predict in betType.possibleValues">
-                                            <input aria-label="possible points" ng-model="predict.possiblePoints"
-                                                   type="number" step="1" min="1" max="99" class="center-text">
-
-                                            <p class="non-margin">
-                                                <md-checkbox ng-if="predict.typeWinner !== undefined"
-                                                             ng-model="predict.typeWinner.enabled">
-                                                    Typuj zwycięzce (faza pucharowa)
-                                                </md-checkbox>
-                                            </p>
-                                            <input ng-if="predict.typeWinner.enabled" aria-label="possible points"
-                                                   ng-model="predict.typeWinner.extraPoints"
-                                                   type="number" step="1" min="1" max="99" class="center-text">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
+                                        <p class="non-margin">
+                                            <md-checkbox ng-if="predict.typeWinner !== undefined"
+                                                         ng-model="predict.typeWinner.enabled">
+                                                Typuj zwycięzce (faza pucharowa)
+                                            </md-checkbox>
+                                        </p>
+                                        <input ng-if="predict.typeWinner.enabled" aria-label="possible points"
+                                               ng-model="predict.typeWinner.extraPoints"
+                                               type="number" step="1" min="1" max="99" class="center-text">
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
