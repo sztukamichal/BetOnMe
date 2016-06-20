@@ -1,10 +1,9 @@
 <div layout="row"
      style="border-style: double; background-color: rgba(255,255,255,0.2); padding: 40px; font-size: 16px; margin: 30px">
     <div flex class="non-padding non-margin">
-        <div class="invitations-header">
-            <h2 class="bold-text center-text">Dostępne turnieje</h2>
-        </div>
-        <div class="stage-body" layout="row" style="background-color: #ffffff">
+        <h2 class="bold-text center-text">Dostępne turnieje</h2>
+
+        <div class="stage-body" layout="row" ng-class="loaded ? '':'loading'">
             <div layout="column">
                 <div layout="row">
                     <md-button class="md-fab md-mini md-primary" aria-label="Show list" ng-click="toggleShowList()">
@@ -16,6 +15,10 @@
                     <md-button class="md-fab md-mini md-primary" aria-label="Show list">
                         <md-icon md-svg-src="../assets/icons/add-button.svg"></md-icon>
                         <md-tooltip>Dołącz do turnieju</md-tooltip>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="Show list" ng-click="refreshData($event)">
+                        <md-icon md-svg-src="../assets/icons/retweet.svg"></md-icon>
+                        <md-tooltip>Odśwież dane</md-tooltip>
                     </md-button>
                 </div>
                 <md-content layout="column"
@@ -30,8 +33,8 @@
                     </div>
                     <div ng-repeat="tournament in tournaments | filter:search track by tournament._id"
                          ng-click="selectTournament(tournament._id)"
-                         ng-class="selectedTournament._id === tournament._id? 'my-match-selected':'my-match-non-selected'"
-                         class="md-whiteframe-1dp">
+                         ng-class="selectedTournament._id === tournament._id? 'tournament-list-item-selected':''"
+                         class="tournament-list-item">
                         <h4>{{tournament.name}}</h4>
                     </div>
                 </md-content>
@@ -44,17 +47,29 @@
                     <textarea ng-model="selectedTournament.description" rows="5" ng-disabled="true"
                               class="full-width small-text"></textarea>
                 </div>
-                <div layout-gt-sm="row" layout-align="center top" class="underline">
+                <div layout-gt-sm="row" layout-align="center top">
                     <div flex-gt-sm="50" style="padding: 10px;">
-                        <md-content class="transparent small-text medium-height">
-                            <table class="table-striped table-bordered full-width center-text" flex>
-                                <tr>
+                        <h4 class="bold-text center-text" style="margin-top: 30px">Tabela uczestników</h4>
+                        <md-content class="transparent small-text" style="max-height: 250px">
+                            <table class="table-striped table-bordered full-width center-text small-text" flex
+                                   style="background-color: white">
+                                <tr style="background-color: #9CCC65;">
+                                    <th class="center-text">Pozycja</th>
                                     <th class="center-text">Uczestnik</th>
                                     <th class="center-text">Liczba punktów</th>
                                 </tr>
-                                <tr ng-repeat="participant in selectedTournament.participants">
+                                <tr ng-repeat="participant in selectedTournament.participants track by $index" style="height:50px">
                                     <td>
-                                        {{participant.username}}
+                                        {{$index+1}}
+                                    </td>
+                                    <td>
+                                        <div class="bold-text">
+                                            <img ng-if="$index == 0" src="../assets/icons/admin.svg" alt="image caption"
+                                                 style="border-radius: 50%; width: 40px; height: 40px;" class="pull-left">
+                                            <img ng-src="{{'../assets/avatars/people-'+participant.user.avatar + '.svg'}}" alt="image caption"
+                                                 style="border-radius: 50%; background-color: black; width: 40px; height: 40px;">
+                                            {{participant.user.firstName}} {{participant.user.lastName}}
+                                        </div>
                                     </td>
                                     <td>
                                         {{participant.pointsInTournament}}
@@ -63,103 +78,65 @@
                             </table>
                         </md-content>
                     </div>
-                    <div flex-gt-sm="50" style="padding: 30px;">
-                        <md-content class="transparent small-text medium-height">
-                            <div>
-                                <h4 class="bold-text">Typy zakładów</h4>
+                    <div flex-gt-sm="50">
+                        <h4 class="bold-text center-text" style="margin-top: 30px">Typy zakładów</h4>
 
-                                <div ng-repeat="betType in selectedTournament.settings.betTypesConfiguration">
-                                    <div style="margin-left: 20px; margin-right: 20px">
-                                        <table class="table table-striped table-bordered center-text small-text">
-                                            <tr style="background-color: #9CCC65;">
-                                                <th colspan="4" class="bold-text center-text">
-                                                    {{betType.name}}
-                                                    <md-tooltip md-direction="right" md-theme="tooltip">
-                                                        {{betType.description}}
-                                                    </md-tooltip>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <th class="bold-text center-text">
-                                                    Możliwości
-                                                </th>
-                                                <th ng-repeat="predict in betType.possibleValues"
-                                                    class="bold-text center-text">
-                                                    {{predict.name}}
-                                                    <div ng-if="predict.typeWinner !== undefined"> + typowanie zwycięzcy (faza pucharowa)</div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td class="bold-text">
-                                                    Punkty
-                                                </td>
-                                                <td ng-repeat="predict in betType.possibleValues">
-                                                    <div layout="row" flex layout-align="space-around">
-                                                        <input aria-label="possible points"
-                                                               ng-model="predict.possiblePoints"
-                                                               ng-disabled="true"
-                                                               type="number" step="1" min="1" max="99" class="center-text">
+                        <md-content class="transparent small-text" style="max-height: 250px">
+                            <div ng-repeat="betType in selectedTournament.settings.betTypesConfiguration">
+                                <div style="margin-left: 20px; margin-right: 20px">
+                                    <table class="table table-striped table-bordered center-text small-text"
+                                           style="background-color: white">
+                                        <tr style="background-color: #9CCC65;">
+                                            <th colspan="4" class="bold-text center-text">
+                                                {{betType.name}}
+                                                <md-tooltip md-direction="right" md-theme="tooltip">
+                                                    {{betType.description}}
+                                                </md-tooltip>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="bold-text center-text">
+                                                Możliwości
+                                            </th>
+                                            <th ng-repeat="predict in betType.possibleValues"
+                                                class="bold-text center-text">
+                                                {{predict.name}}
+                                                <div ng-if="predict.typeWinner !== undefined"> + typowanie zwycięzcy
+                                                    (faza pucharowa)
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold-text">
+                                                Punkty
+                                            </td>
+                                            <td ng-repeat="predict in betType.possibleValues">
+                                                <div layout="row" flex layout-align="space-around">
+                                                    <input aria-label="possible points"
+                                                           ng-model="predict.possiblePoints"
+                                                           ng-disabled="true"
+                                                           type="number" step="1" min="1" max="99"
+                                                           class="center-text">
 
-                                                        <p class="non-margin" ng-if="predict.typeWinner !== undefined">
-                                                            +
-                                                        </p>
-                                                        <input ng-if="predict.typeWinner !== undefined"
-                                                               aria-label="possible points"
-                                                               ng-model="predict.typeWinner.extraPoints"
-                                                               ng-disabled="true"
-                                                               type="number" step="1" min="1" max="99" class="center-text">
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <h4 class="bold-text">Ustawienia ogólne</h4>
-
-                                <div style="margin-left: 20px">
-                                    <md-switch ng-model="selectedTournament.settings.private" ng-disabled="true">
-                                        Turniej prywatny
-                                    </md-switch>
-                                    <md-switch ng-model="selectedTournament.settings.invitePrivilege"
-                                               ng-disabled="true">
-                                        Uczestnicy mogą zapraszać innych użytkowników
-                                    </md-switch>
-                                    <md-switch ng-model="selectedTournament.settings.majorityToKick"
-                                               ng-disabled="true">
-                                        Wymagana większość głosów do usunięcia uczestnika z turnieju
-                                    </md-switch>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="bold-text">Dodawanie meczów w trakcie trwania turnieju</h4>
-
-                                <div style="margin-left: 40px;">
-                                    <md-radio-group ng-model="selectedTournament.settings.addMatchPrivilege">
-                                        <md-radio-button value="true" ng-disabled="true">Możliwe</md-radio-button>
-                                        <md-radio-button value="false" ng-disabled="true"> Niemożliwe
-                                        </md-radio-button>
-                                        <md-radio-button value="vote" ng-disabled="true">Potrzebna większość
-                                            głosów
-                                        </md-radio-button>
-                                    </md-radio-group>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="bold-text">Metoda zliczania punktów za mecz</h4>
-
-                                <div style="margin-left: 40px;">
-                                    <md-radio-group ng-model="selectedTournament.settings.countPointsMethod">
-                                        <md-radio-button value="sum" ng-disabled="true">Suma wszystkich zakładów
-                                        </md-radio-button>
-                                        <md-radio-button value="best" ng-disabled="true">Tylko najlepszy wynik
-                                        </md-radio-button>
-                                    </md-radio-group>
+                                                    <p class="non-margin" ng-if="predict.typeWinner !== undefined">
+                                                        +
+                                                    </p>
+                                                    <input ng-if="predict.typeWinner !== undefined"
+                                                           aria-label="possible points"
+                                                           ng-model="predict.typeWinner.extraPoints"
+                                                           ng-disabled="true"
+                                                           type="number" step="1" min="1" max="99"
+                                                           class="center-text">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </md-content>
                     </div>
                 </div>
-                <h4 class="bold-text center-text" style="margin-top: 30px">Etapy</h4>
+                <h4 class="bold-text center-text underline-green" style="padding: 10px">Etapy</h4>
 
                 <div layout="row" layout-align="center center" layout-wrap>
                     <div ng-repeat="stage in selectedTournament.stages track by $index" style="width: 350px;">
@@ -174,6 +151,54 @@
                                     Liczba meczów: {{stage.fixtures.length}}
                                 </p>
                             </h5>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="bold-text center-text underline-green" style="padding: 10px">Ustawienia</h4>
+
+                <div layout="row" layout-align="space-around" layout-wrap class="small-text">
+                    <div>
+                        <h5 class="bold-text">Ustawienia ogólne</h5>
+
+                        <div style="margin-left: 20px">
+                            <md-switch ng-model="selectedTournament.settings.private" ng-disabled="true">
+                                Turniej prywatny
+                            </md-switch>
+                            <md-switch ng-model="selectedTournament.settings.invitePrivilege"
+                                       ng-disabled="true">
+                                Uczestnicy mogą zapraszać innych użytkowników
+                            </md-switch>
+                            <md-switch ng-model="selectedTournament.settings.majorityToKick"
+                                       ng-disabled="true">
+                                Wymagana większość głosów do usunięcia uczestnika z turnieju
+                            </md-switch>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="bold-text">Dodawanie meczów w trakcie trwania turnieju</h5>
+
+                        <div style="margin-left: 40px;">
+                            <md-radio-group ng-model="selectedTournament.settings.addMatchPrivilege">
+                                <md-radio-button value="true" ng-disabled="true">Możliwe</md-radio-button>
+                                <md-radio-button value="false" ng-disabled="true"> Niemożliwe
+                                </md-radio-button>
+                                <md-radio-button value="vote" ng-disabled="true">Potrzebna większość
+                                    głosów
+                                </md-radio-button>
+                            </md-radio-group>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="bold-text">Metoda zliczania punktów za mecz</h5>
+
+                        <div style="margin-left: 40px;">
+                            <md-radio-group ng-model="selectedTournament.settings.countPointsMethod">
+                                <md-radio-button value="sum" ng-disabled="true">Suma wszystkich zakładów
+                                </md-radio-button>
+                                <md-radio-button value="best" ng-disabled="true">Tylko najlepszy wynik
+                                </md-radio-button>
+                            </md-radio-group>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@
   "author": "Michal Sztuka",
   "devDependencies": {
     "browserify": "^13.0.0",
+    "css-loading": "^1.4.0",
     "gulp": "^3.9.1",
     "gulp-war": "^0.1.4",
     "gulp-zip": "^3.2.0",

@@ -7,15 +7,15 @@ module.exports = function () {
     var Settings = require('../../settings');
     var config, externalConfig;
     var tournamentsDeferred = $q.defer();
-
-    function getAllTournamentsFromServer() {
+    var that = this;
+    this.getAllTournamentsFromServer = function() {
       return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getAllTournaments, config);
-    }
+    };
 
     function init() {
       externalConfig = {headers: {"X-Auth-Token": Settings.footballApiToken}};
       config = {headers: {"X-Auth": UserService.getToken()}};
-      getAllTournamentsFromServer().then(function(res) {
+      that.getAllTournamentsFromServer().then(function(res) {
         tournamentsDeferred.resolve(res.data);
       });
     }
@@ -46,7 +46,8 @@ module.exports = function () {
       getBetTypes: this.getBetTypes,
       createTournament: this.createTournament,
       getTournamentTemplates: this.getTournamentTemplates,
-      getAllTournaments: this.getAllTournaments
+      getAllTournaments: this.getAllTournaments,
+      getAllTournamentsFromServer: this.getAllTournamentsFromServer
     };
   };
 };

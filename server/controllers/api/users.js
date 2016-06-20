@@ -7,7 +7,12 @@ var User = require('./../../models/user');
 
 router.get('/', function(req, res, next) {
   if(req.auth && req.auth.username) {
-    User.findOne({username: req.auth.username}, function(err, user) {
+    User.findOne({username: req.auth.username})
+      .populate({
+        path: 'notifications.notifiedBy',
+        select: 'username firstName lastName email avatar'
+      })
+      .exec(function(err, user) {
       if (err) {
         return next(err);
       } else {

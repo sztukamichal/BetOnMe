@@ -7,17 +7,46 @@ var User = require('./../../models/user');
 
 router.get('/', function(req, res) {
   if (req.auth && req.auth.username) {
-    Tournament.find({}, function(err, team) {
-      if (err) {
-        console.log(err);
-        res.sendStatus(500);
-      } else {
-        res.json(team);
-      }
-    });
+    Tournament.find({})
+      .populate({
+        path: 'owner',
+        select: 'username firstName lastName email avatar'
+      })
+      .populate({
+        path: 'participants.user',
+        select: 'username firstName lastName email avatar'
+      })
+      .exec(function(err, team) {
+        if (err) {
+          console.log(err);
+          res.sendStatus(500);
+        } else {
+          res.json(team);
+        }
+      });
   } else {
     return res.sendStatus(401);
   }
+});
+
+router.get('/test', function(req, res) {
+  Tournament.find({name: 'nowy turniej'})
+    .populate({
+      path: 'owner',
+      select: 'username firstName lastName email avatar'
+    })
+    .populate({
+      path: 'participants.user',
+      select: 'username firstName lastName email avatar'
+    })
+    .exec(function(err, tournament) {
+      if (err) {
+        console.log(err);
+        res.json(err);
+      } else {
+        res.json(tournament);
+      }
+    });
 });
 
 router.post('/', function(req, res, next) {
@@ -28,8 +57,8 @@ router.post('/', function(req, res, next) {
         return res.sendStatus(500);
       } else {
         var invitations = req.body.participants.splice(0, req.body.participants.length);
-        req.body.owner = {userId: userRes._id};
-        req.body.participants.push({userId: userRes._id});
+        req.body.owner = userRes._id;
+        req.body.participants.push({user: userRes._id});
         var tournament = new Tournament(
           req.body);
         tournament.save(function(err, saveRes) {
@@ -42,7 +71,7 @@ router.post('/', function(req, res, next) {
                 message: 'Zostałeś zaproszony do turnieju',
                 type: 'invitation',
                 notifiedBy: userRes._id,
-                tournamentId: saveRes._id
+                tournament: saveRes._id
               }, invitation.username, function(err) {
                 if (err) {
                   console.log('send invitations');

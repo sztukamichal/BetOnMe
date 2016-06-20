@@ -10,7 +10,6 @@ require('angular-resource');
 require('angular-local-storage');
 require('angular-smart-table');
 require('angular-ui-bootstrap');
-require('spin')
 
 angular.module('betOnMe', [
   'ui.router',

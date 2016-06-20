@@ -214,6 +214,21 @@ md-virtual-repeat-container {
     height: 100%;
 }
 
+.tournament-list-item {
+    padding-left: 10px;
+    margin-right: 5px;
+}
+
+.tournament-list-item:hover {
+    background-color: #000066;
+    color:white;
+}
+
+.tournament-list-item-selected {
+    background-color: #3f8b29;
+    color:white;
+}
+
 .full-width {
     width: 100%;
 }
@@ -224,6 +239,10 @@ md-virtual-repeat-container {
 
 .underline {
     border-bottom: solid 1px;
+}
+
+.underline-green {
+    border-bottom: solid 1px green;
 }
 
 .dashed-underline {
