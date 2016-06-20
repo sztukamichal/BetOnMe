@@ -57,7 +57,8 @@ var TournamentSchema = db.Schema({
   participants: [
     {
       user: {type: db.Schema.Types.ObjectId, ref: 'User'},
-      pointsInTournament: {type: Number, default: 0}
+      pointsInTournament: {type: Number, default: 0},
+      state: {type: String, default: 'invited'}
     }
   ]
 });

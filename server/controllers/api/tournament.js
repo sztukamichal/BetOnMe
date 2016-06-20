@@ -56,9 +56,9 @@ router.post('/', function(req, res, next) {
         console.log(err);
         return res.sendStatus(500);
       } else {
-        var invitations = req.body.participants.splice(0, req.body.participants.length);
+        var invitations = req.body.participants.slice(0, req.body.participants.length);
         req.body.owner = userRes._id;
-        req.body.participants.push({user: userRes._id});
+        req.body.participants.push({user: userRes._id, state: 'ingame'});
         var tournament = new Tournament(
           req.body);
         tournament.save(function(err, saveRes) {
@@ -72,7 +72,7 @@ router.post('/', function(req, res, next) {
                 type: 'invitation',
                 notifiedBy: userRes._id,
                 tournament: saveRes._id
-              }, invitation.username, function(err) {
+              }, invitation.user, function(err) {
                 if (err) {
                   console.log('send invitations');
                   console.log(err);

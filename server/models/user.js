@@ -15,14 +15,14 @@ var UserSchema = db.Schema({
       type:  {type: String},
       creationDate:  {type: Date, default: Date.now},
       notifiedBy:  {type: db.Schema.Types.ObjectId, ref: 'User'},
-      tournamentId:  {type: db.Schema.Types.ObjectId, ref: 'Tournament'},
+      tournament:  {type: db.Schema.Types.ObjectId, ref: 'Tournament'},
       isRead: {type: Boolean, default: false}
     }
   ]
 });
 
 UserSchema.statics.notify = function(notification, toUser, callback) {
-  User.findOne({username: toUser}, {}, function(err, user) {
+  User.findOne({_id: toUser}, {}, function(err, user) {
     user.notifications.push(notification);
     user.save(callback);
   });

@@ -12,6 +12,10 @@ router.get('/', function(req, res, next) {
         path: 'notifications.notifiedBy',
         select: 'username firstName lastName email avatar'
       })
+      .populate({
+        path: 'notifications.tournament',
+        select: 'name description'
+      })
       .exec(function(err, user) {
       if (err) {
         return next(err);
@@ -26,7 +30,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/getUsers', function(req, res, next) {
   if(req.auth && req.auth.username) {
-    User.find({}, {password:0, registerDate:0, _id:0, __v:0}, function(err, user) {
+    User.find({}, {password:0, registerDate:0, __v:0, notifications: 0}, function(err, user) {
       if (err) {
         return next(err);
       } else {

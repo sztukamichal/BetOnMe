@@ -40,7 +40,7 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
   function getParticipants() {
     return $scope.chosenUsers.map(function(contact) {
       return {
-        username: contact.username
+        user: contact._id
       };
     });
   }
@@ -65,6 +65,7 @@ module.exports = /*@ngInject*/ function($scope, $state, $mdDialog, TournamentSer
     UserService.getAllUsers().then(function(result) {
       $scope.allUsers = result.data;
       $scope.allUsers.forEach(function(contact) {
+        console.log(contact)
         if (contact.username !== $scope.currentUser.username) {
           contact.avatar = '../assets/avatars/people-' + contact.avatar + '.svg';
           contact.name = contact.firstName + ' ' + contact.lastName;
