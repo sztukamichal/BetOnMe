@@ -4,6 +4,7 @@ var express = require('express');
 var router = express.Router();
 var Tournament = require('./../../models/tournament');
 var User = require('./../../models/user');
+var _ = require('lodash');
 
 router.get('/', function(req, res) {
   if (req.auth && req.auth.username) {
@@ -16,12 +17,12 @@ router.get('/', function(req, res) {
         path: 'participants.user',
         select: 'username firstName lastName email avatar'
       })
-      .exec(function(err, team) {
+      .exec(function(err, tournaments) {
         if (err) {
           console.log(err);
           res.sendStatus(500);
         } else {
-          res.json(team);
+          res.json(tournaments);
         }
       });
   } else {
@@ -68,7 +69,7 @@ router.post('/', function(req, res, next) {
           } else {
             invitations.forEach(function(invitation) {
               User.notify({
-                message: 'Zostałeś zaproszony do turnieju',
+                message: 'Zapraszam Cię do turnieju',
                 type: 'invitation',
                 notifiedBy: userRes._id,
                 tournament: saveRes._id
@@ -80,6 +81,36 @@ router.post('/', function(req, res, next) {
               });
             });
             return res.sendStatus(201);
+          }
+        });
+      }
+    });
+  } else {
+    return res.sendStatus(401);
+  }
+});
+
+router.post('/acceptInvitation', function(req, res, next) {
+  if (req.auth && req.auth.username) {
+    User.findOne({username: req.auth.username}, {}, function(err, user) {
+      if (err) {
+        console.log(err);
+        return res.sendStatus(500);
+      } else {
+        Tournament.findById(req.body.tournamentId, function(err, tournament) {
+          if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+          } else {
+            var index = _.findIndex(tournament.participants, function(participant) {
+              return participant.user.toString() == user._id.toString();
+            });
+            if(index>=0) {
+              tournament.participants[index].state = 'ingame';
+              return res.json(tournament);
+            } else {
+              return res.sendStatus(406);
+            }
           }
         });
       }

@@ -58,13 +58,13 @@
                                     <th class="center-text">Uczestnik</th>
                                     <th class="center-text">Liczba punktów</th>
                                 </tr>
-                                <tr ng-repeat="participant in selectedTournament.participants track by $index" style="height:50px">
+                                <tr ng-repeat="participant in selectedTournament.participants | filter:{state:'ingame'} track by $index" style="height:50px">
                                     <td>
                                         {{$index+1}}
                                     </td>
                                     <td>
                                         <div class="bold-text">
-                                            <img ng-if="$index == 0" src="../assets/icons/admin.svg" alt="image caption"
+                                            <img ng-if="selectedTournament.owner.username == participant.user.username" src="../assets/icons/admin.svg" alt="image caption"
                                                  style="border-radius: 50%; width: 40px; height: 40px;" class="pull-left">
                                             <img ng-src="{{'../assets/avatars/people-'+participant.user.avatar + '.svg'}}" alt="image caption"
                                                  style="border-radius: 50%; background-color: black; width: 40px; height: 40px;">

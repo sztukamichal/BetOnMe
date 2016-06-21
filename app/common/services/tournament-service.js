@@ -12,6 +12,26 @@ module.exports = function () {
       return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getAllTournaments, config);
     };
 
+    this.getBetTypes = function () {
+      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getBetTypes, config);
+    };
+
+    this.createTournament = function(tournament) {
+     return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config).then(init);
+    };
+
+    this.acceptTournamentInvitation = function(tournamentId) {
+      return $http.post(Settings.apiBaseUrl + Settings.apiQueries.acceptTournamentInvitation, {tournamentId: tournamentId}, config);
+    };
+
+    this.getTournamentTemplates = function() {
+      return $http.get('../assets/tournament-templates/tournament-templates.json', config);
+    };
+
+    this.getAllTournaments = function() {
+      return tournamentsDeferred.promise;
+    };
+
     function init() {
       externalConfig = {headers: {"X-Auth-Token": Settings.footballApiToken}};
       config = {headers: {"X-Auth": UserService.getToken()}};
@@ -26,28 +46,13 @@ module.exports = function () {
 
     $rootScope.$on('login-success', init);
 
-    this.getBetTypes = function () {
-      return $http.get(Settings.apiBaseUrl + Settings.apiQueries.getBetTypes, config);
-    };
-
-    this.createTournament = function(tournament) {
-     return $http.post(Settings.apiBaseUrl + Settings.apiQueries.createTournament, tournament, config).then(init);
-    };
-
-    this.getTournamentTemplates = function() {
-      return $http.get('../assets/tournament-templates/tournament-templates.json', config);
-    };
-
-    this.getAllTournaments = function() {
-      return tournamentsDeferred.promise;
-    };
-
     return {
       getBetTypes: this.getBetTypes,
       createTournament: this.createTournament,
       getTournamentTemplates: this.getTournamentTemplates,
       getAllTournaments: this.getAllTournaments,
-      getAllTournamentsFromServer: this.getAllTournamentsFromServer
+      getAllTournamentsFromServer: this.getAllTournamentsFromServer,
+      acceptTournamentInvitation: this.acceptTournamentInvitation
     };
   };
 };

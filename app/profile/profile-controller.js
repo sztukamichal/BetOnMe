@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDialog) {
+module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDialog, TournamentService) {
 
   function init() {
     $scope.isUserLogged = UserService.isUserLogged();
@@ -26,6 +26,14 @@ module.exports = /*@ngInject*/ function ($rootScope, $scope, UserService, $mdDia
         $scope.currentUser = user;
         $rootScope.$emit('user-update', user);
       });
+  };
+
+  $scope.confirmNotification = function(notification) {
+    if(notification.type === 'invitation') {
+      TournamentService.acceptTournamentInvitation(notification.tournament._id).then(function(response) {
+        console.log(response);
+      });
+    }
   };
 
   $rootScope.$on('login-success', function () {

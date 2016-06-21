@@ -16,7 +16,7 @@
 <div style="display: none" id="hideAll">
     <ng-include flex="5" src="'header/header.html'"></ng-include>
     <div layout="row" layout-fill flex>
-        <ng-include src="'profile/profile.html'"></ng-include>
+        <ng-include src="'profile/profile.html'" style="max-height:150%; overflow:auto;"></ng-include>
         <md-content flex ng-class="isUserLogged ? 'default' : 'onlogin'">
             <div layout="row" hide-gt-md style="margin-left:8px; ">
                 <md-button layout-fill
